@@ -1,0 +1,117 @@
+.order-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: var(--q-z-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.order-container {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background-color: var(--q-surface);
+  z-index: var(--q-z-overlay);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+
+  // Desktop: Right to left
+  @media (min-width: 768px) {
+    right: 0;
+    left: auto;
+    width: 400px;
+    transform: translateX(100%);
+    box-shadow: var(--q-shadow-lg);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  // Mobile: Left to right side panel
+  @media (max-width: 767px) {
+    top: 0;
+    left: 0;
+    width: 280px; // Standard side panel width
+    height: 100vh;
+    border-radius: 0 var(--q-radius-xl) var(--q-radius-xl) 0;
+    transform: translateX(-100%);
+    box-shadow: var(--q-shadow-lg);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--q-border-color);
+
+  h5 {
+    font-size: var(--q-fs-md);
+    font-weight: var(--q-fw-semibold);
+    color: var(--q-text-primary);
+  }
+}
+
+.order-content {
+  padding: 1.5rem;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+  ::ng-deep {
+    app-radio-button {
+      .mat-mdc-radio-group {
+        width: 100%;
+      }
+
+      .radio-option-container {
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--q-border-color);
+        margin: 0;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: var(--q-surface-hover);
+        }
+
+        &.active {
+          .radio-option__label {
+            color: var(--q-primary); // Blue from design
+            font-weight: var(--q-fw-semibold);
+          }
+        }
+
+        .mdc-form-field {
+          width: 100%;
+          justify-content: flex-start;
+          flex-direction: row; // Radio on left
+
+          label {
+            font-size: var(--q-fs-sm);
+            color: var(--q-text-secondary);
+            padding-left: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+}

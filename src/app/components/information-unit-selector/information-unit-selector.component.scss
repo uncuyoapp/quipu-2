@@ -1,0 +1,124 @@
+:host {
+  height: 100%;
+}
+
+.content-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+ul {
+  list-style: none;
+  width: 100%;
+  padding-left: 0px;
+  text-align: center;
+
+  li {
+    margin: 10px auto;
+    padding: 15px 0px;
+    border-bottom: 1px solid var(--q-border-color);
+
+    img {
+      height: 3rem;
+      margin-left: 1rem;
+    }
+  }
+}
+
+.information-unit-selector {
+  padding: 1rem;
+  margin: 0 auto;
+
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: var(--q-fs-base);
+    font-weight: var(--q-fw-regular);
+    color: var(--q-text-primary);
+  }
+
+  mat-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+  ::ng-deep {
+    .mdc-radio {
+      .mdc-radio__background {
+        border-color: var(--q-gray-400);
+      }
+    }
+
+    .mdc-radio__inner-circle {
+      border-color: var(--q-primary);
+    }
+
+    .mdc-radio__outer-circle {
+      border-color: var(--q-gray-400);
+    }
+
+    .mdc-form-field {
+      width: 100%;
+    }
+
+    .mdc-radio__ripple {
+      display: none;
+    }
+
+    .mat-mdc-radio-button {
+      --mdc-radio-state-layer-size: 20px;
+      border-bottom: 1px solid var(--q-border-color);
+      padding: 0.75rem 0;
+      margin: 0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .mdc-form-field>label {
+        padding: 0 0.5rem;
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  .unit-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .unit-logo {
+    width: 180px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .unit-details {
+    flex: 1;
+
+    h3 {
+      margin: 0;
+      font-size: var(--q-fs-base);
+      font-weight: var(--q-fw-regular);
+      color: var(--q-text-primary);
+    }
+
+    p {
+      margin: 0.25rem 0 0;
+      font-size: var(--q-fs-sm);
+      color: var(--q-text-secondary);
+    }
+  }
+}

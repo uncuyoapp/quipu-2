@@ -1,0 +1,40 @@
+<div class="visualization-actions">
+  @if (enableSearchBar()) {
+  <h6>Buscar</h6>
+  }
+
+  <div class="actions-row">
+    @if (enableSearchBar()) {
+    <div class="search-container">
+      <app-visualization-search [suggestions]="searchSuggestions()"
+        (valueChange)="onSearchTextChange($event)"></app-visualization-search>
+    </div>
+    }
+
+    <div class="buttons-container">
+      @if (enableFilter()) {
+      <div class="position-relative">
+        <app-button (btnClick)="toggleFilter()" [label]="'Filtros'" [icon]="icons.actions.funnel"
+          [variant]="'secondary'" size="large" palette="gray"></app-button>
+        @if (showFilter()) {
+        <app-filter [visualizations]="visualizations()" [filter]="filterSignal()"
+          (filterChange)="onFilterChange($event)" (closeFilter)="showFilter.set(false)">
+        </app-filter>
+        }
+      </div>
+      }
+
+      @if (enableOrder()) {
+      <div class="position-relative">
+        <app-button (btnClick)="toggleOrder()" [label]="'Orden'" [icon]="icons.nav.chevronDown" [variant]="'secondary'"
+          size="large" [iconPosition]="'right'" palette="gray"></app-button>
+        @if (showOrder()) {
+        <app-order [visualizations]="visualizations()" [order]="orderSignal()" (orderChange)="onOrderChange($event)"
+          (closeOrder)="showOrder.set(false)">
+        </app-order>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</div>

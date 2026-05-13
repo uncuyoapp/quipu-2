@@ -1,0 +1,93 @@
+:host {
+  flex: 1;
+}
+
+.search-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+// ────────────────────────────────────────────────────
+// Paso 1: Estado inicial de búsqueda
+// ────────────────────────────────────────────────────
+.search-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+// Círculo decorativo con el ícono de lupa
+.search-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--q-radius-circle);
+  background-color: var(--q-primary-bg);
+  color: var(--q-primary);
+}
+
+// Texto debajo del ícono
+.search-hint {
+  font-size: var(--q-fs-md);
+  font-weight: var(--q-fw-regular);
+  line-height: var(--q-lh-normal);
+  color: var(--q-text-primary);
+  margin-bottom: 2rem;
+}
+
+// Ancho máximo del buscador en el paso 1
+.search-bar-wrapper {
+  width: 100%;
+}
+
+// ────────────────────────────────────────────────────
+// Paso 2: Pantalla de resultados
+// ────────────────────────────────────────────────────
+.results-step {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.results-header {
+  background-color: var(--q-surface);
+  padding: 1.5rem 0;
+
+  &__inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: var(--q-fs-md);
+    font-weight: var(--q-fw-regular);
+    margin: 0;
+
+    strong {
+      font-weight: var(--q-fw-bold);
+    }
+
+    // En desktop, el título es más grande
+    @media (min-width: 768px) {
+      font-size: var(--q-fs-2xl);
+    }
+  }
+
+  // Botón de cierre / nueva búsqueda
+  &__reset {
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,30 @@
+<div [class]="tagClasses()" (click)="onClick()">
+  <!-- Icono de movimiento visible solo en modo edición -->
+  @if (editMode()) {
+  <ng-icon cdkDragHandle class="tag__icon tag__icon--move" [name]="icons.nav.reorder" title="Reordenar" />
+  }
+
+  @if (icon() && iconPosition() === 'left') {
+  <ng-icon class="tag__icon" [name]="icon()!" />
+  }
+
+  <span #labelSpan class="tag__label" [attr.contenteditable]="isEditing()" [innerText]="label()"
+    (blur)="onLabelBlur($event)" (keydown)="onLabelKeydown($event)">
+  </span>
+
+  @if (icon() && iconPosition() === 'right') {
+  <ng-icon class="tag__icon" [name]="icon()!" />
+  }
+
+  <!-- Icono de editar visible solo en modo edición -->
+  @if (editMode()) {
+  <ng-icon class="tag__icon tag__icon--edit" [name]="icons.actions.create" (click)="onEditClick($event)"
+    title="Editar" />
+  }
+
+  <!-- Icono de eliminar visible solo en modo edición -->
+  @if (editMode()) {
+  <ng-icon class="tag__icon tag__icon--delete" [name]="icons.actions.delete" (click)="onDeleteClick($event)"
+    title="Eliminar" />
+  }
+</div>

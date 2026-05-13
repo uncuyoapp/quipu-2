@@ -1,0 +1,215 @@
+@import '../../../theme/typography';
+
+/* =========================================================================
+   ESTRUCTURA DE SCROLL (DESKTOP)
+   ========================================================================= */
+:host {
+  display: block;
+  width: 100%;
+
+  @media (min-width: 992px) {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+.about-page {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 992px) {
+    height: 100%;
+  }
+
+  .row {
+    flex: 1;
+    margin: 0;
+    min-height: 0;
+
+    @media (min-width: 992px) {
+      height: 100%;
+    }
+  }
+}
+
+.about-content {
+  padding: 40px 20px 80px 20px;
+
+  @media (min-width: 992px) {
+    height: 100%;
+    overflow-y: auto;
+    /* Habilitar scroll aquí */
+    padding-right: 24px;
+
+    /* Forzar que el contenido respire al final */
+    &::after {
+      content: '';
+      display: block;
+      height: 40px;
+    }
+  }
+
+  /* Custom Scrollbar */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--q-gray-500);
+    border-radius: var(--q-radius-pill);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--q-gray-700);
+  }
+}
+
+/* =========================================================================
+   COLUMNA IZQUIERDA (HERO / LOGO)
+   ========================================================================= */
+.about-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 60px 40px;
+  background: var(--q-surface);
+
+  .hero-sticky {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+
+    @media (min-width: 992px) {
+      position: sticky;
+      top: 60px;
+    }
+  }
+
+  .brand-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .hero-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(var(--q-shadow-md));
+    margin-left: 43px;
+
+    @media (min-width: 992px) {
+      width: 240px;
+    }
+  }
+
+  .hero-subtitle {
+    @include q-body;
+    color: var(--q-text-secondary);
+    font-weight: var(--q-fw-medium);
+    margin-bottom: 24px;
+  }
+
+  .version-badge-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .developer-card {
+    background-color: var(--q-surface-variant);
+    padding: 32px;
+    border-radius: var(--q-radius-xl);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .developer-label {
+      @include q-caption;
+      color: var(--q-text-secondary);
+      font-weight: var(--q-fw-medium);
+      text-transform: uppercase;
+      letter-spacing: var(--q-ls-wide);
+    }
+
+    .developer-logo {
+      width: 100%;
+      height: auto;
+      max-height: 80px;
+      object-fit: contain;
+    }
+  }
+}
+
+/* =========================================================================
+   CONTENIDO (TARJETAS Y TEXTO)
+   ========================================================================= */
+.content-block {
+  margin-bottom: 48px;
+
+  h2 {
+    @include q-heading-2;
+    margin-bottom: 24px;
+  }
+
+  p {
+    @include q-body;
+    margin-bottom: 20px;
+
+    &.lead-text {
+      font-weight: var(--q-fw-bold);
+      color: var(--q-text-primary);
+    }
+  }
+}
+
+.section-divider {
+  border: 0;
+  border-top: 1px solid var(--q-border-color);
+  margin: 40px 0;
+  opacity: 1;
+}
+
+.objective-group {
+  margin-bottom: 32px;
+
+  h3 {
+    @include q-heading-3;
+    margin-bottom: 16px;
+  }
+
+  .objectives-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      @include q-body;
+      position: relative;
+      padding-left: 24px;
+      color: var(--q-text-secondary);
+      margin-bottom: 12px;
+
+      &::before {
+        content: '•';
+        color: var(--q-primary);
+        font-size: 1.5rem;
+        position: absolute;
+        left: 0;
+        top: -4px;
+      }
+    }
+  }
+}

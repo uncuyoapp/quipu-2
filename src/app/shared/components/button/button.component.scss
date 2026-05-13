@@ -1,0 +1,318 @@
+// ============================================
+// Design Tokens
+// ============================================
+$button-border-radius: var(--q-radius-md);
+$button-transition: all 0.2s ease;
+$icon-gap: 8px;
+
+// Colors
+$disabled-opacity: 0.5;
+
+// Sizes
+$sizes: (
+  small: (
+    height: 32px,
+    padding: 0 28px,
+    font-size: var(--q-fs-xs),
+    min-width: 60px,
+    icon-size: 32px
+  ),
+  medium: (
+    height: 40px,
+    padding: 0 32px,
+    font-size: var(--q-fs-sm),
+    min-width: 20px,
+    icon-size: 40px
+  ),
+  large: (
+    height: 48px,
+    padding: 0 40px,
+    font-size: var(--q-fs-base),
+    min-width: 100px,
+    icon-size: 48px
+  )
+);
+
+// ============================================
+// Component Styles
+// ============================================
+
+// Host element configuration
+:host {
+  display: inline-block;
+}
+
+// Base button styles
+.btn {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: $icon-gap;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: var(--q-fw-medium);
+  transition: $button-transition;
+  border-radius: $button-border-radius;
+  white-space: nowrap;
+  overflow: hidden;
+  outline: none;
+  user-select: none;
+
+  // Focus state (accesibilidad)
+  &:focus-visible {
+    outline: 2px solid var(--btn-solid);
+    outline-offset: 2px;
+  }
+
+  // Disabled state
+  &:disabled {
+    cursor: not-allowed;
+    opacity: $disabled-opacity;
+    pointer-events: none;
+  }
+
+  // ============================================
+  // Elements (BEM)
+  // ============================================
+
+  // Icon
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &--left {
+      margin-right: 4px;
+    }
+
+    &--right {
+      margin-left: 4px;
+    }
+
+    &--loading {
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  // Text
+  &__text {
+    line-height: 1;
+  }
+
+  // Ripple effect
+  &__ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 20px;
+    height: 20px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: ripple-animation 0.6s ease-out;
+  }
+
+  // ============================================
+  // Modifiers - Sizes (BEM)
+  // ============================================
+
+  @each $size, $values in $sizes {
+    &--#{$size} {
+      height: map-get($values, height);
+      padding: map-get($values, padding);
+      font-size: map-get($values, font-size);
+      min-width: map-get($values, min-width);
+
+      // Icon circle modifier (circular)
+      &.btn--icon-circle {
+        width: map-get($values, icon-size);
+        height: map-get($values, icon-size);
+        padding: 0;
+        min-width: auto;
+        border-radius: 50%;
+      }
+
+      // Icon only modifier (sin recuadro, sin background)
+      &.btn--icon-only {
+        width: map-get($values, icon-size);
+        height: map-get($values, icon-size);
+        padding: 0;
+        min-width: auto;
+        background: transparent !important;
+        border: none !important;
+      }
+    }
+  }
+
+  // ============================================
+  // Modifiers - Variants (BEM)
+  // ============================================
+
+  // Primary variant - Fondo sólido con colores de la paleta
+  &--primary {
+    background-color: var(--btn-solid);
+    color: var(--btn-contrast);
+    border: 1px solid var(--btn-solid);
+
+    &:hover:not(:disabled) {
+      background-color: var(--btn-solid-hover);
+      border-color: var(--btn-solid-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--btn-solid-active);
+      border-color: var(--btn-solid-active);
+      transform: scale(0.98);
+    }
+  }
+
+  // Secondary variant - Fondo transparente con borde de la paleta
+  &--secondary {
+    background-color: transparent;
+    color: var(--btn-text);
+    border: 1px solid var(--btn-border);
+
+    &:hover:not(:disabled) {
+      background-color: var(--q-surface-hover);
+      border-color: var(--btn-border-hover);
+      color: var(--btn-text-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--q-gray-200);
+      border-color: var(--btn-border-active);
+      color: var(--btn-text-active);
+      transform: scale(0.98);
+    }
+
+    .btn__ripple {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // Text variant - Solo texto con colores de la paleta
+  &--text {
+    background-color: transparent;
+    color: var(--btn-text);
+    border: none;
+    padding: 0px;
+
+    &:hover:not(:disabled) {
+      color: var(--btn-text-hover);
+    }
+
+    &:active:not(:disabled) {
+      color: var(--btn-text-active);
+    }
+
+    .btn__ripple {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // Link variant - Texto con underline
+  &--link {
+    background-color: transparent;
+    color: var(--btn-text);
+    border: none;
+    text-decoration: underline;
+    padding: 0px;
+    min-width: auto;
+
+    &:hover:not(:disabled) {
+      color: var(--btn-text-hover);
+    }
+
+    &:active:not(:disabled) {
+      color: var(--btn-text-active);
+    }
+
+    &:disabled {
+      color: var(--q-text-disabled);
+    }
+
+    .btn__ripple {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // Icon-circle variant - Botón circular con icono
+  &--icon-circle {
+    background-color: var(--btn-solid);
+    color: var(--btn-contrast);
+    border: 1px solid var(--btn-solid);
+
+    &:hover:not(:disabled) {
+      background-color: var(--btn-solid-hover);
+      border-color: var(--btn-solid-hover);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--btn-solid-active);
+      border-color: var(--btn-solid-active);
+      transform: scale(0.98);
+    }
+  }
+
+  // Icon-only variant - Solo icono sin fondo ni borde
+  &--icon-only {
+    background-color: transparent;
+    color: var(--btn-text);
+    border: none;
+
+    &:hover:not(:disabled) {
+      color: var(--btn-text-hover);
+    }
+
+    &:active:not(:disabled) {
+      color: var(--btn-text-active);
+      transform: scale(0.95);
+    }
+
+    .btn__ripple {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  // ============================================
+  // Modifiers - States (BEM)
+  // ============================================
+
+  // Pulse effect
+  &--pulse:not(:disabled) {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+// ============================================
+// Animations
+// ============================================
+
+@keyframes ripple-animation {
+  to {
+    transform: translate(-50%, -50%) scale(20);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,158 @@
+:host {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--q-radius-md);
+}
+
+.modal-container {
+  width: 100%;
+  min-height: 400px;
+  background-color: var(--q-surface);
+}
+
+.modal-layout {
+  display: flex;
+  height: 100%;
+  min-height: 450px;
+}
+
+// Panel Izquierdo: Identidad Visual
+.modal-sidebar {
+  width: 35%;
+  background-color: var(--q-surface-variant);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.pdf-icon-wrapper {
+  perspective: 1000px;
+}
+
+.pdf-icon-document {
+  width: 100px;
+  height: 130px;
+  background-color: var(--q-gray-300);
+  border-radius: var(--q-radius-sm);
+  position: relative;
+  box-shadow: var(--q-shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px) rotate(2deg);
+  }
+
+  // El "doblez" de la página
+  .pdf-icon-corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 35px 35px 0;
+    border-color: transparent transparent var(--q-gray-400) transparent;
+    border-bottom-left-radius: 6px;
+  }
+
+  // La etiqueta PDF roja
+  .pdf-icon-tag {
+    background-color: var(--q-danger);
+    color: var(--q-white);
+    padding: 10px 0;
+    width: calc(100% + 10px);
+    margin-left: -5px;
+    text-align: center;
+    font-weight: var(--q-fw-bold);
+    font-size: var(--q-fs-md);
+    letter-spacing: 1px;
+    border-radius: var(--q-radius-sm);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+}
+
+// Panel Derecho: Contenido
+.modal-body {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+}
+
+.modal-close-wrapper {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.modal-content-inner {
+  padding: 3rem 2.5rem 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-title {
+  font-size: var(--q-fs-md);
+  font-weight: var(--q-fw-bold);
+  color: var(--q-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.modal-subtitle {
+  font-size: var(--q-fs-base);
+  color: var(--q-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.modal-divider {
+  border: 0;
+  border-top: 1px solid var(--q-border-color);
+  margin: 1rem 0 1.5rem;
+  width: 100%;
+
+  &.mt-auto {
+    margin-top: auto;
+  }
+}
+
+.options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.option-item {
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateX(4px);
+  }
+}
+
+.error-message {
+  padding: 0.5rem 0;
+  p {
+    color: var(--q-danger);
+    font-size: var(--q-fs-sm);
+    margin: 0;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+
+  app-button {
+    min-width: 160px;
+  }
+}

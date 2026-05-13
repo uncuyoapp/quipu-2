@@ -1,0 +1,102 @@
+<!-- 
+  TextInput Component Template
+  
+  Estructura:
+  1. text-input-wrapper: Contenedor principal con clases dinámicas y eventos de mouse
+  2. text-input-container: Contenedor del input con iconos y estilos de borde
+  3. text-input-suggestions: Panel de autocompletado (se muestra condicionalmente)
+  4. text-input__message: Mensaje de ayuda/error/éxito debajo del input
+-->
+
+<!-- 
+  Contenedor principal
+  - Aplica clases CSS dinámicas según variante, estado, etc.
+  - Captura eventos mouseenter/mouseleave para estado hover
+-->
+<div class="text-input-wrapper" [class]="cssClasses()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <!-- 
+    Contenedor del input
+    - Contiene el input y los botones de iconos
+    - El background-color es configurable vía input
+    - La altura varía según la variante (40px default, 56px search)
+  -->
+  <div class="text-input-container" [style.background-color]="backgroundColor()">
+    <!-- 
+      Ícono izquierdo (opcional)
+      - Se muestra solo si leftIcon tiene valor
+      - Es un botón clickeable que emite leftIconClick
+      - Se deshabilita si el input está disabled
+    -->
+    @if (showLeftIconButton()) {
+    <button type="button" (click)="onLeftIconClick()" [disabled]="disabled()" tabindex="-1"
+      class="text-input__icon-button text-input__icon-button--left" aria-label="Left icon button">
+      <ng-icon [name]="leftIcon()" class="text-input__icon"></ng-icon>
+    </button>
+    }
+
+    <!-- 
+      Input nativo HTML
+      - Usa FormControl para gestión reactiva del valor
+      - El tipo es configurable (text, email, password, etc.)
+      - Emite eventos focus/blur para gestión de estados
+    -->
+    <input class="text-input__input" [id]="inputId()" [type]="type()" [placeholder]="placeholder()"
+      [formControl]="control" (focus)="onFocus()" (blur)="onBlur()" (keydown.enter)="onEnterPressed()"
+      [attr.aria-label]="placeholder()" [attr.autocomplete]="autocomplete()" />
+
+    <!-- 
+      Ícono derecho (opcional/automático)
+      - Se muestra si:
+        1. Hay rightIcon configurado Y NO está escribiendo, O
+        2. Está escribiendo (muestra automáticamente ionClose o ionCheckmark)
+      - El ícono mostrado se determina por effectiveRightIcon()
+      - ionClose (limpiar): clickeable, ejecuta clear() antes de emitir evento
+      - ionCheckmark (success): NO clickeable, solo visual
+      - rightIcon personalizado: clickeable, solo emite evento
+    -->
+    @if (showRightIconButton()) {
+    <button type="button" (click)="onRightIconClick()" [disabled]="disabled() || !isRightIconClickable()" tabindex="-1"
+      class="text-input__icon-button text-input__icon-button--right"
+      [class.text-input__icon-button--disabled]="!isRightIconClickable()" [attr.aria-label]="
+          isRightIconClickable() ? 'Clear input' : 'Success indicator'
+        ">
+      <ng-icon [size]="'24px'" [name]="effectiveRightIcon()" class="text-input__icon"></ng-icon>
+    </button>
+    }
+    <div class="text-input__underline"></div>
+  </div>
+
+  <!-- 
+    Panel de sugerencias (autocompletado)
+    - Se muestra solo cuando:
+      1. showSuggestions() es true (hay filteredOptions Y el input tiene foco)
+      2. filteredOptions tiene al menos una opción
+    - Cada item es clickeable y ejecuta onOptionSelected()
+    - El texto coincidente se resalta usando [innerHTML] con highlightMatch()
+    - Visualmente aparece como una extensión del input (sin borde superior)
+  -->
+  @if (showSuggestions() && filteredOptions().length > 0) {
+  <div class="text-input-suggestions" [style.background-color]="backgroundColor()" role="listbox">
+    @for (option of filteredOptions(); track option) {
+    <div class="text-input-suggestions__item" (click)="onOptionSelected(option)" [innerHTML]="highlightMatch(option)"
+      role="option" tabindex="0" [attr.aria-label]="option"></div>
+    }
+  </div>
+  }
+
+  <!-- 
+    Mensaje de ayuda/error/éxito
+    - Se muestra solo si displayMessage() tiene valor
+    - El tipo de mensaje se determina por validationState:
+      * 'error': texto rojo (text-input__message--error)
+      * 'success': texto verde (text-input__message--success)
+      * 'none': texto gris normal (helperText)
+  -->
+  @if (displayMessage()) {
+  <div class="text-input__message" [class.text-input__message--error]="validationState() === 'error'"
+    [class.text-input__message--success]="validationState() === 'success'" role="status"
+    [attr.aria-live]="validationState() !== 'none' ? 'polite' : 'off'">
+    {{ displayMessage() }}
+  </div>
+  }
+</div>

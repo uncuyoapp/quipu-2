@@ -1,0 +1,106 @@
+<div
+  class="buscador py-4"
+  [style.--home-bg]="'url(' + graphics.background + ')'"
+>
+  <div class="container pb-4">
+    <div class="row my-4">
+      <div
+        class="col-8 col-md-6 d-flex justify-content-center align-items-center q-text-white"
+      >
+        <img
+          [src]="graphics.logoWhite"
+          alt="QUIPU"
+          class="img-fluid d-none d-md-block"
+          style="max-width: 180px"
+        />
+        <h3 class="ps-3 py-2">Información para la gestión universitaria</h3>
+      </div>
+      <div class="col-4 col-md-6 text-center">
+        <img
+          [src]="graphics.hero"
+          class="img-fluid d-none d-md-inline"
+          alt="QUIPU"
+          style="max-height: 180px"
+        />
+      </div>
+    </div>
+    <div class="row my-4">
+      <div class="col-12">
+        <app-search-bar (search)="onSearchBar($event)"></app-search-bar>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="tematicas my-5">
+  <div class="container">
+    <div class="row my-3 align-items-center">
+      <div class="col-8">
+        <h5 class="mb-0">Temáticas</h5>
+      </div>
+      <div class="col-4 text-end">
+        @if (editModeService.canEdit() && editModeService.isEditModeEnabled()) {
+          <app-button
+            label="Añadir"
+            variant="text"
+            palette="blue"
+            [icon]="icons.actions.add"
+            (btnClick)="openCreateThematicDialog()"
+          ></app-button>
+        }
+      </div>
+    </div>
+    @if (viewState.thematics().length === 0 && !viewState.loading()) {
+      <div class="mb-4">
+        <app-alert-badge
+          message="Unidad sin temáticas"
+          palette="alert"
+        ></app-alert-badge>
+      </div>
+
+      <div class="no-thematics-view">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6 text-center">
+            <img
+              [src]="graphics.thematicsEmpty"
+              alt="No hay temáticas"
+              class="img-fluid illustration mb-4 mb-md-0"
+            />
+          </div>
+          <div class="col-12 col-md-6 text-center text-md-start">
+            <h2 class="mb-3">No se encontraron temáticas</h2>
+            <p class="mb-4">
+              No hay temáticas disponibles. Te recomendamos usar las funciones
+              de Búsqueda y Explorar para ver visualizaciones
+            </p>
+            <div
+              class="d-flex gap-3 justify-content-center justify-content-md-start"
+            >
+              <app-button
+                label="Buscar"
+                variant="secondary"
+                palette="blue"
+                (btnClick)="navigateToSearch()"
+              ></app-button>
+              <app-button
+                label="Explorar"
+                variant="primary"
+                palette="blue"
+                (btnClick)="navigateToVisualizations()"
+              ></app-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <app-thematic-grid
+        [thematics]="viewState.thematics()"
+        (editThematic)="onEditThematic($event)"
+        (deleteThematic)="onDeleteThematic($event)"
+        (reorderThematics)="onReorderThematics($event)"
+        [editable]="
+          editModeService.canEdit() && editModeService.isEditModeEnabled()
+        "
+      ></app-thematic-grid>
+    }
+  </div>
+</div>

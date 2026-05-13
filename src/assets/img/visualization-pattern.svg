@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Curva superior derecha (azul) -->
+  <path d="M300 0C300 55.2285 344.772 100 400 100" stroke="#2979FF" stroke-width="1.5" stroke-opacity="0.15"/>
+  <path d="M320 0C320 44.1828 355.817 80 400 80" stroke="#2979FF" stroke-width="1.5" stroke-opacity="0.15"/>
+
+  <!-- Curva inferior izquierda (rosa) -->
+  <path d="M0 300C55.2285 300 100 344.772 100 400" stroke="#FF4081" stroke-width="1.5" stroke-opacity="0.15"/>
+  <path d="M0 320C44.1828 320 80 355.817 80 400" stroke="#FF4081" stroke-width="1.5" stroke-opacity="0.15"/>
+</svg>

@@ -1,0 +1,360 @@
+{
+  "1": [
+    {
+      "id": 101,
+      "name": "Gastos en servicios",
+      "description": "",
+      "parentId": 0,
+      "order": 1,
+      "breadcrumb": "Gastos en servicios",
+      "color": "#2979ff",
+      "illustration": "cat-01.svg"
+    },
+    {
+      "id": 102,
+      "name": "Información económica",
+      "description": "",
+      "parentId": 0,
+      "order": 2,
+      "breadcrumb": "Información económica",
+      "color": "#2979ff",
+      "illustration": "cat-02.svg",
+      "childrens": [
+        {
+          "id": 1021,
+          "name": "Gestión de recursos propios",
+          "description": "",
+          "parentId": 102,
+          "order": 1,
+          "breadcrumb": "Información económica > Gestión de recursos propios",
+          "color": "#2979ff",
+          "illustration": "cat-03.svg"
+        },
+        {
+          "id": 1022,
+          "name": "Ejecución presupuestaria",
+          "description": "",
+          "parentId": 102,
+          "order": 2,
+          "breadcrumb": "Información económica > Ejecución presupuestaria",
+          "color": "#2979ff",
+          "illustration": "cat-04.svg",
+          "childrens": [
+            {
+              "id": 10221,
+              "name": "Por dependencia",
+              "description": "",
+              "parentId": 1022,
+              "order": 1,
+              "breadcrumb": "Información económica > Ejecución presupuestaria > Por dependencia",
+              "color": "#2979ff",
+              "illustration": "cat-05.svg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "name": "Información financiera",
+      "description": "",
+      "parentId": 0,
+      "order": 3,
+      "breadcrumb": "Información financiera",
+      "color": "#2979ff",
+      "illustration": "cat-06.svg"
+    },
+    {
+      "id": 104,
+      "name": "Becas para estudiantes",
+      "description": "",
+      "parentId": 0,
+      "order": 4,
+      "breadcrumb": "Becas para estudiantes",
+      "color": "#2979ff",
+      "illustration": "cat-07.svg"
+    },
+    {
+      "id": 105,
+      "name": "Gestión de personal",
+      "description": "",
+      "parentId": 0,
+      "order": 5,
+      "breadcrumb": "Gestión de personal",
+      "color": "#2979ff",
+      "illustration": "cat-08.svg",
+      "childrens": [
+        {
+          "id": 1051,
+          "name": "Docente",
+          "description": "",
+          "parentId": 105,
+          "order": 1,
+          "breadcrumb": "Gestión de personal > Docente",
+          "color": "#2979ff",
+          "illustration": "cat-09.svg",
+          "childrens": [
+            {
+              "id": 10511,
+              "name": "Capacitación",
+              "description": "",
+              "parentId": 1051,
+              "order": 1,
+              "breadcrumb": "Gestión de personal > Docente > Capacitación",
+              "color": "#2979ff",
+              "illustration": "cat-10.svg"
+            }
+          ]
+        },
+        {
+          "id": 1052,
+          "name": "Nodocente",
+          "description": "",
+          "parentId": 105,
+          "order": 2,
+          "breadcrumb": "Gestión de personal > Nodocente",
+          "color": "#2979ff",
+          "illustration": "cat-11.svg",
+          "childrens": [
+            {
+              "id": 10521,
+              "name": "Capacitación",
+              "description": "",
+              "parentId": 1052,
+              "order": 1,
+              "breadcrumb": "Gestión de personal > Nodocente > Capacitación",
+              "color": "#2979ff",
+              "illustration": "cat-12.svg"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "2": [
+    {
+      "id": 201,
+      "name": "Información económica",
+      "description": "",
+      "parentId": 0,
+      "order": 1,
+      "breadcrumb": "Información económica",
+      "color": "#70cacd",
+      "illustration": "cat-13.svg",
+      "childrens": [
+        {
+          "id": 2011,
+          "name": "Gastos en servicios",
+          "description": "",
+          "parentId": 201,
+          "order": 1,
+          "breadcrumb": "Información económica > Gastos en servicios",
+          "color": "#70cacd",
+          "illustration": "cat-14.svg"
+        },
+        {
+          "id": 2012,
+          "name": "Datos presupuestarios",
+          "description": "",
+          "parentId": 201,
+          "order": 2,
+          "breadcrumb": "Información económica > Datos presupuestarios",
+          "color": "#70cacd",
+          "illustration": "cat-15.svg"
+        },
+        {
+          "id": 2013,
+          "name": "Información financiera",
+          "description": "",
+          "parentId": 201,
+          "order": 3,
+          "breadcrumb": "Información económica > Información financiera",
+          "color": "#70cacd",
+          "illustration": "cat-16.svg"
+        }
+      ]
+    },
+    {
+      "id": 202,
+      "name": "Becas para estudiantes",
+      "description": "",
+      "parentId": 0,
+      "order": 2,
+      "breadcrumb": "Becas para estudiantes",
+      "color": "#70cacd",
+      "illustration": "cat-14.svg"
+    },
+    {
+      "id": 203,
+      "name": "Dotación docente",
+      "description": "",
+      "parentId": 0,
+      "order": 3,
+      "breadcrumb": "Dotación docente",
+      "color": "#70cacd",
+      "illustration": "cat-12.svg"
+    },
+    {
+      "id": 204,
+      "name": "Gestión de personal",
+      "description": "",
+      "parentId": 0,
+      "order": 4,
+      "breadcrumb": "Gestión de personal",
+      "color": "#70cacd",
+      "illustration": "cat-10.svg",
+      "childrens": [
+        {
+          "id": 2041,
+          "name": "Caracterización de planta",
+          "description": "",
+          "parentId": 204,
+          "order": 1,
+          "breadcrumb": "Gestión de personal > Caracterización de planta",
+          "color": "#70cacd",
+          "illustration": "cat-20.svg",
+          "childrens": [
+            {
+              "id": 20411,
+              "name": "Docente",
+              "description": "",
+              "parentId": 2041,
+              "order": 1,
+              "breadcrumb": "Gestión de personal > Caracterización de planta > Docente",
+              "color": "#70cacd",
+              "illustration": "cat-01.svg"
+            },
+            {
+              "id": 20412,
+              "name": "Nodocente",
+              "description": "",
+              "parentId": 2041,
+              "order": 2,
+              "breadcrumb": "Gestión de personal > Caracterización de planta > Nodocente",
+              "color": "#70cacd",
+              "illustration": "cat-02.svg"
+            }
+          ]
+        },
+        {
+          "id": 2042,
+          "name": "Capacitación",
+          "description": "",
+          "parentId": 204,
+          "order": 2,
+          "breadcrumb": "Gestión de personal > Capacitación",
+          "color": "#70cacd",
+          "illustration": "cat-03.svg"
+        }
+      ]
+    },
+    {
+      "id": 205,
+      "name": "Población estudiantil",
+      "description": "",
+      "parentId": 0,
+      "order": 5,
+      "breadcrumb": "Población estudiantil",
+      "color": "#70cacd",
+      "illustration": "cat-11.svg",
+      "childrens": [
+        {
+          "id": 2051,
+          "name": "Ingreso",
+          "description": "",
+          "parentId": 205,
+          "order": 1,
+          "breadcrumb": "Población estudiantil > Ingreso",
+          "color": "#70cacd",
+          "illustration": "cat-05.svg",
+          "childrens": [
+            {
+              "id": 20511,
+              "name": "Aspirantes",
+              "description": "",
+              "parentId": 2051,
+              "order": 1,
+              "breadcrumb": "Población estudiantil > Ingreso > Aspirantes",
+              "color": "#70cacd",
+              "illustration": "cat-06.svg"
+            },
+            {
+              "id": 20512,
+              "name": "Ingresantes",
+              "description": "",
+              "parentId": 2051,
+              "order": 2,
+              "breadcrumb": "Población estudiantil > Ingreso > Ingresantes",
+              "color": "#70cacd",
+              "illustration": "cat-07.svg"
+            }
+          ]
+        },
+        {
+          "id": 2052,
+          "name": "Matricula",
+          "description": "",
+          "parentId": 205,
+          "order": 2,
+          "breadcrumb": "Población estudiantil > Matricula",
+          "color": "#70cacd",
+          "illustration": "cat-08.svg"
+        },
+        {
+          "id": 2053,
+          "name": "Egreso",
+          "description": "",
+          "parentId": 205,
+          "order": 3,
+          "breadcrumb": "Población estudiantil > Egreso",
+          "color": "#70cacd",
+          "illustration": "cat-09.svg"
+        }
+      ]
+    },
+    {
+      "id": 206,
+      "name": "Carreras de pregrado y grado",
+      "description": "",
+      "parentId": 0,
+      "order": 6,
+      "breadcrumb": "Carreras de pregrado y grado",
+      "color": "#70cacd",
+      "illustration": "cat-10.svg",
+      "childrens": [
+        {
+          "id": 2061,
+          "name": "Actividad académica",
+          "description": "",
+          "parentId": 206,
+          "order": 1,
+          "breadcrumb": "Carreras de pregrado y grado > Actividad académica",
+          "color": "#70cacd",
+          "illustration": "cat-11.svg",
+          "childrens": [
+            {
+              "id": 20611,
+              "name": "Cursadas",
+              "description": "",
+              "parentId": 2061,
+              "order": 1,
+              "breadcrumb": "Carreras de pregrado y grado > Actividad académica > Cursadas",
+              "color": "#70cacd",
+              "illustration": "cat-12.svg"
+            },
+            {
+              "id": 20612,
+              "name": "Exámenes",
+              "description": "",
+              "parentId": 2061,
+              "order": 2,
+              "breadcrumb": "Carreras de pregrado y grado > Actividad académica > Exámenes",
+              "color": "#70cacd",
+              "illustration": "cat-13.svg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

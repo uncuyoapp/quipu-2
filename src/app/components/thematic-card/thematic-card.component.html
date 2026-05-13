@@ -1,0 +1,34 @@
+<div class="thematic-card p-4 py-5 d-flex flex-column justify-content-center align-items-center position-relative"
+  (click)="onClick()" (keydown.enter)="onClick()" (keydown.space)="onClick()" [tabIndex]="thematic().id"
+  [style.background-color]="'var(--thematic-card-color, ' + thematic().color + ')'">
+  @if (editable() && editModeService.isEditModeEnabled()) {
+  <!-- Arrastre (Izquierda) -->
+  <div class="position-absolute top-0 start-0 m-3 z-3">
+    <div class="cursor-grab action-icon d-flex" cdkDragHandle title="Reordenar temática"
+      (click)="$event.stopPropagation()">
+      <ng-icon [name]="icons.nav.reorder" class="text-white"
+        style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5))"></ng-icon>
+    </div>
+  </div>
+
+  <!-- Acciones (Derecha) -->
+  <div class="position-absolute top-0 end-0 m-3 d-flex gap-2 z-3 align-items-center">
+    <div class="cursor-pointer action-icon d-flex" (click)="onEdit($event)" title="Editar temática">
+      <ng-icon [name]="icons.actions.create" class="text-white"
+        style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5))"></ng-icon>
+    </div>
+    <div class="cursor-pointer action-icon d-flex" (click)="onDelete($event)" title="Eliminar temática">
+      <ng-icon [name]="icons.actions.delete" class="text-white"
+        style="filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5))"></ng-icon>
+    </div>
+  </div>
+  }
+
+  <div class="background flex-grow-1 flex-shrink-0 h-100" [style.background-image]="getBackgroundImage()">
+    <div class="row">
+      <div class="col-12 thematic-name">
+        <h4>{{ thematic().name }}</h4>
+      </div>
+    </div>
+  </div>
+</div>

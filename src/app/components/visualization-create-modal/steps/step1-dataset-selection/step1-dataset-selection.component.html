@@ -1,0 +1,141 @@
+<div class="step-dataset-selection">
+  <div class="table-container" (click)="showDimFilter.set(false)">
+    <table class="dataset-table">
+      <thead>
+        <tr class="header-row">
+          <th class="col-codigo">Código</th>
+          <th class="col-nombre">Nombre</th>
+          <th class="col-porcentual">Valores porcentuales</th>
+          <th class="col-unidad">Unidad</th>
+          <th class="col-dimensiones">Dimensiones</th>
+          <th class="col-periodicidad">Periodicidad</th>
+          <th class="col-temporal">Temporal</th>
+        </tr>
+        <tr class="filter-row">
+          <td>
+            <input type="text" placeholder="Filtrar..." [ngModel]="columnFilters()['id']"
+              (ngModelChange)="onFilterChange('id', $event)">
+          </td>
+          <td>
+            <input type="text" placeholder="Filtrar..." [ngModel]="columnFilters()['name']"
+              (ngModelChange)="onFilterChange('name', $event)">
+          </td>
+          <td>
+            <select [ngModel]="columnFilters()['isPercentage']" (ngModelChange)="onFilterChange('isPercentage', $event)"
+              class="filter-select">
+              <option value="all">Todos</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" placeholder="Filtrar..." [ngModel]="columnFilters()['unit']"
+              (ngModelChange)="onFilterChange('unit', $event)">
+          </td>
+          <td>
+            <div class="multi-select-container" (click)="$event.stopPropagation()">
+              <button class="multi-select-trigger" (click)="showDimFilter.set(!showDimFilter())"
+                [class.active]="columnFilters()['dimensions'].length > 0">
+                <span class="trigger-text">
+                  {{ columnFilters()['dimensions'].length ? columnFilters()['dimensions'].length + ' sel.' : 'Todas' }}
+                </span>
+                <ng-icon [name]="showDimFilter() ? icons.nav.chevronUp : icons.nav.chevronDown"></ng-icon>
+              </button>
+              @if (showDimFilter()) {
+              <div class="multi-select-dropdown">
+                <div class="dropdown-header">
+                  <span>Dimensiones</span>
+                  <button (click)="onFilterChange('dimensions', [])" class="btn-clear">Limpiar</button>
+                </div>
+                <div class="dropdown-list">
+                  @for (dim of availableDimensions(); track dim) {
+                  <label class="dropdown-item">
+                    <input type="checkbox" [checked]="columnFilters()['dimensions'].includes(dim)"
+                      (change)="toggleDimensionFilter(dim)">
+                    <span class="item-text">{{ dim }}</span>
+                  </label>
+                  }
+                </div>
+              </div>
+              }
+            </div>
+          </td>
+          <td>
+            <input type="text" placeholder="Filtrar..." [ngModel]="columnFilters()['periodicity']"
+              (ngModelChange)="onFilterChange('periodicity', $event)">
+          </td>
+          <td>
+            <div class="temporal-filter-container">
+              <input type="number" placeholder="Año..." [ngModel]="columnFilters()['temporal']"
+                (ngModelChange)="onFilterChange('temporal', $event)" class="year-input">
+            </div>
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        @for (ds of paginatedDatasets(); track ds.id) {
+        <tr (click)="select(ds)" class="dataset-row" [class.selected]="selectedDataset()?.id === ds.id">
+          <td class="id-cell">{{ ds.id }}</td>
+          <td class="name-cell">
+            <div class="dataset-name">{{ ds.name }}</div>
+            @if (ds.description) {
+            <div class="dataset-desc">{{ ds.description }}</div>
+            }
+          </td>
+          <td class="center-cell">
+            <span [class]="ds.isPercentage ? 'text-percentage text-blue-600' : 'text-no text-gray-400'">
+              {{ ds.isPercentage ? 'Sí' : 'No' }}
+            </span>
+          </td>
+          <td>{{ ds.unit || '-' }}</td>
+          <td>
+            <div class="dimensions-list">
+              @for (dim of ds.dimensions; track dim) {
+              <app-tag [label]="dim" palette="gray" size="small"></app-tag>
+              }
+            </div>
+          </td>
+          <td>{{ ds.periodicity }}</td>
+          <td class="center-cell">
+            <span class="temporal-text">{{ ds.temporal }}</span>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="7" class="empty-cell">
+            No se encontraron datasets con los filtros aplicados.
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="table-footer">
+      <div class="dataset-counter">
+        Mostrando <strong>{{ paginatedDatasets().length }}</strong> de <strong>{{ filteredDatasets().length }}</strong>
+        datasets
+        @if (filteredDatasets().length < datasets().length) { <span class="filter-info">(filtrados de {{
+          datasets().length
+          }})</span>
+          }
+      </div>
+
+      <div class="pagination">
+        <app-button variant="icon-only" [icon]="icons.nav.chevronBack" size="small" palette="gray"
+          [disabled]="currentPage() === 1" (btnClick)="setPage(currentPage() - 1)"></app-button>
+
+        <div class="page-numbers">
+          @for (p of [].constructor(totalPages()); track $index) {
+          @if ($index + 1 >= currentPage() - 2 && $index + 1 <= currentPage() + 2) { <app-button
+            [label]="($index + 1).toString()" [variant]="currentPage() === ($index + 1) ? 'primary' : 'text'"
+            palette="blue" size="small" (btnClick)="setPage($index + 1)"></app-button>
+            }
+            }
+        </div>
+
+        <app-button variant="icon-only" [icon]="icons.nav.chevronForward" size="small" palette="gray"
+          [disabled]="currentPage() === totalPages()" (btnClick)="setPage(currentPage() + 1)"></app-button>
+      </div>
+    </div>
+  </div>
+</div>

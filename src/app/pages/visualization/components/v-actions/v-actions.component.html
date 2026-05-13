@@ -1,0 +1,47 @@
+<div class="visualization-actions-container">
+  <div class="actions-segment">
+    <p>Dimensiones</p>
+    @for (dimension of dimensions(); track $index) {
+    <app-dimension-select [dropdownType]="'inline'" (dimensionChange)="onDimensionChange($index, $event)"
+      [showCheckbox]="true" [showDropdown]="true" [dimension]="dimension"></app-dimension-select>
+    }
+  </div>
+
+  <!-- //comentado temporalmente
+  <div class="actions-segment">
+    <p>Series</p>
+    @for (series of series(); track $index) {
+    <div class="dimension-select">
+      <div class="dimension-select__checkbox">
+        <app-checkbox [size]="'small'" [label]="series.name" (valueChange)="onSeriesToggle(series)"
+          [color]="series.color" [checked]="series.visible" />
+      </div>
+    </div>
+    }
+  </div>
+  -->
+
+  @if (showPercentageView()) {
+  <div class="actions-segment">
+    <p>Vista porcentual</p>
+    <div class="action-item">
+      <div class="action-item__control">
+        <app-switch (valueChange)="onPercentageViewChange($event)"></app-switch>
+      </div>
+      <div class="action-item__label">
+        <label>Habilitar vista porcentual</label>
+      </div>
+    </div>
+  </div>
+  }
+
+  @if (showMultiChart()) {
+  <div class="actions-segment">
+    <p>Múltiples gráficos</p>
+    @for (dimension of dimensions(); track $index) {
+    <app-dimension-select [showDropdown]="false" [dimension]="dimension" [selected]="isDimensionSelected(dimension)"
+      (dimensionChange)="onMultipleGraphsChange($index, $event)" />
+    }
+  </div>
+  }
+</div>

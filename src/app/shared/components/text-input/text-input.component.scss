@@ -1,0 +1,558 @@
+/**
+ * TextInput Component Styles
+ * 
+ * Arquitectura de clases:
+ * - .text-input-wrapper: Contenedor principal
+ * - .text-input-container: Contenedor del input con bordes
+ * - .text-input__input: Input nativo HTML
+ * - .text-input__icon-button: Botones de iconos (izquierdo/derecho)
+ * - .text-input__icon: Iconos ng-icons
+ * - .text-input__message: Mensajes de ayuda/error/éxito
+ * - .text-input-suggestions: Panel de autocompletado
+ * 
+ * Modificadores:
+ * - .text-input--variant-{default|search}: Variantes visuales
+ * - .text-input--state-{default|hover|focused|typing|error|success|disabled}: Estados
+ * - .text-input--no-border: Input sin borde
+ * - .text-input--suggestions-open: Cuando el panel de sugerencias está abierto
+ */
+
+// ============================================================================
+// VARIABLES DE COLORES
+// ============================================================================
+
+/** Colores de borde para diferentes estados */
+$color-border-default: var(--q-border-color-strong);
+$color-border-hover: var(--q-gray-400);
+$color-border-focused: var(--q-primary);
+$color-border-error: var(--q-danger);
+$color-border-success: var(--q-success);
+
+/** Colores de iconos para diferentes estados */
+$color-icon-default: var(--q-gray-600);
+$color-icon-error: var(--q-danger);
+$color-icon-success: var(--q-success);
+$color-icon-disabled: var(--q-gray-400);
+
+/** Colores de texto */
+$color-text-default: var(--q-text-primary);
+$color-text-placeholder: var(--q-text-muted);
+$color-text-disabled: var(--q-text-disabled);
+$color-text-helper: var(--q-text-secondary);
+$color-text-error: var(--q-danger);
+$color-text-success: var(--q-success);
+
+/** Colores de fondo */
+$color-bg-disabled: var(--q-surface-variant);
+$color-bg-suggestion-hover: var(--q-surface-hover);
+
+// ============================================================================
+// VARIABLES DE ESPACIADO Y DIMENSIONES
+// ============================================================================
+
+/** Alturas según variante */
+$height-default: 40px; // Altura para variante 'default'
+$height-search: 56px; // Altura para variante 'search'
+
+/** Bordes */
+$border-width: 1px; // Grosor normal del borde
+$border-width-focused: 2px; // Grosor del borde en focused/error/success
+$border-radius: var(--q-radius-md); // Radio de las esquinas redondeadas
+
+// ============================================================================
+// CONTENEDOR PRINCIPAL
+// ============================================================================
+
+/**
+ * Contenedor principal del componente
+ * - Gestiona el layout vertical (input + sugerencias + mensaje)
+ * - width: 100% para ocupar todo el ancho del padre
+ * - position: relative para posicionar el panel de sugerencias
+ */
+.text-input-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+// ============================================================================
+// CONTENEDOR DEL INPUT
+// ============================================================================
+
+/**
+ * Contenedor del input con bordes y fondo
+ * - Contiene el input y los botones de iconos
+ * - Flexbox horizontal para alinear elementos
+ * - Borde y border-radius configurables
+ * - Transiciones suaves para cambios de estado
+ */
+.text-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  //height: $height-default;
+  border: $border-width solid $color-border-default;
+  border-radius: $border-radius;
+  transition: border-color 0.2s ease, border-width 0.2s ease;
+  position: relative;
+  background-color: transparent;
+  padding: 0 1rem;
+
+  // Quitar outline del navegador cuando el input interno tiene foco
+  &:has(input:focus) {
+    outline: none;
+  }
+}
+
+// ============================================================================
+// INPUT NATIVO
+// ============================================================================
+
+/**
+ * Input HTML nativo
+ * - flex: 1 para ocupar todo el espacio disponible
+ * - Sin bordes propios (el contenedor maneja el borde)
+ * - Sin outline (para evitar el borde azul del navegador)
+ * - Padding horizontal para separación del texto
+ */
+.text-input__input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 1rem 0;
+  font-size: var(--q-fs-sm);
+  line-height: var(--q-lh-normal);
+  color: $color-text-default;
+
+  /** Estilo del placeholder */
+  &::placeholder {
+    color: $color-text-placeholder;
+  }
+
+  /** Estilo cuando está deshabilitado */
+  &:disabled {
+    color: $color-text-disabled;
+    cursor: not-allowed;
+  }
+}
+
+.text-input__underline {
+  width: 100%;
+  border-bottom: $border-width solid $color-border-default;
+  display: none;
+}
+
+// ============================================================================
+// BOTONES DE ICONOS
+// ============================================================================
+
+/**
+ * Botones contenedores de los iconos (izquierdo y derecho)
+ * - Botones cuadrados de 32x32px
+ * - Sin borde ni fondo (transparentes)
+ * - Cursor pointer cuando están habilitados
+ * - Opacidad reducida al hacer hover
+ */
+.text-input__icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s ease;
+
+  /** Efecto hover - reduce opacidad */
+  &:hover:not(:disabled) {
+    opacity: 0.7;
+  }
+
+  /** Estado deshabilitado - cursor not-allowed y opacidad reducida */
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /** Modificador para ícono izquierdo - margen de 10px a la izquierda */
+  &--left {
+    // margin-left: 10px;
+  }
+
+  /** Modificador para ícono derecho - margen de 10px a la derecha */
+  &--right {
+    // margin-right: 10px;
+  }
+
+  /** 
+   * Modificador para ícono no clickeable (ionCheckmark en success)
+   * - Cursor default en lugar de pointer
+   * - pointer-events: none para prevenir cualquier interacción
+   */
+  &--disabled {
+    cursor: default !important;
+    pointer-events: none;
+  }
+}
+
+// ============================================================================
+// ICONOS
+// ============================================================================
+
+/**
+ * Iconos ng-icons dentro de los botones
+ * - Tamaño fijo de 20x20px
+ * - Color por defecto gris medio
+ * - Transición suave para cambios de color en diferentes estados
+ */
+.text-input__icon {
+  //font-size: 20px;
+  // width: 20px;
+  // height: 20px;
+  color: $color-icon-default;
+  transition: color 0.2s ease;
+}
+
+// ============================================================================
+// MENSAJES DE AYUDA/ERROR/ÉXITO
+// ============================================================================
+
+/**
+ * Mensaje que aparece debajo del input
+ * - Puede ser helperText, errorMessage o successMessage
+ * - Tamaño de fuente pequeño (12px)
+ * - Padding horizontal para alinearse con el texto del input
+ */
+.text-input__message {
+  font-size: var(--q-fs-xs);
+  color: $color-text-helper;
+  margin-top: 4px;
+  padding: 0 12px;
+
+  /** Modificador para mensajes de error - texto rojo */
+  &--error {
+    color: $color-text-error;
+  }
+
+  /** Modificador para mensajes de éxito - texto verde */
+  &--success {
+    color: $color-text-success;
+  }
+}
+
+// ============================================================================
+// PANEL DE SUGERENCIAS (AUTOCOMPLETADO)
+// ============================================================================
+
+/**
+ * Panel dropdown con las sugerencias filtradas
+ * - Posicionado absolutamente debajo del input
+ * - Aparece como extensión visual del input (sin borde superior)
+ * - Max-height con scroll para listas largas
+ * - z-index alto para aparecer sobre otros elementos
+ * - Box-shadow para profundidad visual
+ */
+.text-input-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--q-surface);
+  border: $border-width solid $color-border-default;
+  border-top: none;
+  border-radius: 0 0 $border-radius $border-radius;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /**
+   * Item individual de sugerencia
+   * - Padding para separación
+   * - Cursor pointer para indicar que es clickeable
+   * - Hover con fondo gris claro
+   * - Último item con border-radius en esquinas inferiores
+   */
+  &__item {
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: var(--q-fs-sm);
+    color: var(--q-text-primary);
+    transition: background-color 0.2s ease;
+
+    /** Efecto hover - fondo gris claro */
+    &:hover {
+      background-color: $color-bg-suggestion-hover;
+    }
+
+    /** Último item - esquinas inferiores redondeadas */
+    &:last-child {
+      border-radius: 0 0 $border-radius $border-radius;
+    }
+
+    /**
+     * Estilo para el highlight de coincidencias
+     * - El método highlightMatch() envuelve el texto coincidente en <mark>
+     * - Fondo amarillo claro para resaltar
+     * - Font-weight bold para mayor énfasis
+     */
+    // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+    ::ng-deep mark {
+      background-color: var(--q-highlight);
+      font-weight: var(--q-fw-semibold);
+      padding: 0;
+    }
+  }
+}
+
+// ============================================================================
+// MODIFICADOR: SIN BORDE
+// ============================================================================
+
+/**
+ * Modificador para inputs sin borde (ej: inputs de filtro con solo fondo)
+ * - Remueve el borde del contenedor
+ * - El panel de sugerencias sí tiene borde y está separado del input
+ */
+.text-input--no-border {
+  .text-input-container {
+    border: none;
+  }
+
+  /** Panel de sugerencias con borde completo y margin-top */
+  .text-input-suggestions {
+    border: $border-width solid $color-border-default;
+    border-radius: $border-radius;
+    margin-top: 4px;
+  }
+}
+
+// ============================================================================
+// ESTADOS - Colores de borde según el estado actual
+// ============================================================================
+
+/** Estado DEFAULT - borde gris claro */
+.text-input--state-default {
+  .text-input-container {
+    border-color: $color-border-default;
+  }
+}
+
+/** Estado HOVER - borde gris medio */
+.text-input--state-hover {
+  .text-input-container {
+    border-color: $color-border-hover;
+  }
+}
+
+/** Estado FOCUSED - borde azul con grosor aumentado */
+.text-input--state-focused {
+  .text-input-container {
+    border-color: $color-border-focused;
+    //border-width: $border-width-focused;
+  }
+}
+
+/** Estado TYPING - borde azul (el usuario está escribiendo) */
+.text-input--state-typing {
+  .text-input-container {
+    border-color: $color-border-focused;
+  }
+}
+
+/** 
+ * Estado ERROR - validación fallida
+ * - Borde rojo con grosor aumentado
+ * - Iconos en rojo
+ * - Panel de sugerencias con borde rojo
+ */
+.text-input--state-error {
+  .text-input-container {
+    border-color: $color-border-error;
+    border-width: $border-width-focused;
+  }
+
+  .text-input__icon {
+    color: $color-icon-error;
+  }
+
+  .text-input-suggestions {
+    border-color: $color-border-error;
+  }
+}
+
+/** 
+ * Estado SUCCESS - validación exitosa
+ * - Borde verde con grosor aumentado
+ * - Iconos en verde (ionCheckmark)
+ * - Panel de sugerencias con borde verde
+ */
+.text-input--state-success {
+  .text-input-container {
+    border-color: $color-border-success;
+    border-width: $border-width-focused;
+  }
+
+  .text-input__icon {
+    color: $color-icon-success;
+  }
+
+  .text-input-suggestions {
+    border-color: $color-border-success;
+  }
+}
+
+/** 
+ * Estado DISABLED - input deshabilitado
+ * - Fondo gris claro
+ * - Borde gris claro (color default)
+ * - Iconos en gris claro
+ */
+.text-input--state-disabled {
+  .text-input-container {
+    background-color: $color-bg-disabled;
+    border-color: $color-border-default;
+  }
+
+  .text-input__icon {
+    color: $color-icon-disabled;
+  }
+}
+
+// ============================================================================
+// VARIANTE: SEARCH
+// ============================================================================
+
+/**
+ * Variante SEARCH - Input de búsqueda más alto con border-bottom decorativo
+ * 
+ * Características especiales:
+ * - Altura de 56px (en lugar de 40px)
+ * - Border-bottom interno usando ::after pseudo-elemento
+ * - Iconos con margen superior de 10px
+ * - Comportamiento especial de hover (solo cambia border-bottom a azul)
+ * - Focused igual que default (sin cambios visuales)
+ */
+.text-input--variant-search {
+  .text-input-container {
+    //height: $height-search;
+    position: relative;
+  }
+
+  /** Padding aumentado para el input más alto */
+  .text-input__input {
+    padding-bottom: 0.5rem;
+    //border-bottom: 1px solid $color-border-default;
+    transition: background-color 0.2s ease;
+  }
+
+  .text-input__underline {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  /** 
+   * Iconos alineados arriba con margen de 10px
+   * - margin-top: 10px para separación del borde superior
+   * - align-self: flex-start para alineación superior
+   */
+  .text-input__icon-button--left {
+    margin-top: 10px;
+    align-self: flex-start;
+  }
+
+  .text-input__icon-button--right {
+    margin-top: 10px;
+    align-self: flex-start;
+  }
+
+  /** 
+   * Estado HOVER - comportamiento especial para variant search
+   * - El borde del contenedor permanece en color default (gris claro)
+   * - Solo el border-bottom (::after) cambia a azul
+   */
+  &.text-input--state-hover {
+    .text-input-container {
+      border-color: $color-border-default; // mantiene el borde normal
+
+      &::after {
+        background-color: $color-border-focused; // border-bottom azul
+      }
+    }
+  }
+
+  /** 
+   * Estado FOCUSED - comportamiento especial para variant search
+   * - Todo permanece igual que en default
+   * - Borde normal (gris claro) sin cambio de grosor
+   * - Border-bottom también normal (gris claro)
+   */
+  &.text-input--state-focused {
+    .text-input-container {
+      border-color: $color-border-default;
+      border-width: $border-width; // sin cambio de grosor
+
+      &::after {
+        background-color: $color-border-default; // border-bottom normal
+      }
+    }
+  }
+
+  /** Estado TYPING - border-bottom azul */
+  &.text-input--state-typing {
+    .text-input-container::after {
+      background-color: $color-border-focused;
+    }
+  }
+
+  /** Estado ERROR - border-bottom rojo */
+  &.text-input--state-error {
+    .text-input-container::after {
+      background-color: $color-border-error;
+    }
+  }
+
+  /** Estado SUCCESS - border-bottom verde */
+  &.text-input--state-success {
+    .text-input-container::after {
+      background-color: $color-border-success;
+    }
+  }
+}
+
+// ============================================================================
+// MODIFICADOR: SUGERENCIAS ABIERTAS
+// ============================================================================
+
+/**
+ * Estilos cuando el panel de sugerencias está visible
+ * - El contenedor pierde el border-radius inferior para conectar con el panel
+ * - El panel se conecta visualmente sin espacio ni borde superior
+ */
+.text-input--suggestions-open {
+  .text-input-container {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .text-input-suggestions {
+    border-top: none;
+    margin-top: -1px;
+  }
+}
+
+/**
+ * Caso especial: variant search con sugerencias abiertas
+ * - Ocultar el border-bottom interno (::after) cuando el panel está abierto
+ * - El panel proporciona la separación visual
+ */
+.text-input--variant-search.text-input--suggestions-open {
+  .text-input-container::after {
+    display: none; // ocultar border-bottom interno
+  }
+}

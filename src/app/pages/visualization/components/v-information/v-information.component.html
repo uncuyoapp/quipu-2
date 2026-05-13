@@ -1,0 +1,184 @@
+<div class="visualization-information v-box">
+  @if (editMode.canEdit() && editMode.isEditModeEnabled()) {
+  <div class="viz-status-tag">
+    <app-tag [label]="visualization().published ? 'Publicada' : 'Borrador'"
+      [palette]="visualization().published ? 'green' : 'orange'" size="medium" variant="pill">
+    </app-tag>
+  </div>
+  }
+  <div class="row my-2">
+    <div class="col-12">
+      <div class="text-primary editable-field"
+        [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'measureUnit')">
+        {{ visualization().measureUnit || (editMode.canEdit() && editMode.isEditModeEnabled() ? 'Clic para editar' : '')
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-12">
+      <h2 class="editable-field" [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'title')">
+        {{ visualization().title || (editMode.canEdit() && editMode.isEditModeEnabled() ? 'Clic para editar' : '') }}
+      </h2>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-12 dimensions">
+      @for (dimension of visualization().dimensions; track $index) {
+      <app-tag [label]="dimension" palette="blue" size="medium" variant="pill"></app-tag>
+      }
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-12 metadata">
+      <div class="period">
+        <ng-icon [name]="icons.ui.time" [color]="'var(--q-primary)'"></ng-icon>
+        <span>{{ visualization().periodicity }}</span>
+      </div>
+      <div class="date-range">
+        <ng-icon [name]="icons.ui.calendar" [color]="'var(--q-primary)'"></ng-icon>
+        <span>{{ visualization().timeRange }}</span>
+      </div>
+      <div class="information-unit">
+        <ng-icon [name]="icons.viz.business" [color]="'var(--q-primary)'"></ng-icon>
+        <span>{{ visualization().informationUnitName }}</span>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="technical-sheet-toggle">
+    <app-button variant="text" [icon]="showMoreInfo ? icons.nav.chevronUp : icons.nav.chevronDown" iconPosition="right"
+      (btnClick)="onClickShowMore()" label="Ver ficha técnica">
+    </app-button>
+  </div>
+
+  @if(showMoreInfo){
+
+  <hr />
+  <div class="row my-2">
+    <div class="col-12">
+      <div class="d-flex align-items-center gap-2">
+        <p class="q-text-muted mb-0">Descripción</p>
+        @if(editMode.canEdit() && editMode.isEditModeEnabled()){
+        <div class="edit-actions">
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.edit"
+            (btnClick)="focusField('v-description')" title="Editar"></app-button>
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.delete"
+            (btnClick)="clearField('v-description')" title="Limpiar"></app-button>
+        </div>
+        }
+      </div>
+      <p id="v-description" class="editable-field"
+        [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'description', true)">{{
+        visualization().technicalSheet.description || (editMode.canEdit() && editMode.isEditModeEnabled() ? 'Clic para
+        editar' : 'No disponible') }}</p>
+      <hr>
+    </div>
+  </div>
+  @if(visualization().technicalSheet.formula || (editMode.canEdit() && editMode.isEditModeEnabled())) {
+  <div class="row my-2">
+    <div class="col-12">
+      <div class="d-flex align-items-center gap-2">
+        <p class="q-text-muted mb-0">Fórmula de cálculo</p>
+        @if(editMode.isEditModeEnabled()){
+        <div class="edit-actions">
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.edit"
+            (btnClick)="focusField('v-formula')" title="Editar"></app-button>
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.delete"
+            (btnClick)="clearField('v-formula')" title="Limpiar"></app-button>
+        </div>
+        }
+      </div>
+      <p id="v-formula" class="editable-field"
+        [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'formula', true)">{{
+        visualization().technicalSheet.formula || 'Clic para editar' }}</p>
+      <hr>
+    </div>
+  </div>
+  }
+  <div class="row my-2">
+    <div class="col-6">
+      @if(visualization().technicalSheet.producerArea || (editMode.canEdit() && editMode.isEditModeEnabled())) {
+      <div class="d-flex align-items-center gap-2">
+        <p class="q-text-muted mb-0">Área productora de información</p>
+        @if(editMode.isEditModeEnabled()){
+        <div class="edit-actions">
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.edit"
+            (btnClick)="focusField('v-producer')" title="Editar"></app-button>
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.delete"
+            (btnClick)="clearField('v-producer')" title="Limpiar"></app-button>
+        </div>
+        }
+      </div>
+      <p id="v-producer" class="editable-field"
+        [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'producerArea', true)">{{
+        visualization().technicalSheet.producerArea || 'Clic para editar' }}</p>
+      }
+      @if(visualization().technicalSheet.registrationMode || (editMode.canEdit() && editMode.isEditModeEnabled())) {
+      <div class="d-flex align-items-center gap-2 mt-2">
+        <p class="q-text-muted mb-0">Modo de registración</p>
+        @if(editMode.isEditModeEnabled()){
+        <div class="edit-actions">
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.edit"
+            (btnClick)="focusField('v-registration')" title="Editar"></app-button>
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.delete"
+            (btnClick)="clearField('v-registration')" title="Limpiar"></app-button>
+        </div>
+        }
+      </div>
+      <p id="v-registration" class="editable-field"
+        [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'registrationMode', true)">
+        {{ visualization().technicalSheet.registrationMode || 'Clic para editar' }}</p>
+      }
+      @if(visualization().technicalSheet.lastUpdate) {
+      <p class="q-text-muted mt-2">Fecha de última actualización de datos</p>
+      <p>{{ visualization().technicalSheet.lastUpdate }}</p>
+      }
+    </div>
+    <div class="col-6">
+      @if(visualization().technicalSheet.responsible?.length || (editMode.canEdit() && editMode.isEditModeEnabled())) {
+      <div class="d-flex align-items-center gap-2">
+        <p class="q-text-muted mb-0">Funcionarios responsables</p>
+        @if(editMode.isEditModeEnabled()){
+        <div class="edit-actions">
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.edit"
+            (btnClick)="focusField('v-responsible')" title="Editar"></app-button>
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.delete"
+            (btnClick)="clearField('v-responsible')" title="Limpiar"></app-button>
+        </div>
+        }
+      </div>
+      <p id="v-responsible" class="editable-field"
+        [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'responsible', true)">{{
+        visualization().technicalSheet.responsible?.length ? visualization().technicalSheet.responsible?.join(', ') :
+        'Clic para editar' }}</p>
+      }
+      @if(visualization().technicalSheet.dataResponsible || (editMode.canEdit() && editMode.isEditModeEnabled())) {
+      <div class="d-flex align-items-center gap-2 mt-2">
+        <p class="q-text-muted mb-0">Responsable de carga</p>
+        @if(editMode.isEditModeEnabled()){
+        <div class="edit-actions">
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.edit"
+            (btnClick)="focusField('v-data-responsible')" title="Editar"></app-button>
+          <app-button variant="icon-only" palette="gray" size="small" [icon]="icons.actions.delete"
+            (btnClick)="clearField('v-data-responsible')" title="Limpiar"></app-button>
+        </div>
+        }
+      </div>
+      <p id="v-data-responsible" class="editable-field"
+        [attr.contenteditable]="editMode.canEdit() && editMode.isEditModeEnabled()"
+        (blur)="onFieldChange($event, 'dataResponsible', true)">
+        {{ visualization().technicalSheet.dataResponsible || 'Clic para editar' }}</p>
+      }
+    </div>
+  </div>
+
+  }
+</div>

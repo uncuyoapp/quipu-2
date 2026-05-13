@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.thematic {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .empty-state-container {
+    .illustration {
+      max-width: 100%;
+      height: auto;
+    }
+ 
+    h3 {
+      font-weight: var(--q-fw-bold);
+      color: var(--q-text-primary);
+    }
+ 
+    .text-muted {
+      color: var(--q-text-secondary) !important;
+      font-size: var(--q-fs-md);
+    }
+  }
+}

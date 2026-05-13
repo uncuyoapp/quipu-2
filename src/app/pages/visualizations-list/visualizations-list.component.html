@@ -1,0 +1,8 @@
+<div class="visualizations-list-page">
+
+  <app-visualization-grid [visualizations]="visualizations()" [loading]="isFetching()" [enableSearchBar]="true"
+    [visibleActions]="['create', 'publish', 'unpublish', 'delete']"></app-visualization-grid>
+
+  <!-- Sentinel para IntersectionObserver -->
+  <div #sentinel class="sentinel"></div>
+</div>

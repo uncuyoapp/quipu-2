@@ -1,0 +1,12 @@
+.search-bar {
+
+  &.minimal {
+    background-color: var(--q-surface-variant);
+    border-radius: var(--q-radius-md);
+    padding: 1.5rem 0.75rem;
+
+    .search-wrapper {
+      margin: 0;
+    }
+  }
+}

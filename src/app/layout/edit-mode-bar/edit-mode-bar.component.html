@@ -1,0 +1,25 @@
+@if (
+editModeService.canEdit() &&
+editModeService.isBarVisible() &&
+!editModeService.isTemporarilyHidden()
+) {
+<div class="edit-mode-bar" [class.edit-mode-bar--active]="editModeService.isEditModeEnabled()">
+  <div class="edit-mode-bar__container">
+    <!-- Espaciador (Izquierda) para balancear el centro -->
+    <div class="edit-mode-bar__left"></div>
+
+    <!-- Switch de Modo Edición (Centro) -->
+    <div class="edit-mode-bar__center">
+      <app-switch [checked]="editModeService.isEditModeEnabled()" [showStateText]="true" onText="Modo edición activado"
+        offText="Modo edición desactivado" (valueChange)="editModeService.setEditMode($event)"></app-switch>
+    </div>
+
+    <!-- Botón para ocultar la barra (Derecha) -->
+    <div class="edit-mode-bar__right">
+      <app-button variant="icon-only" size="small" [icon]="icons.actions.hide"
+        [palette]="editModeService.isEditModeEnabled() ? 'white' : 'gray'" (btnClick)="onHideBar()"
+        ariaLabel="Ocultar barra de modo edición"></app-button>
+    </div>
+  </div>
+</div>
+}

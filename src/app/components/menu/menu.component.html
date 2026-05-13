@@ -1,0 +1,39 @@
+<div class="menu-container">
+  <div class="close-menu">
+    <app-button type="link" (btnClick)="onClickClose()" variant="icon-only" [icon]="icons.actions.close"
+      palette="gray"></app-button>
+  </div>
+  @if (isMobile) {
+  <div class="information-unit">
+    <p class="w-100">Unidad de información</p>
+
+    <img [src]="selectedUnit()?.logo" [alt]="selectedUnit()?.name" class="unit-logo" />
+
+    <app-button [icon]="icons.actions.sync" label="Cambiar" iconPosition="left"
+      (btnClick)="onClickInformationUnitChange()"></app-button>
+  </div>
+  }
+
+  <ul>
+    <li>
+      <app-button variant="text" palette="gray" (btnClick)="navigate('user')" label="Mi perfil"
+        class="w-100"></app-button>
+    </li>
+    <li>
+      <app-button variant="text" palette="gray" (btnClick)="navigate('visualizations')" label="Explorar"
+        class="w-100"></app-button>
+    </li>
+    <li>
+      <app-button variant="text" palette="gray" (btnClick)="navigate('about')" label="Sobre Quipu"
+        class="w-100"></app-button>
+    </li>
+    @if (isAdmin()) {
+    <li>
+      <app-button variant="text" palette="gray" label="Ir al administrador" class="w-100"></app-button>
+    </li>
+    }
+    <li>
+      <app-button variant="text" palette="red" (btnClick)="logout()" label="Cerrar sesión" class="w-100"></app-button>
+    </li>
+  </ul>
+</div>

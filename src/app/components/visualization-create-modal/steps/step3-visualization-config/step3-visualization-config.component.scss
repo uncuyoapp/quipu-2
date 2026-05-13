@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.step-visualization-config {
+  padding: 0;
+
+  .visualization-preview-container {
+    position: relative;
+    min-height: 500px; // Ensure there's a minimum height for the visualization
+    display: flex;
+
+    app-visualization {
+      flex: 1;
+      width: 100%;
+    }
+  }
+}

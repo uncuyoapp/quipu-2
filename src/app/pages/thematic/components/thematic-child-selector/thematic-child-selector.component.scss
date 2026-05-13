@@ -1,0 +1,115 @@
+.thematic-child-selector {
+  .section {
+    margin-bottom: 1.5rem;
+
+    h6 {
+      margin-bottom: 1rem;
+      font-weight: var(--q-fw-medium);
+    }
+  }
+
+  .header-row {
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .empty-categories-message {
+    height: 100%;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--q-text-muted);
+    font-size: var(--q-fs-md);
+    font-weight: var(--q-fw-regular);
+  }
+
+  .pills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center; // Alinea el botón + con los tags
+
+    .pill-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--q-border-color);
+      border-radius: var(--q-radius-md);
+      background: var(--q-surface);
+      color: var(--q-text-primary);
+      font-size: var(--q-fs-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: var(--q-surface-variant);
+        border-color: var(--q-gray-400);
+      }
+
+      &.selected {
+        border-color: transparent;
+        color: white;
+
+        ng-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 1.25rem;
+          height: 1.25rem;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+
+    .drag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      min-width: 50px; // Evita que colapse si está vacío
+    }
+
+    // Estilos para CDK Drag & Drop en layouts fluidos
+    .cdk-drag-preview {
+      box-sizing: border-box;
+      border-radius: var(--q-radius-md);
+      box-shadow: var(--q-shadow-md);
+      // Evitar que el preview se estire o se comporte mal en flex
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--q-surface) !important;
+      
+      // Aseguramos que los componentes internos no rompan el layout del preview
+      .app-tag {
+        margin: 0;
+      }
+    }
+
+    .cdk-drag-placeholder {
+      opacity: 0.1;
+      background: var(--q-gray-200);
+      border-radius: var(--q-radius-md);
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .cdk-drag-animating {
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  // Contenedor para el drag preventivo
+  .drag-list.cdk-drop-list-dragging {
+    .app-tag:not(.cdk-drag-placeholder) {
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+}

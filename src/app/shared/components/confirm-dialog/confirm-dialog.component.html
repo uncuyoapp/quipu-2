@@ -1,0 +1,21 @@
+<div class="confirm-dialog">
+  <app-button class="confirm-dialog__close" variant="icon-only" [icon]="icons.actions.close" palette="gray"
+    (btnClick)="onCancel()" ariaLabel="Cerrar">
+  </app-button>
+
+  <h2 class="confirm-dialog__title">{{ data.title }}</h2>
+
+  <div class="confirm-dialog__content">
+    <p>{{ data.message }}</p>
+  </div>
+
+  <div class="confirm-dialog__actions">
+    <app-button [label]="data.cancelText || 'Cancelar'" [palette]="data.cancelPalette || 'white'" variant="secondary"
+      size="large" (btnClick)="onCancel()">
+    </app-button>
+
+    <app-button [label]="data.confirmText || 'Confirmar'" [palette]="data.confirmPalette || 'blue'" variant="primary"
+      size="large" (btnClick)="onConfirm()">
+    </app-button>
+  </div>
+</div>

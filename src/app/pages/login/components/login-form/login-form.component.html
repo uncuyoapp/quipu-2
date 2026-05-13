@@ -1,0 +1,36 @@
+<div class="login-form d-flex flex-column">
+  <form name="login" class="mt-4" (submit)="onSubmit()" [formGroup]="loginForm">
+    <p>
+      <app-text-input
+        [placeholder]="'Usuario o email'"
+        [type]="'text'"
+        [initialValue]="loginForm.get('username')?.value ?? ''"
+        [validationState]="getUsernameValidationState()"
+        [errorMessage]="getUsernameErrorMessage()"
+        (valueChange)="onUsernameChange($event)"
+        (blurred)="onUsernameBlur()"
+      ></app-text-input>
+    </p>
+    <p>
+      <app-text-input
+        [placeholder]="'Contraseña'"
+        [type]="'password'"
+        [initialValue]="loginForm.get('password')?.value ?? ''"
+        [validationState]="getPasswordValidationState()"
+        [errorMessage]="getPasswordErrorMessage()"
+        (valueChange)="onPasswordChange($event)"
+        (blurred)="onPasswordBlur()"
+      ></app-text-input>
+    </p>
+    <p class="text-center">
+      <app-button
+        label="Ingresar"
+        htmlType="submit"
+        [disabled]="loginForm.invalid"
+      ></app-button>
+    </p>
+    <p class="text-center">
+      <app-button label="¿Olvidaste tu usuario o contraseña?" (btnClick)="onRecoveryPasswordClick()" variant="link"></app-button>
+    </p>
+  </form>
+</div>

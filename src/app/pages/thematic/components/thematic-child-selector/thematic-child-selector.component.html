@@ -1,0 +1,80 @@
+<div class="thematic-child-selector my-2">
+  <section class="thematic-categories">
+
+    <div class="d-flex align-items-center justify-content-between mb-3 header-row">
+      <h6 class="mb-0">Categorías</h6>
+
+      @if (!selectedCategory() && editModeService.isEditModeEnabled()) {
+      <app-button label="Añadir" variant="text" palette="blue" [icon]="icons.actions.add" (btnClick)="addCategory()"
+        title="Agregar Categoría"></app-button>
+      }
+    </div>
+
+
+    @if (categories().length === 0) {
+    <p class="q-text-muted fst-italic">Esta temática no posee categorías</p>
+    }
+
+    <div class="pills-container">
+      <div class="drag-list" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="dropCategories($event)"
+        [cdkDropListDisabled]="!editModeService.isEditModeEnabled()">
+        @if (!selectedCategory()) {
+        @for (category of categories(); track category.id; let i = $index) {
+        <app-tag #categoryTag cdkDrag palette="white" appearance="outlined" [label]="category.name" variant="default"
+          size="large" [editable]="true" [editMode]="editModeService.isEditModeEnabled()"
+          (tagClick)="selectCategory(category)" (labelChange)="updateCategoryName(category, $event, i)"
+          (deleteClick)="deleteCategory(category)"></app-tag>
+        }
+        @if (editService.draft()?.isCategory) {
+        <app-tag #categoryTag palette="white" appearance="outlined" [label]="editService.draft()!.name"
+          variant="default" size="large" [editable]="true" [editMode]="true"
+          (labelChange)="saveDraft($event)"></app-tag>
+        }
+        } @else {
+        <app-tag #categoryTag [label]="selectedCategory()!.name" [background]="thematicColor()" appearance="filled"
+          variant="default" size="large" (tagClick)="clearSelection()" [icon]="icons.actions.close" [editable]="true"
+          [editMode]="false" (labelChange)="updateCategoryName(selectedCategory()!, $event, 0)"
+          (deleteClick)="deleteCategory(selectedCategory()!)"></app-tag>
+        }
+      </div>
+    </div>
+  </section>
+
+  @if (selectedCategory()) {
+  <section class="thematic-subcategories mt-4">
+    <div class="d-flex align-items-center justify-content-between mb-3 header-row">
+      <h6 class="mb-0">Subcategorías</h6>
+      @if (editModeService.isEditModeEnabled()) {
+      <app-button label="Añadir" variant="text" palette="blue" [icon]="icons.actions.add" (btnClick)="addSubcategory()"
+        title="Agregar Subcategoría"></app-button>
+      }
+    </div>
+
+    <div class="pills-container">
+      <div class="drag-list" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="dropSubcategories($event)"
+        [cdkDropListDisabled]="!editModeService.isEditModeEnabled()">
+        @for (subcategory of (selectedCategory()!.childrens ?? []); track subcategory.id; let i = $index) {
+        <app-tag #subcategoryTag cdkDrag [class.selected]="isSelected(subcategory)" [label]="subcategory.name"
+          [background]="isSelected(subcategory) ? thematicColor() : 'white'"
+          [appearance]="isSelected(subcategory) ? 'filled' : 'outlined'" variant="default"
+          (tagClick)="selectSubcategory(subcategory)" size="medium"
+          [icon]="isSelected(subcategory) ? icons.actions.close : ''" [editable]="true"
+          [editMode]="editModeService.isEditModeEnabled() && !isSelected(subcategory)"
+          (labelChange)="updateSubcategoryName(subcategory, $event, i)"
+          (deleteClick)="deleteSubcategory(subcategory)"></app-tag>
+        }
+        @if (editService.draft() && !editService.draft()!.isCategory) {
+        <app-tag #subcategoryTag palette="white" appearance="outlined" [label]="editService.draft()!.name"
+          variant="default" size="medium" [editable]="true" [editMode]="true"
+          (labelChange)="saveDraft($event)"></app-tag>
+        }
+      </div>
+    </div>
+
+    @if (!selectedCategory()!.childrens?.length) {
+    <p class="q-text-muted fst-italic">No hay subcategorías disponibles</p>
+    }
+
+  </section>
+  }
+</div>

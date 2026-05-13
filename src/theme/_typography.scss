@@ -1,0 +1,83 @@
+@import 'functions';
+@import 'variables';
+@import 'mixins';
+
+/// Mixins tipográficos basados en la escala de design tokens.
+/// Los mixins de headings usan el mixin `font-size()` de Bootstrap RFS
+/// para generar escalado responsive automático.
+///
+/// Uso: `@include q-heading-1;` en cualquier selector SCSS.
+
+/// ── Headings (responsive vía RFS) ──
+
+@mixin q-heading-1 {
+  @include font-size(2.5rem); // RFS genera calc() para escalar en móvil
+  font-weight: var(--q-fw-bold);
+  line-height: var(--q-lh-tight);
+  letter-spacing: var(--q-ls-tight);
+}
+
+@mixin q-heading-2 {
+  @include font-size(2rem);
+  font-weight: var(--q-fw-semibold);
+  line-height: var(--q-lh-tight);
+  letter-spacing: var(--q-ls-tight);
+}
+
+@mixin q-heading-3 {
+  @include font-size(1.75rem);
+  font-weight: var(--q-fw-medium);
+  line-height: var(--q-lh-tight);
+  letter-spacing: var(--q-ls-tight);
+}
+
+@mixin q-heading-4 {
+  @include font-size(1.5rem);
+  font-weight: var(--q-fw-semibold);
+  line-height: var(--q-lh-snug);
+}
+
+@mixin q-heading-5 {
+  @include font-size(1.25rem);
+  font-weight: var(--q-fw-medium);
+  line-height: var(--q-lh-snug);
+}
+
+/// ── Body y variantes (tamaño fijo, sin RFS) ──
+
+@mixin q-body {
+  font-size: var(--q-fs-base);
+  font-weight: var(--q-fw-regular);
+  line-height: var(--q-lh-normal);
+}
+
+@mixin q-body-sm {
+  font-size: var(--q-fs-sm);
+  font-weight: var(--q-fw-regular);
+  line-height: var(--q-lh-normal);
+}
+
+@mixin q-caption {
+  font-size: var(--q-fs-xs);
+  font-weight: var(--q-fw-regular);
+  line-height: var(--q-lh-snug);
+  letter-spacing: var(--q-ls-wide);
+}
+
+@mixin q-label {
+  font-size: var(--q-fs-sm);
+  font-weight: var(--q-fw-medium);
+  line-height: var(--q-lh-normal);
+}
+
+@mixin q-code {
+  font-family: var(--q-font-family-mono);
+  font-size: var(--q-fs-sm);
+  line-height: var(--q-lh-normal);
+}
+
+@mixin q-lead {
+  @include font-size(1.25rem);
+  font-weight: var(--q-fw-regular);
+  line-height: var(--q-lh-relaxed);
+}

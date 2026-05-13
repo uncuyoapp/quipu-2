@@ -1,0 +1,397 @@
+.visualization-sidenav-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &.is-wizard {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+    background: transparent !important;
+
+    ::ng-deep .mat-drawer-content {
+      overflow: visible;
+      height: auto;
+      min-height: auto;
+      background: transparent !important;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+}
+
+.loading-text {
+  margin-top: 15px;
+  font-size: var(--q-fs-base);
+  color: var(--q-text-secondary);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.actions-sidenav {
+  width: 40vw;
+  background-color: var(--q-surface);
+  box-shadow: var(--q-shadow-md);
+}
+
+.visualization-container {
+  padding: 1rem 1.5rem; // Reduced padding for better space utilization in modal
+  background-color: transparent;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; // Allow shrinking
+  overflow-y: auto;
+
+  .is-wizard & {
+    overflow-y: visible;
+    height: auto;
+    min-height: auto;
+    padding: 0;
+  }
+}
+
+.floating-top-right-buttons {
+  position: fixed; // Se cambia a fixed para que los botones de acción superiores permanezcan visibles al hacer scroll
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  app-button {
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.floating-bottom-right-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: bottom 0.3s ease; // Suavizar el movimiento al aparecer la barra
+
+  app-button {
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.edit-mode-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  background: var(--q-surface);
+  border-top: 1px solid var(--q-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 1000;
+  box-sizing: border-box;
+  box-shadow: var(--q-shadow-md);
+  animation: barFadeIn 0.3s ease-out;
+
+  .bar-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &.left {
+      flex: 1;
+
+      ::ng-deep app-switch {
+
+        .q-switch-label,
+        .switch-label {
+          font-weight: var(--q-fw-medium) !important;
+          font-size: 1rem !important;
+          transition: color 0.3s ease;
+        }
+
+        &.switch-draft {
+
+          .q-switch-label,
+          .switch-label {
+            color: var(--q-warning) !important;
+          }
+
+          input:checked+.slider {
+            background-color: var(--q-warning) !important;
+          }
+        }
+
+        &.switch-published {
+
+          .q-switch-label,
+          .switch-label {
+            color: var(--q-success) !important;
+          }
+
+          input:checked+.slider {
+            background-color: var(--q-success) !important;
+          }
+        }
+      }
+
+      .publish-icon {
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        transition: color 0.3s ease;
+
+        &.is-published {
+          color: var(--q-success);
+        }
+
+        &.is-draft {
+          color: var(--q-warning);
+        }
+      }
+    }
+
+    &.center {
+      flex: 1;
+      justify-content: center;
+
+      .info-tag {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.9375rem;
+        font-weight: var(--q-fw-medium);
+        color: var(--q-text-muted);
+
+        ng-icon {
+          font-size: 1.25rem;
+          opacity: 0.6;
+          display: flex;
+          align-items: center;
+        }
+
+        &.unsaved {
+          color: var(--q-text-secondary);
+        }
+      }
+    }
+
+    &.right {
+      flex: 1;
+      justify-content: flex-end;
+    }
+  }
+}
+
+@keyframes barFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Adaptación móvil
+@media (max-width: 768px) {
+  .edit-mode-bar {
+    height: auto;
+    min-height: 72px;
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+
+    .bar-section {
+      &.left {
+        flex: 1 1 auto;
+      }
+
+      &.center {
+        order: 3;
+        flex: 1 1 100%;
+        justify-content: flex-start;
+      }
+
+      &.right {
+        flex: 0 0 auto;
+      }
+    }
+  }
+}
+
+.v-rotate-prompt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out forwards;
+
+  .prompt-box {
+    background: var(--q-surface);
+    padding: 2rem;
+    border-radius: var(--q-radius-xl);
+    box-shadow: var(--q-shadow-lg);
+    text-align: center;
+    max-width: 85vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--q-border-color);
+
+    .sync-icon {
+      color: var(--q-brand);
+      animation: spin-pulse 2s infinite ease-in-out;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--q-text-primary);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: var(--q-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spin-pulse {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(90deg) scale(1.1);
+  }
+
+  100% {
+    transform: rotate(90deg) scale(1);
+  }
+}
+
+.add-content-block {
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--q-surface-variant) !important;
+    border-color: var(--q-border-color-strong) !important;
+    transform: translateY(-2px);
+    box-shadow: var(--q-shadow-sm);
+  }
+
+  .chart-header,
+  .table-header {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.chart-header,
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .chart-logo,
+    .table-logo {
+      color: var(--q-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }
+
+    .header-label {
+      font-weight: var(--q-fw-medium);
+      color: var(--q-text-secondary);
+      line-height: normal;
+    }
+  }
+
+  .header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+.block-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--q-brand);
+  font-weight: var(--q-fw-medium);
+
+  ng-icon {
+    font-size: 18px;
+  }
+
+  span {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="visualization-downloads v-box">
+  <div class="row">
+    <div class="col-4 p-5 text-center">
+      <img [src]="graphics.downloadsMain" alt="Ilustración de descargas" height="140" />
+    </div>
+    <div class="col-8 align-content-center">
+      <div class="d-flex align-items-center">
+        <div class="flex-grow-1">
+          <h3>Reporte</h3>
+          <p>
+            Seleccioná diferentes elementos para generar un reporte a medida.
+          </p>
+        </div>
+        <button class="btn btn-primary px-5" (click)="onClickDownload()">
+          Descargar
+          <ng-icon [name]="icons.actions.download"></ng-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

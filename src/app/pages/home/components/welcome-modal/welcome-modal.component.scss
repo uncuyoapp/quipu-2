@@ -1,0 +1,154 @@
+.welcome-modal {
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 800px; // Aumentado para desktop
+  margin: 0 auto;
+  background-color: var(--q-surface);
+  border-radius: var(--q-radius-lg);
+  color: var(--q-text-primary);
+  position: relative;
+  overflow-y: auto;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    padding: 2.5rem;
+  }
+
+  // Fondo sutil con gradiente
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--q-primary), var(--q-blue-400));
+  }
+}
+
+.welcome-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+
+  .welcome-title {
+    font-size: 1.75rem;
+    font-weight: var(--q-fw-bold);
+    margin: 0;
+    line-height: 1.2;
+    color: var(--q-primary);
+    max-width: 85%;
+  }
+
+  .close-btn {
+    margin-top: -0.5rem;
+    margin-right: -1rem;
+  }
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.abstract-section {
+  .abstract-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--q-text-secondary);
+  }
+}
+
+.explore-section {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background-color: var(--q-gray-100);
+  border-radius: var(--q-radius-md);
+  border: 1px solid var(--q-border-color);
+
+  .section-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background-color: var(--q-white);
+    border-radius: var(--q-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--q-primary);
+    box-shadow: var(--q-shadow-sm);
+  }
+
+  .section-body {
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: var(--q-fw-semibold);
+      margin: 0 0 0.5rem 0;
+    }
+
+    .section-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+      color: var(--q-text-secondary);
+    }
+  }
+}
+
+.considerations-section {
+  background-color: var(--q-surface-variant);
+  padding: 1.5rem;
+  border-radius: var(--q-radius-md);
+  
+  .section-title {
+    font-size: 1rem;
+    font-weight: var(--q-fw-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    color: var(--q-text-muted);
+  }
+
+  .consideration-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--q-text-secondary);
+    }
+
+    ng-icon {
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.welcome-footer {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--q-border-color);
+  padding-top: 1.5rem;
+
+  .university-area-logo {
+    height: 40px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

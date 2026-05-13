@@ -1,0 +1,16 @@
+<footer class="footer">
+  <div class="container d-flex align-items-center py-3 justify-content-between">
+    <!-- Logo Secundario -->
+    <div class="footer__logo">
+      <img [src]="graphics.logoMain" alt="QUIPU" height="35">
+    </div>
+
+    <!-- Acciones y Metadatos -->
+    <div class="footer__actions d-flex align-items-center gap-4">
+      <div class="footer__meta px-2 d-flex align-items-center gap-1">
+        v{{ version }} | Desarrollado con <ng-icon [name]="icons.ui.heart" class="heart-icon"></ng-icon> por <a
+          href="https://uncuyo.edu.ar/politicaspublicas" target="_blank" rel="noopener">APP</a>
+      </div>
+    </div>
+  </div>
+</footer>

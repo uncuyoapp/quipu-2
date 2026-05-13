@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Secretaría de Presupuesto y Finanzas",
+    "shortName": "SPF",
+    "logo": "assets/img/ui/logos-ui-SPF.svg"
+  },
+  {
+    "id": 2,
+    "name": "Facultad de Ciencias de la Salud",
+    "shortName": "FCS",
+    "logo": "assets/img/ui/logos-ui-FCS.svg"
+  }
+]

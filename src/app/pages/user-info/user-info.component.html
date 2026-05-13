@@ -1,0 +1,17 @@
+<div class="user-info-page pb-5">
+  <div class="container">
+    <div class="row">
+      <!-- Columna Izquierda: Ilustración (Desktop) -->
+      <div class="col-12 col-md-6 d-none d-md-block text-center mb-5 mb-md-0">
+        <div class="illustration-container">
+          <img [src]="graphics.hero" alt="Perfil de usuario" class="img-fluid illustration" />
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Contenido Dinámico (Perfil / Edición) -->
+      <div class="col-12 col-md-6">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

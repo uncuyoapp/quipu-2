@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@ulq.edu.ar",
+      "name": "Administrador General",
+      "token": "mock-jwt-token-admin-ulq-123",
+      "informationUnits": [1, 2],
+      "selectedIU": null,
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "analista.spf",
+      "email": "analista@spf.ulq.edu.ar",
+      "name": "Roberto Presupuesto",
+      "token": "mock-jwt-token-spf-456",
+      "informationUnits": [1],
+      "selectedIU": null,
+      "role": "admin"
+    },
+    {
+      "id": 3,
+      "username": "analista.fcs",
+      "email": "analista@fcs.ulq.edu.ar",
+      "name": "Elena Salud",
+      "token": "mock-jwt-token-fcs-789",
+      "informationUnits": [2],
+      "selectedIU": null,
+      "role": "viewer"
+    }
+  ],
+  "credentials": [
+    { "username": "admin", "password": "admin123" },
+    { "username": "analista.spf", "password": "spf2024" },
+    { "username": "analista.fcs", "password": "fcs2024" }
+  ],
+  "recoveryTokens": [
+    "recovery-token-admin-ulq",
+    "recovery-token-analista-spf",
+    "recovery-token-analista-fcs"
+  ]
+}

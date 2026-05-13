@@ -1,0 +1,53 @@
+<div class="name-edit">
+  @if (status === 'form' || status === 'loading') {
+  <div class="name-edit__form">
+    <p class="name-edit__hint mb-4">
+      Ingresa tu nombre y apellido tal como deseas que aparezca en tu perfil.
+    </p>
+
+    <form [formGroup]="nameForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
+      <!-- Nombre y Apellido -->
+      <div class="form-group border-bottom pb-4">
+        <app-text-input label="Nombre y apellido" placeholder="Ej: Juan Pérez" type="text"
+          [initialValue]="nameForm.get('name')?.value" [validationState]="getValidationState('name')"
+          [errorMessage]="getError('name')" (valueChange)="onNameChange($event)"
+          (blurred)="onNameBlur()"></app-text-input>
+      </div>
+
+      <div class="mt-4 d-flex gap-3">
+        <app-button label="Cancelar" variant="secondary" palette="gray" (btnClick)="goBack()"></app-button>
+        <app-button label="Aplicar" variant="primary" [palette]="nameForm.valid ? 'blue' : 'gray'"
+          [loading]="status === 'loading'" [disabled]="nameForm.invalid" (btnClick)="onSubmit()"></app-button>
+      </div>
+    </form>
+  </div>
+  } @else if (status === 'error') {
+  <div class="name-edit__error text-center py-5">
+    <div class="error-icon-wrapper mb-4">
+      <ng-icon [name]="icons.status.error" size="64" class="q-text-danger"></ng-icon>
+    </div>
+    <h2 class="mb-3">¡Ocurrió un error!</h2>
+    <p class="q-text-muted mb-5">
+      {{ errorMessage }}
+    </p>
+    <div>
+      <app-button label="Volver a intentar" variant="secondary" palette="gray" [icon]="icons.actions.refresh"
+        iconPosition="left" (btnClick)="retry()"></app-button>
+    </div>
+  </div>
+  } @else if (status === 'success') {
+  <div class="name-edit__success text-center py-5">
+    <div class="success-icon-wrapper mb-4">
+      <ng-icon [name]="icons.status.success" size="64" class="q-text-success"></ng-icon>
+    </div>
+    <h2 class="mb-3">¡Nombre actualizado!</h2>
+    <p class="q-text-muted mb-5">
+      Tu nombre y apellido han sido modificados correctamente.
+    </p>
+    <div>
+      <app-button label="Volver" variant="secondary" palette="gray" [icon]="icons.nav.back" iconPosition="left"
+        (btnClick)="goBack()"></app-button>
+    </div>
+  </div>
+  }
+</div>

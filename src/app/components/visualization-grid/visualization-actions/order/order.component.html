@@ -1,0 +1,14 @@
+<div class="order-backdrop" [class.show]="animationState()" (click)="close()"></div>
+<div class="order-container" [class.open]="animationState()">
+  <div class="order-header">
+    <h5 class="mb-0">Orden</h5>
+    <app-button variant="icon-only" [icon]="icons.actions.close" palette="gray" size="small" (btnClick)="close()"
+      ariaLabel="Cerrar orden">
+    </app-button>
+  </div>
+
+  <div class="order-content">
+    <app-radio-button [options]="orderOptions" [value]="order()" (valueChange)="onOrderChange($event)">
+    </app-radio-button>
+  </div>
+</div>

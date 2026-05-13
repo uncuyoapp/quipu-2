@@ -1,0 +1,34 @@
+/// Mixins de superficies reutilizables (cards, paneles, bordes, sombras).
+
+@mixin q-card {
+  border-radius: var(--q-radius-md);
+  box-shadow: var(--q-shadow-md);
+  background: var(--q-surface);
+}
+
+@mixin q-card-hover {
+  box-shadow: var(--q-shadow-lg);
+}
+
+@mixin q-panel {
+  border: 1px solid var(--q-border-color);
+  border-radius: var(--q-radius-md);
+}
+
+@mixin q-separator {
+  border-bottom: 1px solid var(--q-border-color);
+}
+
+@mixin q-elevated {
+  box-shadow: var(--q-shadow-lg);
+}
+
+@mixin q-focus-ring {
+  box-shadow: var(--q-shadow-focus);
+  outline: none;
+}
+
+@mixin q-input-border {
+  border: 1px solid var(--q-border-color-input);
+  border-radius: var(--q-radius-md);
+}

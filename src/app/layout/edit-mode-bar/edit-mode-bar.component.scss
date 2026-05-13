@@ -1,0 +1,66 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+/**
+ * Estilos para la barra fija de modo edición.
+ */
+.edit-mode-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--q-z-edit-bar); // Nivel estándar para barras fijas, por debajo de modales
+  background-color: var(--q-surface-variant); // Color gris claro de la captura
+  border-top: 1px solid var(--q-border-color);
+  min-height: 40px;
+  height: 40px;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--q-shadow-sm);
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1.5rem;
+  }
+
+  &__left, &__right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-down(sm) {
+      flex: 0 0 auto; // En mobile, solo el espacio necesario para el icono
+    }
+  }
+
+  &__center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include media-breakpoint-down(sm) {
+      flex: 1; // Toma todo el espacio sobrante
+    }
+  }
+
+  &__right {
+    justify-content: flex-end;
+  }
+
+  /**
+   * Estado Activo (Modo Edición Activado)
+   */
+  &--active {
+    background-color: var(--q-gray-800); // Color oscuro de la captura
+    border-top-color: var(--q-gray-900);
+    box-shadow: var(--q-shadow-md);
+  }
+}

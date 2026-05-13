@@ -1,0 +1,58 @@
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem 0 0.5rem 0;
+  width: 100%;
+
+  ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      border-bottom: 1px solid var(--q-border-color);
+      padding: 0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      app-button {
+        display: block;
+        width: 100%;
+
+        // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+        ::ng-deep .btn {
+          width: 100%;
+          justify-content: flex-start !important;
+          padding: 1.5rem !important;
+          border-radius: 0;
+          font-weight: var(--q-fw-regular);
+          height: auto;
+        }
+      }
+    }
+  }
+
+  .information-unit {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .unit-logo {
+      width: 50%;
+    }
+  }
+}
+
+.close-menu {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+}

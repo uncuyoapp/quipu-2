@@ -1,0 +1,149 @@
+.edit-visualizations-modal {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+
+
+  .modal-main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--q-border-color);
+    flex-shrink: 0;
+    background: var(--q-surface);
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: var(--q-fw-semibold);
+        color: var(--q-text-primary);
+        letter-spacing: -0.01em;
+      }
+    }
+  }
+
+  .modal-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--q-surface);
+
+    .thematic-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+
+      .breadcrumb-separator {
+        color: var(--q-text-muted);
+        font-size: 1rem;
+        opacity: 0.5;
+      }
+    }
+
+    .grid-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+
+      /* Ajustes para la grilla dentro del modal */
+      // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+      ::ng-deep {
+
+        app-visualization-grid,
+        .visualization-grid {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+
+        .grid-content-wrapper {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          padding-top: 1rem !important;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          background-color: var(--q-surface-variant);
+        }
+
+        .actions-wrapper {
+          position: sticky;
+          top: 0;
+          z-index: 20;
+        }
+      }
+    }
+  }
+
+  /* Footer Fijo */
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--q-border-color);
+    flex-shrink: 0;
+    z-index: 20;
+    background: var(--q-surface);
+
+    .selection-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: var(--q-fs-sm);
+
+      .count {
+        background-color: var(--q-primary-bg);
+        color: var(--q-primary);
+        padding: 0.25rem 0.6rem;
+        border-radius: var(--q-radius-pill);
+        font-weight: var(--q-fw-semibold);
+      }
+
+      .text {
+        color: var(--q-text-primary);
+
+        &.no-selection {
+          color: var(--q-text-muted);
+          font-style: italic;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}
+
+// TODO: eliminar ::ng-deep cuando Angular provea alternativa
+::ng-deep .mat-mdc-dialog-content {
+  padding: 0 !important;
+  margin: 0 !important;
+}

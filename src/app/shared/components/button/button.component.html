@@ -1,0 +1,35 @@
+<button [type]="htmlType()" [disabled]="isDisabled()" [class]="buttonClasses()" [style]="buttonStyles()"
+  [attr.aria-label]="effectiveAriaLabel()" [attr.aria-busy]="loading()" (click)="handleClick($event)">
+
+  <!-- Ripple effect -->
+  @if (shouldShowRipple() && rippleState().active) {
+  <span class="btn__ripple" [style.left.px]="rippleState().x" [style.top.px]="rippleState().y"></span>
+  }
+
+  <!-- Icon variant buttons (icon-only, icon-circle) -->
+  @if (isIconVariant()) {
+  @if (loading()) {
+  <ng-icon [name]="icons.actions.refresh" [size]="iconSize()" class="btn__icon btn__icon--loading" />
+  } @else if (icon()) {
+  <ng-icon [name]="icon()!" [size]="iconSize()" class="btn__icon" />
+  }
+  } @else {
+  <!-- Button with text and optional icon -->
+
+  <!-- Loading spinner or icon on the left -->
+  @if (showLoadingLeft()) {
+  <ng-icon [name]="icons.actions.refresh" [size]="iconSize()" class="btn__icon btn__icon--left btn__icon--loading" />
+  } @else if (showIconLeft()) {
+  <ng-icon [name]="icon()!" [size]="iconSize()" class="btn__icon btn__icon--left" />
+  }
+
+  <span class="btn__text">{{ label() }}</span>
+
+  <!-- Loading spinner or icon on the right -->
+  @if (showLoadingRight()) {
+  <ng-icon [name]="icons.actions.refresh" [size]="iconSize()" class="btn__icon btn__icon--right btn__icon--loading" />
+  } @else if (showIconRight()) {
+  <ng-icon [name]="icon()!" [size]="iconSize()" class="btn__icon btn__icon--right" />
+  }
+  }
+</button>

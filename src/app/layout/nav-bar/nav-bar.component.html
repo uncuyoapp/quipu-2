@@ -1,0 +1,42 @@
+<div style="height: 70px" [hidden]="!isFixed()"></div>
+<div class="container-fluid align-content-center nav-bar" [class]="{
+    'is-home': isHome(),
+    'fixed': isFixed(),
+    'hidden': !isVisible(),
+    'mobile-hidden': isMobile() && !isHome()
+  }">
+  <div class="nav-bar__container d-flex align-items-center justify-content-between">
+    <!-- Logo con enlace a Inicio -->
+    <div class="logo" title="Inicio" [routerLink]="['/']">
+      <img [src]="
+          isHome() && !isMobile() && !isFixed()
+            ? graphics.logoWhite
+            : graphics.logoMain
+        " [hidden]="isMobile() && !isHome()" alt="QUIPU" height="40" />
+    </div>
+
+    <!-- Acciones y Menú -->
+    <div class="actions d-flex align-items-center">
+      @if (!isMobile()) {
+      <!-- Acciones de Navegación Rápida -->
+      <app-button class="actions__btn" variant="text" [palette]="isHome() && !isFixed() ? 'white-navbar' : 'gray'"
+        label="Inicio" [routerLink]="['/']"></app-button>
+      <app-button class="actions__btn" variant="text" [palette]="isHome() && !isFixed() ? 'white-navbar' : 'gray'"
+        label="Explorar" [routerLink]="['/visualizations']"></app-button>
+
+      <!-- Selector de Unidad de Información -->
+      <app-button class="actions__btn" variant="text" [palette]="isHome() && !isFixed() ? 'white-navbar' : 'gray'"
+        [ripple]="false" (btnClick)="openInformationUnitSelector()" iconPosition="right" [label]="selectedUnitName()"
+        [icon]="
+            isOpenInformationUnitSelector() ? icons.nav.chevronUp : icons.nav.chevronDown
+          "></app-button>
+      }
+
+      <!-- Botón de Menú (Más) -->
+      <app-button #menuButton [palette]="
+          isHome() && !isFixed() && !isMobile() ? 'white-navbar' : 'gray'
+        " class="actions__menu" [label]="isMobile() ? '' : 'Más'" iconPosition="right" [icon]="icons.nav.menu"
+        (btnClick)="openMenu()" [variant]="isMobile() ? 'icon-only' : 'text'"></app-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<router-outlet></router-outlet>
+
+@if (isGamificationEnabled()) {
+  @defer (on timer(1s)) {
+    <app-easter-egg-overlay></app-easter-egg-overlay>
+  }
+}

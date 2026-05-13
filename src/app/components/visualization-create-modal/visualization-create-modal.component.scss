@@ -1,0 +1,126 @@
+:host {
+  display: block;
+  background: var(--q-surface);
+}
+
+.visualization-create-modal {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  .modal-main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    background: var(--q-surface-variant); // Color de fondo para el cuerpo
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--q-gray-300);
+      border-radius: 4px;
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--q-border-color);
+    flex-shrink: 0;
+    background: var(--q-surface);
+
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: var(--q-fw-semibold);
+      color: var(--q-text-primary);
+      letter-spacing: -0.01em;
+    }
+  }
+
+  /* Stepper indicator */
+  .stepper-indicator-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+
+    .step-connector {
+      width: 12px;
+      height: 1px;
+      background: var(--q-text-muted);
+      opacity: 0.4;
+    }
+  }
+
+  .modal-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--q-surface-variant);
+  }
+
+  .stepper-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Footer Fijo */
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--q-border-color);
+    background: var(--q-surface);
+    flex-shrink: 0;
+    z-index: 20;
+
+    .footer-center {
+      .validation-message {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: var(--q-fw-medium);
+
+        &.error {
+          color: var(--q-pink-600);
+        }
+
+        &.info {
+          color: var(--q-text-muted);
+        }
+      }
+    }
+
+    .footer-right {
+      .save-actions {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+  }
+}
+
+// TODO: eliminar ::ng-deep cuando Angular provea alternativa
+::ng-deep .mat-mdc-dialog-content {
+  padding: 0 !important;
+  margin: 0 !important;
+}

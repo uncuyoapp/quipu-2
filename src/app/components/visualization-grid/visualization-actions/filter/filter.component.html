@@ -1,0 +1,64 @@
+<div class="filter-backdrop" [class.show]="animationState()" (click)="close()"></div>
+<div class="filter-container" [class.open]="animationState()">
+  <div class="filter-header">
+    <h5 class="mb-0">Filtros</h5>
+    <app-button variant="icon-only" [icon]="icons.actions.close" palette="gray" size="small" (btnClick)="close()"
+      ariaLabel="Cerrar filtros">
+    </app-button>
+  </div>
+
+  <div class="filter-content">
+    <!-- Dimensiones -->
+    <div class="filter-section">
+      <label class="filter-label">Dimensiones</label>
+      <app-text-input #dimensionInput [placeholder]="'Ingrese al menos 3 caracteres'" [rightIcon]="icons.actions.search"
+        [suggestions]="dimensions()" [minCharsForSuggestions]="3" (optionSelected)="toggleDimension($event)">
+      </app-text-input>
+
+      @if (selectedDimensions().length > 0) {
+      <div class="selected-tags">
+        @for (dimension of selectedDimensions(); track dimension) {
+        <app-tag [label]="dimension" variant="pill" palette="blue" appearance="filled" [icon]="icons.actions.close"
+          iconPosition="right" (tagClick)="toggleDimension(dimension)">
+        </app-tag>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- Unidad de medida -->
+    <div class="filter-section">
+      <label class="filter-label">Unidad de medida</label>
+      <app-text-input #measureInput [placeholder]="'Ingrese al menos 3 caracteres'" [rightIcon]="icons.actions.search"
+        [suggestions]="measures()" [minCharsForSuggestions]="3" (optionSelected)="selectMeasure($event)">
+      </app-text-input>
+
+      @if (selectedMeasure()) {
+      <div class="selected-tags">
+        <app-tag [label]="selectedMeasure()" variant="pill" palette="blue" appearance="filled"
+          [icon]="icons.actions.close" iconPosition="right" (tagClick)="selectMeasure('')">
+        </app-tag>
+      </div>
+      }
+    </div>
+
+    <!-- Periodicidad -->
+    <div class="filter-section">
+      <label class="filter-label">Periodicidad</label>
+      <div class="periodicity-grid">
+        @for (periodicity of periodicities; track periodicity) {
+        <app-checkbox [label]="periodicity" [checked]="selectedPeriodicities().includes(periodicity)"
+          (valueChange)="togglePeriodicity(periodicity)">
+        </app-checkbox>
+        }
+      </div>
+    </div>
+
+    <!-- Footer with clear button -->
+    <div class="filter-footer">
+      <app-button variant="text" palette="gray" [icon]="icons.actions.delete" label="Limpiar todo"
+        [disabled]="!hasActiveFilters" (btnClick)="clearFilters()">
+      </app-button>
+    </div>
+  </div>
+</div>

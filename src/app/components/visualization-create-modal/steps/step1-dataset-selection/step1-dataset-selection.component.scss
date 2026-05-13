@@ -1,0 +1,378 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.step-dataset-selection {
+  padding: 1rem 1.5rem;
+
+  .table-container {
+    border: 1px solid var(--q-border-color);
+    border-radius: var(--q-radius-md);
+    background: var(--q-surface);
+    box-shadow: var(--q-shadow-sm);
+  }
+
+  .dataset-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--q-surface-variant);
+    }
+
+    th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: var(--q-fw-semibold);
+      color: var(--q-text-secondary);
+      border-bottom: 1px solid var(--q-border-color);
+      white-space: nowrap;
+    }
+
+    .filter-row {
+      background: var(--q-surface);
+
+      td {
+        padding: 0.4rem 0.6rem;
+        border-bottom: 2px solid var(--q-surface-variant);
+
+        input,
+        .filter-select {
+          width: 100%;
+          padding: 0.35rem 0.5rem;
+          border: 1px solid var(--q-border-color-input);
+          border-radius: var(--q-radius-sm);
+          font-size: var(--q-fs-xs);
+          transition: all 0.2s;
+          background: var(--q-surface);
+          color: var(--q-text-secondary);
+
+          &:focus {
+            outline: none;
+            border-color: var(--q-primary);
+            box-shadow: var(--q-shadow-focus);
+          }
+
+          &::placeholder {
+            color: var(--q-text-muted);
+            font-style: italic;
+            font-size: 0.7rem;
+          }
+        }
+
+        .filter-select {
+          cursor: pointer;
+        }
+      }
+    }
+
+    // Multi-select custom dropdown
+    .multi-select-container {
+      position: relative;
+      width: 100%;
+
+      .multi-select-trigger {
+        width: 100%;
+        padding: 0.35rem 0.5rem;
+        border: 1px solid var(--q-border-color-input);
+        border-radius: var(--q-radius-sm);
+        font-size: var(--q-fs-xs);
+        background: var(--q-surface);
+        color: var(--q-text-secondary);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.2s;
+
+        &:hover {
+          border-color: var(--q-gray-400);
+          background: var(--q-surface-variant);
+        }
+
+        &.active {
+          border-color: var(--q-primary);
+          color: var(--q-primary);
+          font-weight: var(--q-fw-medium);
+          background: var(--q-primary-bg);
+        }
+
+        ng-icon {
+          font-size: 0.7rem;
+          color: var(--q-text-muted);
+        }
+      }
+
+      .multi-select-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 280px;
+        background: var(--q-surface);
+        border: 1px solid var(--q-border-color-strong);
+        border-radius: 8px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        z-index: 100;
+        margin-top: 0.5rem;
+        padding: 0.75rem;
+
+        .dropdown-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.75rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid var(--q-border-color);
+          font-size: var(--q-fs-xs);
+          font-weight: var(--q-fw-semibold);
+          color: var(--q-text-secondary);
+
+          .btn-clear {
+            background: none;
+            border: none;
+            color: var(--q-danger);
+            font-size: 0.7rem;
+            font-weight: var(--q-fw-medium);
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--q-radius-sm);
+
+            &:hover {
+              background: var(--q-danger-bg);
+            }
+          }
+        }
+
+        .dropdown-list {
+          max-height: 220px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          padding-right: 4px;
+
+          &::-webkit-scrollbar {
+            width: 4px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: var(--q-gray-300);
+            border-radius: var(--q-radius-sm);
+          }
+        }
+
+        .dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          padding: 0.4rem 0.6rem;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background 0.15s;
+
+          &:hover {
+            background: var(--q-surface-variant);
+          }
+
+          input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            border: 1px solid var(--q-border-color-input);
+            border-radius: 3px;
+          }
+
+          .item-text {
+            font-size: var(--q-fs-xs);
+            color: var(--q-text-primary);
+            user-select: none;
+          }
+        }
+      }
+    }
+
+    // Temporal single year filter
+    .temporal-filter-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .year-input {
+        width: 100%;
+        min-width: 0;
+        padding: 0.35rem 0.5rem;
+        border: 1px solid var(--q-border-color-input);
+        border-radius: var(--q-radius-sm);
+        font-size: var(--q-fs-xs);
+        text-align: center;
+        background: var(--q-surface);
+
+        &:focus {
+          outline: none;
+          border-color: var(--q-primary);
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+    }
+
+    .dataset-row {
+      cursor: pointer;
+      transition: background-color 0.15s;
+
+      &:hover {
+        background-color: var(--q-surface-hover);
+
+        .dataset-name {
+          color: var(--q-primary);
+        }
+      }
+
+      &.selected {
+        background-color: var(--q-primary-bg);
+        box-shadow: inset 4px 0 0 var(--q-primary);
+
+        .dataset-name {
+          color: var(--q-primary);
+        }
+
+        .id-cell {
+          color: var(--q-primary);
+        }
+      }
+
+      td {
+        padding: 0.65rem 1rem;
+        border-bottom: 1px solid var(--q-border-color-variant);
+        vertical-align: middle;
+      }
+    }
+
+    .id-cell {
+      font-family: var(--q-font-family-mono);
+      color: var(--q-text-secondary);
+      font-weight: var(--q-fw-medium);
+      font-size: var(--q-fs-xs);
+    }
+
+    .name-cell {
+      .dataset-name {
+        font-weight: var(--q-fw-semibold);
+        color: var(--q-text-primary);
+        margin-bottom: 0.1rem;
+        transition: color 0.15s;
+      }
+
+      .dataset-desc {
+        font-size: var(--q-fs-xs);
+        color: var(--q-text-secondary);
+        max-width: 320px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .center-cell {
+      text-align: center;
+    }
+
+    .dimensions-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .empty-cell {
+      text-align: center;
+      padding: 3rem;
+      color: var(--q-text-muted);
+      background: var(--q-surface);
+    }
+
+    // Estilos de texto para estados
+    .text-percentage,
+    .text-yes {
+      font-weight: var(--q-fw-semibold);
+    }
+  }
+
+  .table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    flex-shrink: 0;
+    border-top: 1px solid var(--q-border-color);
+    background: var(--q-surface);
+    border-bottom-left-radius: var(--q-radius-md);
+    border-bottom-right-radius: var(--q-radius-md);
+
+    .dataset-counter {
+      font-size: 0.8rem;
+      color: var(--q-text-secondary);
+
+      strong {
+        color: var(--q-text-primary);
+      }
+
+      .filter-info {
+        margin-left: 0.4rem;
+        font-size: var(--q-fs-xs);
+        color: var(--q-text-muted);
+      }
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .page-numbers {
+        display: flex;
+        gap: 0.25rem;
+      }
+    }
+  }
+
+  // Column widths
+  .col-codigo {
+    width: 80px;
+  }
+
+  .col-nombre {
+    min-width: 250px;
+  }
+
+  .col-porcentual {
+    width: 50px;
+    text-align: center;
+  }
+
+  .col-unidad {
+    width: 120px;
+  }
+
+  .col-dimensiones {
+    min-width: 200px;
+  }
+
+  .col-periodicidad {
+    width: 120px;
+  }
+
+  .col-temporal {
+    width: 80px;
+    text-align: center;
+  }
+}

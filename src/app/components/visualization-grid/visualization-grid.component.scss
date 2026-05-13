@@ -1,0 +1,56 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.visualization-grid {
+  width: 100%;
+
+  .actions-wrapper {
+    background-color: var(--q-surface);
+  }
+
+  .grid-content-wrapper {
+    background-color: var(--q-surface-variant);
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    min-height: 400px;
+
+    .divider {
+      width: 1px;
+      height: 1.25rem;
+      background-color: var(--q-border-color-strong);
+    }
+
+    .selection-count {
+      font-size: var(--q-fs-sm);
+    }
+
+    .visualization-count {
+      color: var(--q-text-secondary);
+      font-weight: var(--q-fw-medium);
+      font-size: var(--q-fs-sm);
+    }
+
+    .toolbar-container {
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      @include media-breakpoint-down(md) {
+        flex-direction: column;
+        align-items: flex-start !important;
+      }
+    }
+
+    .selection-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+
+      @include media-breakpoint-down(md) {
+        width: 100%;
+      }
+    }
+  }
+}

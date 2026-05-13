@@ -1,0 +1,270 @@
+@import 'functions';
+@import 'variables';
+@import 'mixins';
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  width: 100%;
+  background-color: var(--q-surface);
+  overflow-y: auto;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    height: 100vh;
+    background-color: var(--q-primary);
+    background-image: var(--login-bg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+.login-illustration {
+  flex: 0 0 28dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--q-primary);
+  padding: 1.5rem;
+
+  .illustration-container {
+    width: 100%;
+    max-width: 250px;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: auto;
+      max-height: 22dvh;
+      object-fit: contain;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    flex: 2;
+
+    @include media-breakpoint-up(lg) {
+      flex: 1;
+    }
+
+    height: 100vh;
+    background-color: transparent; // Deja ver el fondo de .login-page
+    padding: 4rem;
+
+    .illustration-container {
+      max-width: 500px;
+
+      img {
+        max-height: 55vh;
+      }
+    }
+
+    // Ajuste para mobile landscape o pantallas poco altas
+    @media (max-height: 500px) {
+      padding: 2rem;
+
+      .illustration-container img {
+        max-height: 40vh;
+      }
+    }
+  }
+}
+
+.login-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--q-surface);
+  padding: 0;
+
+  @include media-breakpoint-up(md) {
+    flex: 3;
+    justify-content: center;
+
+    @include media-breakpoint-up(lg) {
+      flex: 1;
+    }
+
+    background-color: transparent;
+    padding: 2rem;
+    overflow-y: auto;
+
+    @media (max-height: 600px) {
+      justify-content: flex-start;
+      padding-top: 1rem;
+    }
+  }
+}
+
+.login-box-content {
+  width: 100%;
+  max-width: 450px;
+  //max-height: 70vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--q-surface);
+  padding: 2.5rem 2rem;
+
+  @include media-breakpoint-up(md) {
+    flex: none;
+    padding: 3rem;
+    border-radius: var(--q-radius-xl);
+    box-shadow: var(--q-shadow-lg);
+
+    @media (max-height: 500px) {
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+  }
+
+  .logos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    width: 100%;
+
+    .university-logo,
+    .quipu-logo {
+      height: 55px;
+      flex: 1;
+      min-width: 0;
+      object-fit: contain;
+    }
+
+    .university-logo {
+      margin-left: 1rem;
+      object-position: right;
+    }
+
+    .quipu-logo {
+      object-position: left;
+      padding-bottom: 6px;
+
+      @include media-breakpoint-up(md) {
+        padding-bottom: 12px;
+      }
+    }
+
+    .separator {
+      width: 1px;
+      height: 45px;
+      background-color: var(--q-gray-500);
+      flex-shrink: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      .university-logo,
+      .quipu-logo {
+        height: 45px;
+      }
+
+      .separator {
+        height: 35px;
+      }
+
+      .university-logo {
+        margin-left: 2rem;
+      }
+    }
+  }
+
+  .mock-data-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: var(--q-info-bg);
+    border: 1px solid var(--q-primary-light);
+    border-radius: var(--q-radius-md);
+    animation: fadeIn 0.5s ease-out;
+
+    .disclaimer-icon {
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .disclaimer-text {
+      margin: 0;
+      font-size: var(--q-fs-xs);
+      line-height: 1.5;
+      color: var(--q-text-muted);
+      font-weight: var(--q-fw-medium);
+    }
+  }
+
+  .information-unit-selector {
+    overflow: auto;
+    flex: 1;
+  }
+}
+
+.footer-text {
+  margin-top: auto;
+  padding-top: 2.5rem;
+  font-size: var(--q-fs-xs);
+
+  a {
+    color: var(--q-primary);
+    text-decoration: none;
+    font-weight: var(--q-fw-medium);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: var(--q-fs-sm);
+  }
+}
+
+.status-icon-container {
+  display: flex;
+  justify-content: center;
+
+  // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+  ::ng-deep .btn--icon-circle {
+    cursor: default !important;
+    pointer-events: none;
+
+    .btn__icon {
+      font-size: 4rem !important;
+    }
+  }
+}
+
+.status-link {
+  color: var(--q-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: var(--q-fw-medium);
+
+  &:hover {
+    color: var(--q-primary-dark);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

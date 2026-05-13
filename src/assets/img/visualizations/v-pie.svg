@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="30.356117mm"
+   height="30.356575mm"
+   viewBox="0 0 30.356118 30.356575"
+   version="1.1"
+   id="svg11007"
+   sodipodi:docname="v-pie.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview11009"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.69664703"
+     inkscape:cx="-336.61236"
+     inkscape:cy="-48.08748"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs11004">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath9252">
+      <path
+         d="m 63.488,3785.662 h 353.001 v 153.441 H 63.488 Z"
+         id="path9250" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-169.28666,-139.30453)">
+    <g
+       id="g9352"
+       transform="matrix(0.35277777,0,0,-0.35277777,184.92877,153.42945)">
+      <path
+         d="m 0,0 13.379,35.589 c 0.346,0.919 -0.151,1.931 -1.082,2.242 C 3.32,40.828 -6.961,40.969 -17.508,37.046 -28.972,32.782 -37.94,23.481 -41.844,11.89 c -10.118,-30.04 11.952,-57.901 40.529,-57.901 23.762,0 43.024,19.263 43.024,43.025 0,2.647 -0.247,5.236 -0.707,7.75 -0.178,0.969 -1.117,1.603 -2.077,1.384 L 1.988,-2.277 C 0.655,-2.581 -0.481,-1.28 0,0"
+         style="fill:#2979ff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path9354" />
+    </g>
+  </g>
+</svg>

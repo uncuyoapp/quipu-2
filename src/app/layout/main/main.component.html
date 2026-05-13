@@ -1,0 +1,27 @@
+<!-- Layout principal con Sticky Footer -->
+<div class="main-layout d-flex flex-column" [class.has-edit-bar]="editModeService.canEdit() && editModeService.isBarVisible()">
+  <!-- Barra de Navegación -->
+  <app-nav-bar></app-nav-bar>
+
+  <!-- Contenido Central Dinámico -->
+  <main class="main-layout__content flex-shrink-0 flex-grow-1 d-flex flex-column">
+    <!-- Migas de pan (Breadcrumb) -->
+    <app-breadcrumb></app-breadcrumb>
+
+    <!-- Salida de Rutas -->
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Pie de Página -->
+  <app-footer></app-footer>
+
+  <!-- Barra de Modo Edición -->
+  @if (editModeService.canEdit() && editModeService.isBarVisible() && !editModeService.isTemporarilyHidden()) {
+  <app-edit-mode-bar />
+  }
+
+  <!-- Overlay de Carga Global -->
+  @if (loadingService.loadingState().isLoading) {
+  <app-loading-spinner [text]="loadingService.loadingState().text || ''" />
+  }
+</div>

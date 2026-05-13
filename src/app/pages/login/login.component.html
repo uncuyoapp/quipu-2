@@ -1,0 +1,95 @@
+<ng-template #goBack>
+  <p class="d-flex align-items-center">
+    <app-button (btnClick)="showComponent(loginForm)" [icon]="icons.nav.back" size="small" variant="icon-only"
+      class="me-2"></app-button>
+    Reestablecer contraseña
+  </p>
+</ng-template>
+
+<ng-template #loginForm>
+  <app-login-form (submitForm)="login($event)" (recoveryClick)="showComponent(passwordRecovery)"></app-login-form>
+</ng-template>
+
+<ng-template #passwordRecovery>
+  <app-password-recovery (recovery)="recoveryPass($event)" (goBack)="showComponent(loginForm)"></app-password-recovery>
+</ng-template>
+
+<ng-template #passwordChange>
+  <app-password-change [token]="recoverToken()" (submitForm)="changePassword($event)"
+    (goBack)="showComponent(loginForm)"></app-password-change>
+</ng-template>
+
+<ng-template #informationUnitSelector>
+  <app-information-unit-selector class="information-unit-selector"
+    (informationUnitSelect)="selectInformationUnit($event)"></app-information-unit-selector>
+</ng-template>
+
+<!-- Template 'message' is now handled inside password-recovery component -->
+
+<ng-template #statusMessage>
+  <div class="my-auto text-center">
+    @if (statusIcon()) {
+    <div class="status-icon-container mb-3">
+      <app-button variant="icon-circle" [palette]="statusPalette()" [icon]="statusIcon()" size="large"
+        [disabled]="true"></app-button>
+    </div>
+    }
+
+    @if (statusTitle()) {
+    <h3 class="status-title mb-3">{{ statusTitle() }}</h3>
+    }
+
+    <p class="status-text mb-5" [ngClass]="messageCssClass()" [innerHTML]="messageText()"
+      (click)="handleStatusClick($event)"></p>
+
+    @if (showLoginButton()) {
+    <div class="d-flex justify-content-center">
+      <app-button variant="secondary" palette="gray" [label]="statusBtnLabel()" [icon]="icons.nav.back"
+        (btnClick)="showComponent(loginForm)"></app-button>
+    </div>
+    }
+  </div>
+</ng-template>
+
+<div class="login-page" [style.--login-bg]="'url(' + graphics.background + ')'">
+  <div class="login-illustration">
+    <div class="illustration-container">
+      <img [src]="graphics.hero" alt="Quipu login" />
+    </div>
+  </div>
+
+  <div class="login-box">
+    <div class="login-box-content p-4">
+      <div class="logos">
+        <img class="img-fluid university-logo" [src]="graphics.logoUniversity"
+          alt="Universidad" />
+        <div class="separator"></div>
+        <img class="img-fluid quipu-logo" [src]="graphics.logoMain" alt="Quipu" />
+      </div>
+      @if (isMockData) {
+      <div class="mock-data-disclaimer mb-4">
+        <ng-icon class="disclaimer-icon q-text-primary" [name]="icons.status.info" size="20"></ng-icon>
+        <p class="disclaimer-text">
+          Estás ingresando a una versión de prueba. Ningún dato presentado en la demo corresponde a información real de
+          la <strong>Universidad Nacional de Cuyo</strong> ni de ninguna otra institución.
+          Para ingresar puede hacerlo con las siguientes <a [href]="repoUrl + '#credenciales-de-prueba'" target="_blank">credenciales</a>.
+        </p>
+      </div>
+      }
+
+      <ng-container [ngTemplateOutlet]="renderContent()"></ng-container>
+
+      <p class="text-center q-text-muted footer-text">
+        Desarrollado por
+        <a href="https://uncuyo.edu.ar/politicaspublicas" target="_blank">
+          APP UNCuyo
+        </a>
+        | v{{ appVersion }}
+      </p>
+    </div>
+  </div>
+
+  @if (loadingService.loadingState().isLoading) {
+  <app-loading-spinner [text]="loadingService.loadingState().text || ''" />
+  }
+</div>

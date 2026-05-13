@@ -1,0 +1,5 @@
+<div class="search-section flex-grow-1">
+  <app-text-input [placeholder]="'Buscar visualizaciones...'" [backgroundColor]="backgroundColor()"
+    [showBorder]="showBorder()" [suggestions]="suggestions()" (valueChange)="onSearch($event)" (focused)="onFocus()"
+    (blurred)="onBlur()" />
+</div>

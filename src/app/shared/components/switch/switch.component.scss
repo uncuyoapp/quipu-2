@@ -1,0 +1,102 @@
+:host {
+  display: inline-block;
+}
+
+.switch-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--q-font-family);
+  vertical-align: middle;
+
+  &--disabled {
+    cursor: default;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.switch-label {
+  font-size: var(--q-fs-sm);
+  color: var(--q-text-primary);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--q-gray-300);
+  /* Gray 300 equivalent */
+  transition: .4s;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    /* (22 - 16) / 2 = 3px, adding 1 px for visual center roughly */
+    bottom: 3px;
+    background-color: var(--q-white);
+    transition: .4s;
+    box-shadow: var(--q-shadow-sm);
+  }
+}
+
+.slider.round {
+  border-radius: var(--q-radius-pill);
+
+  &:before {
+    border-radius: 50%;
+  }
+}
+
+/* Checked State */
+input:checked+.slider {
+  background-color: var(--q-primary);
+  /* Blue 600 */
+}
+
+input:checked+.slider:before {
+  transform: translateX(16px);
+}
+
+/* Focus State */
+input:focus-visible+.slider {
+  box-shadow: var(--q-shadow-focus);
+}
+
+/* Disabled State handled by parent class, but specific overrides if needed */
+:host-context(.disabled) .slider {
+  background-color: var(--q-gray-400);
+}
+
+.switch-state-text {
+  font-size: var(--q-fs-xs);
+  font-weight: var(--q-fw-medium);
+  color: var(--q-text-disabled);
+  min-width: 28px;
+  text-align: center;
+
+  &.on {
+    color: var(--q-primary);
+  }
+}

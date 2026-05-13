@@ -1,0 +1,20 @@
+<label class="checkbox-container" [class.checkbox-container--disabled]="disabled()"
+  [class]="'checkbox-container--' + size()" [style.--checkbox-checked-color]="formattedColor()">
+  <input type="checkbox" [formControl]="formControl()" [checked]="currentValue()" [indeterminate]="indeterminate()"
+    (change)="onInputChange($event)" />
+  <span class="checkmark">
+    @if (indeterminate()) {
+    <svg class="icon icon-indeterminate" viewBox="0 0 24 24">
+      <path d="M5 11h14v2H5z" fill="currentColor" />
+    </svg>
+    } @else {
+    <svg class="icon icon-check" viewBox="0 0 24 24">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor" />
+    </svg>
+    }
+  </span>
+
+  @if (label()) {
+  <span class="label-text">{{ label() }}</span>
+  }
+</label>

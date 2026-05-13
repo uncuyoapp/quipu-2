@@ -1,0 +1,66 @@
+<div class="visualization-card" [class.visualization-card--selectable]="editService?.isSelectable()"
+  (click)="openVisualization()">
+  @if (editService?.isSelectable() || (editModeService.isEditModeEnabled() && !visualization().published)) {
+  <div class="card-status-bar">
+    @if (editService?.isSelectable()) {
+    <div class="selection-overlay" (click)="toggleSelection($event)">
+      <app-checkbox [checked]="editService!.isSelected(visualization().id!)"
+        (valueChange)="toggleSelection()"></app-checkbox>
+    </div>
+    }
+
+    @if (editModeService.isEditModeEnabled() && !visualization().published) {
+    <div class="published-status">
+      <app-tag label="Borrador" palette="orange" variant="pill" size="medium" />
+    </div>
+    }
+  </div>
+  }
+  <div class="card-header d-none d-md-block" [style.background-image]="'url(' + graphics.background + ')'">
+    <div class="header-content">
+      <img [src]="visualizationImage()" class="illustration" [alt]="visualization().title" />
+    </div>
+  </div>
+  <div class="card-body">
+    <img [src]="visualizationImage()" class="illustration-mobile d-md-none" [alt]="visualization().title" />
+    <div class="measure">{{ visualization().measureUnit }}</div>
+    <h5 class="title">{{ visualization().title }}</h5>
+    @if (visualization().summary) {
+    <div class="summary">
+      <p>{{ visualization().summary }}</p>
+    </div>
+    }
+    <div class="dimensions">
+      @for (dimension of visualization().dimensions; track dimension) {
+      <span class="dimension">{{ dimension }}</span>
+      }
+    </div>
+    <div class="metadata">
+      <div class="period">
+        <ng-icon [name]="icons.ui.time"></ng-icon>
+        <span>{{ visualization().periodicity }}</span>
+      </div>
+      <div class="date-range">
+        <ng-icon [name]="icons.ui.calendar"></ng-icon>
+        <span>{{ visualization().timeRange }}</span>
+      </div>
+      <div class="information-unit">
+        <ng-icon [name]="icons.viz.business"></ng-icon>
+        <span>{{ visualization().informationUnitName }}</span>
+      </div>
+    </div>
+
+    @if (thematicBreadcrumbs().length > 0) {
+    <div class="thematic-associations mt-3 pt-3 border-top">
+      <p class="section-label">Temáticas asociadas:</p>
+      <div class="associations-list">
+        @for (breadcrumb of thematicBreadcrumbs(); track breadcrumb) {
+        <div class="association-item">
+          <span class="path">{{ breadcrumb }}</span>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="step-data-filter">
+  <div class="main-container flex">
+    <!-- Panel de Dimensiones y Filtros -->
+    <div class="sidebar w-1/3 border-r pr-4">
+      <div class="dimensions-list">
+        @for (dimension of dimensions(); track dimension.id) {
+        <app-dimension-select [dropdownType]="'inline'" (dimensionChange)="onDimensionChange($index, $event)"
+          [showCheckbox]="true" [showDropdown]="true" [dimension]="dimension" class="mb-2 block"></app-dimension-select>
+        }
+      </div>
+    </div>
+
+    <!-- Vista Previa de Tabla Compacta -->
+    <div class="table-preview flex-1 pl-4 flex flex-col">
+      <div class="flex-1 border rounded compact-table-container">
+        <table class="compact-table">
+          <thead>
+            <tr>
+              @for (dim of activeDimensions(); track dim.id) {
+              <th>{{ dim.nameView }}</th>
+              }
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of filteredData(); track $index) {
+            <tr>
+              @for (dim of activeDimensions(); track dim.id) {
+              <td>{{ row[dim.name] }}</td>
+              }
+              <td class="text-right font-mono">{{ row['valor'] }}</td>
+            </tr>
+            }
+            @if (filteredData().length === 0) {
+            <tr>
+              <td [attr.colspan]="activeDimensions().length + 1" class="text-center py-8 text-gray-500">
+                No hay datos para los filtros seleccionados
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+.filter-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: var(--q-z-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.filter-container {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background-color: var(--q-surface);
+  z-index: var(--q-z-overlay);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+
+  // Desktop: Right to left
+  @media (min-width: 768px) {
+    right: 0;
+    left: auto;
+    width: 400px;
+    transform: translateX(100%);
+    box-shadow: var(--q-shadow-lg);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  // Mobile: Left to right side panel
+  @media (max-width: 767px) {
+    top: 0;
+    left: 0;
+    width: 280px; // Standard side panel width
+    height: 100vh;
+    border-radius: 0 var(--q-radius-xl) var(--q-radius-xl) 0;
+    transform: translateX(-100%);
+    box-shadow: var(--q-shadow-lg);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--q-border-color);
+
+  h5 {
+    font-size: var(--q-fs-md);
+    font-weight: var(--q-fw-semibold);
+    color: var(--q-text-primary);
+  }
+}
+
+.filter-content {
+  padding: 1.5rem;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-label {
+  font-size: var(--q-fs-sm);
+  font-weight: var(--q-fw-medium);
+  color: var(--q-text-secondary);
+}
+
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.periodicity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.filter-footer {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  border-top: 1px solid var(--q-border-color);
+  background-color: var(--q-surface);
+}

@@ -1,0 +1,92 @@
+<div class="dimension-select" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+  <!-- Checkbox Section -->
+  @if (showCheckbox()) {
+  <div class="dimension-select__checkbox">
+    <app-checkbox [size]="'small'" [checked]="selected() ?? dimension().selected ?? false"
+      (valueChange)="onDimensionCheckboxChange($event)" />
+  </div>
+  }
+
+  <!-- Dimension Label Section -->
+  <div class="dimension-select__label">
+    <app-tag [label]="dimension().nameView" variant="pill" appearance="filled" palette="blue" />
+  </div>
+
+  <!-- Dropdown Button Section -->
+  @if (showDropdown()) {
+  <div class="dimension-select__dropdown-button">
+    <app-button [icon]="isDropdownOpen() ? icons.nav.chevronUp : icons.nav.chevronDown" variant="icon-only" size="small"
+      [ariaLabel]="isDropdownOpen() ? 'Cerrar opciones' : 'Abrir opciones'" (btnClick)="toggleDropdown()" />
+  </div>
+  }
+</div>
+
+<!-- Dropdown Content (Inline) -->
+@if (showDropdown() && isDropdownOpen() && dropdownType() === 'inline') {
+<div class="dimension-select__dropdown dimension-select__dropdown--inline">
+  <!-- Search (condicional) -->
+  @if (shouldShowSearch()) {
+  <div class="dimension-select__search">
+    <app-text-input placeholder="Escriba un texto o seleccione dimensiones" (valueChange)="onSearchChange($event)" />
+  </div>
+  }
+
+  <!-- Select All -->
+  <div class="dimension-select__item">
+    <app-checkbox [size]="'small'" label="Seleccionar todo" [checked]="allSelected()" [indeterminate]="someSelected()"
+      (valueChange)="onSelectAll($event)" />
+  </div>
+
+  <!-- Items List -->
+  <div class="dimension-select__items">
+    @for (item of filteredItems(); track item.id) {
+    <div class="dimension-select__item">
+      <app-checkbox [size]="'small'" [label]="item.name" [checked]="item.selected"
+        (valueChange)="onItemCheckboxChange(item.id, $event)" />
+    </div>
+    } @empty {
+    <div class="dimension-select__empty">No se encontraron resultados</div>
+    }
+  </div>
+</div>
+}
+
+<!-- Dropdown Content (Popover/Modal) -->
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isDropdownOpen() && dropdownType() === 'modal'" (detach)="closeDropdown()"
+  [cdkConnectedOverlayHasBackdrop]="false" [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+  [cdkConnectedOverlayPush]="false" [cdkConnectedOverlayPositions]="positions">
+  <div class="dimension-select__popover">
+    <!-- Header -->
+    <div class="dimension-select__popover-header">
+      <h3 class="dimension-select__popover-title">{{ dimension().nameView }}</h3>
+      <app-button [icon]="icons.actions.close" variant="icon-only" size="small" [ariaLabel]="'Cerrar'"
+        (btnClick)="closeDropdown()" />
+    </div>
+
+    <!-- Search (condicional) -->
+    @if (shouldShowSearch()) {
+    <div class="dimension-select__search">
+      <app-text-input placeholder="Escriba un texto o seleccione dimensiones" (valueChange)="onSearchChange($event)" />
+    </div>
+    }
+
+    <!-- Select All -->
+    <div class="dimension-select__item">
+      <app-checkbox label="Seleccionar todo" [checked]="allSelected()" [indeterminate]="someSelected()"
+        (valueChange)="onSelectAll($event)" />
+    </div>
+
+    <!-- Items List -->
+    <div class="dimension-select__items">
+      @for (item of filteredItems(); track item.id) {
+      <div class="dimension-select__item">
+        <app-checkbox [label]="item.name" [checked]="item.selected"
+          (valueChange)="onItemCheckboxChange(item.id, $event)" />
+      </div>
+      } @empty {
+      <div class="dimension-select__empty">No se encontraron resultados</div>
+      }
+    </div>
+  </div>
+</ng-template>

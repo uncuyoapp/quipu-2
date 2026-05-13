@@ -1,0 +1,13 @@
+<mat-radio-group [formControl]="formControl()" [name]="name()" [color]="color()" [disabled]="disabled()"
+  (change)="handleChange($event.value)" class="radio-group"
+  [class.radio-group--horizontal]="orientation() === 'horizontal'"
+  [class.radio-group--vertical]="orientation() === 'vertical'">
+  @for (option of options(); track option.value) {
+  <div class="radio-option-container" [class.disabled]="option.disabled || disabled()"
+    [class.active]="currentValue() === option.value">
+    <mat-radio-button [value]="option.value">
+      <span class="radio-option__label">{{ option.label }}</span>
+    </mat-radio-button>
+  </div>
+  }
+</mat-radio-group>

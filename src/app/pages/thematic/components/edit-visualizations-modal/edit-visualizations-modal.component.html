@@ -1,0 +1,53 @@
+<div class="edit-visualizations-modal">
+  <!-- Cuerpo scrollable que contiene el header y la grilla -->
+  <div mat-dialog-content class="modal-main-container">
+    <div class="modal-header">
+      <div class="header-left">
+        <h2 class="m-0">Visualizaciones asociadas</h2>
+      </div>
+
+      <div class="header-right">
+        <app-button variant="icon-only" [icon]="icons.actions.close" (btnClick)="onClose()"
+          aria-label="Cerrar modal"></app-button>
+      </div>
+    </div>
+
+    <div class="modal-content-wrapper">
+      <app-orientation-warning></app-orientation-warning>
+
+      <div class="container thematic-breadcrumb">
+        @for (part of breadcrumbParts(); track $index) {
+        <app-tag [label]="part" [background]="thematicColor()" variant="default" appearance="filled"
+          size="medium"></app-tag>
+        @if (!$last) {
+        <ng-icon [name]="icons.nav.chevronForward" class="breadcrumb-separator"></ng-icon>
+        }
+        }
+      </div>
+      <div class="grid-container">
+        <app-visualization-grid [visualizations]="allVisualizations()" [(filter)]="filter" [loading]="loading()"
+          [(order)]="order" [enableSearchBar]="true" [enableFilter]="true"
+          [enableOrder]="true"></app-visualization-grid>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Fijo -->
+  <div class="modal-footer">
+    <div class="selection-info">
+      @if (editService.selectedIds().length > 0) {
+      <span class="count">{{ editService.selectedIds().length }}</span>
+      <span class="text">seleccionadas</span>
+      } @else {
+      <span class="text no-selection">
+        Ninguna visualización seleccionada
+      </span>
+      }
+    </div>
+    <div class="buttons">
+      <app-button label="Cancelar" variant="primary" palette="white" (btnClick)="onClose()"></app-button>
+      <app-button label="Guardar cambios" variant="primary" palette="blue" (btnClick)="onSave()"
+        [disabled]="loading()"></app-button>
+    </div>
+  </div>
+</div>

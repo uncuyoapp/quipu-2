@@ -1,0 +1,109 @@
+.dimension-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--q-radius-sm);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--q-surface-hover);
+  }
+
+  &__checkbox {
+    flex-shrink: 0;
+  }
+
+  &__label {
+    min-width: 0;
+  }
+
+  &__dropdown-button {
+    flex-shrink: 0;
+  }
+
+  &__dropdown {
+    background: var(--q-surface);
+    border-radius: var(--q-radius-md);
+    box-shadow: var(--q-shadow-sm);
+    padding: 10px 20px;
+    max-width: 450px;
+
+    &--inline {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  &__popover {
+    background: var(--q-surface);
+    border-radius: var(--q-radius-md);
+    box-shadow: var(--q-shadow-md);
+    padding: 16px;
+    min-width: 300px;
+    max-width: 450px;
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    z-index: var(--q-z-overlay);
+    border: 1px solid var(--q-border-color);
+  }
+
+  &__popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  &__popover-title {
+    margin: 0;
+    font-size: var(--q-fs-md);
+    font-weight: var(--q-fw-semibold);
+    color: var(--q-text-primary);
+  }
+
+  &__search {
+    margin-bottom: 12px;
+  }
+
+  &__items {
+    max-height: 300px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--q-surface-variant);
+      border-radius: var(--q-radius-circle);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--q-gray-500);
+      border-radius: var(--q-radius-circle);
+
+      &:hover {
+        background: var(--q-gray-600);
+      }
+    }
+  }
+
+  &__item {
+    padding: 10px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  &__empty {
+    padding: 16px;
+    text-align: center;
+    color: var(--q-text-muted);
+    font-size: var(--q-fs-sm);
+  }
+}

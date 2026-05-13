@@ -1,0 +1,122 @@
+<div class="container about-page">
+  <div class="row">
+    <!-- Lado Izquierdo: Visual Hero -->
+    <div class="col-12 col-lg-6 about-hero">
+      <div class="hero-sticky">
+        <div class="brand-group">
+          <img [src]="graphics.logoMain" alt="Quipu Logo" class="hero-logo" />
+          <p class="hero-subtitle">Información para la gestión universitaria</p>
+          <div class="version-badge-container">
+            <app-tag
+              [label]="'v' + version"
+              variant="pill"
+              palette="blue"
+            ></app-tag>
+          </div>
+        </div>
+
+        <div class="developer-card">
+          <span class="developer-label">Desarrollado por</span>
+          <img
+            [src]="graphics.logoUniversityArea"
+            alt="UNCUYO APP Logo"
+            class="developer-logo"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Lado Derecho: Contenido Deslizable -->
+    <div class="col-12 col-lg-6 content about-content">
+      <div class="content-block intro">
+        <h2>Qué es QUIPU</h2>
+        <p class="lead-text">
+          Es una plataforma tecnológica que permite visualizar información
+          relevante para la toma de decisiones de una manera sencilla y rápida.
+          Es un desarrollo original del Área de Políticas Públicas de la UNCUYO
+          destinado al ámbito de gestión universitaria.
+        </p>
+        <p>
+          El sistema cuenta con distintas funcionalidades que permiten explorar
+          los datos de acuerdo a sus necesidades, como vistas de gráficos con
+          filtros y múltiples opciones de visualización, tablas, fichas
+          técnicas, descargas, reportes, navegación por categorías, distintas
+          herramientas de búsqueda, entre otros.
+        </p>
+      </div>
+
+      <hr class="section-divider" />
+
+      <div class="content-block objectives">
+        <h2>Objetivos de la plataforma</h2>
+
+        <div class="objective-group">
+          <h3>Objetivo General</h3>
+          <p>
+            Contribuir al fortalecimiento de la planificación y seguimiento de
+            la gestión universitaria mediante la aplicación del sistema de
+            registro y visualización de información.
+          </p>
+        </div>
+
+        <div class="objective-group">
+          <h3>Objetivos Específicos</h3>
+          <ul class="objectives-list">
+            <li>
+              Integrar datos provenientes de distintas fuentes y transformarlos
+              en información útil.
+            </li>
+            <li>
+              Utilizar y procesar la información generada por los sistemas de
+              gestión universitaria (SIU).
+            </li>
+            <li>
+              Desarrollar sistema de indicadores relevantes para la medición del
+              desempeño.
+            </li>
+            <li>
+              Construir un sistema de visualización amigable orientado a las
+              personas que gestionan diferentes espacios de la universidad.
+            </li>
+          </ul>
+        </div>
+
+        <app-button
+          label="Más información sobre Quipu"
+          variant="secondary"
+          palette="blue"
+          icon="ionArrowForwardOutline"
+          iconPosition="right"
+          (btnClick)="
+            openUrl('https://www.uncuyo.edu.ar/politicaspublicas/quipu')
+          "
+        ></app-button>
+      </div>
+
+      <hr class="section-divider" />
+
+      <div class="content-block about-developer">
+        <h2>Área de Políticas Públicas</h2>
+        <p>
+          Desde su creación en el año 2011, el Área trabaja promoviendo el
+          involucramiento de la Universidad Nacional de Cuyo en la resolución de
+          los problemas sociales. Entendemos que el conocimiento es un factor
+          clave para transformar la realidad y promover la igualdad de
+          oportunidades, contribuyendo al desarrollo integral de la sociedad. En
+          este marco, nos proponemos producir, transferir y poner en circulación
+          conocimiento orientado al fortalecimiento de las capacidades estatales
+          y al diseño, implementación y evaluación de políticas públicas.
+        </p>
+
+        <app-button
+          label="Más información sobre el Área"
+          variant="secondary"
+          palette="blue"
+          icon="ionArrowForwardOutline"
+          iconPosition="right"
+          (btnClick)="openUrl('https://www.uncuyo.edu.ar/politicaspublicas/')"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</div>

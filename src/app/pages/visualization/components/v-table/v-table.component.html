@@ -1,0 +1,26 @@
+<div class="visualization-container" [class.is-fullscreen]="isFullscreen">
+  <div class="visualization-table v-box">
+    <div class="table-header">
+      <div class="header-left">
+        <ng-icon [name]="icons.viz.grid" class="table-logo" size="24"></ng-icon>
+        <span class="header-label">Tabla</span>
+      </div>
+      <div class="header-right">
+        @if (editMode()) {
+        <app-button variant="text" palette="red" [icon]="icons.actions.delete" label="Eliminar tabla"
+          (btnClick)="onRemove.emit()"></app-button>
+        <div class="separator-vertical"></div>
+        }
+        <app-button variant="icon-only" palette="blue" size="small" [icon]="icons.viz.document"
+          (btnClick)="downloadExcel()" title="Descargar como Excel"></app-button>
+        <app-button variant="icon-only" palette="blue" size="small"
+          [icon]="isFullscreen ? icons.ui.contract : icons.ui.expand" (btnClick)="toggleFullscreen()"
+          title="Pantalla completa"></app-button>
+      </div>
+    </div>
+    <div class="table-body">
+      <libTable [dataset]="dataset()" [tableOptions]="tableOptions()" [enableEditor]="editMode()"
+        (optionsChange)="tableOptionsChange.emit($event)"></libTable>
+    </div>
+  </div>
+</div>

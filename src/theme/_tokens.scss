@@ -1,0 +1,122 @@
+/// Design tokens centralizados de Quipu.
+/// Este archivo define todas las variables CSS que controlan la apariencia visual.
+/// Para aplicar un tema alternativo, sobreescribir las variables semánticas
+/// dentro de un selector como `[data-theme="dark"]`.
+
+:root {
+  // ── Marca ──
+  --q-brand: #004a99;
+  --q-brand-light: rgba(0, 74, 153, 0.05);
+
+  // ── Primario (UI) ──
+  --q-primary: #2979ff;
+  --q-primary-dark: #2073ed;
+  --q-primary-darker: #2067ce;
+  --q-primary-light: #b0cdfc;
+  --q-primary-bg: #dfebff;
+
+  // ── Complementarios (paleta decorativa — temáticas, categorías, acentos) ──
+  // Nombres neutros: en otro tema estos colores pueden cambiar completamente
+  --q-comp-1: #ff3e84;
+  --q-comp-1-bg: #ffd9ea;
+  --q-comp-2: #fab217;
+  --q-comp-2-bg: #ffedca;
+  --q-comp-3: #70cacd;
+  --q-comp-3-bg: #caede8;
+
+  // ── Semánticos (estados del sistema — valores propios, independientes de complementarios) ──
+  --q-highlight: #fff59d;
+  --q-success: #70cacd;
+  --q-success-bg: #caede8;
+  --q-warning: #fab217;
+  --q-warning-bg: #ffedca;
+  --q-danger: #ff3e84;
+  --q-danger-bg: #ffd9ea;
+  --q-info: #2979ff;
+  --q-info-bg: #dfebff;
+
+  // ── Colores de SnackBar ──
+  --q-snack-success: #2e7d32;
+  --q-snack-error: #d32f2f;
+  --q-snack-warn: #ed6c02;
+
+  // ── Escala de Grises ──
+  --q-gray-900: #000000;
+  --q-gray-800: #181c32;
+  --q-gray-700: #404040;
+  --q-gray-600: #707070;
+  --q-gray-500: #94a3b8;
+  --q-gray-400: #cccccc;
+  --q-gray-300: #e0e0e0;
+  --q-gray-200: #e6e6e6;
+  --q-gray-100: #f5f5f5;
+  --q-white: #ffffff;
+
+  // ── Texto (semántico — re-apuntable por tema) ──
+  --q-text-primary: var(--q-gray-800);
+  --q-text-secondary: var(--q-gray-600);
+  --q-text-muted: var(--q-gray-500);
+  --q-text-disabled: var(--q-gray-400);
+  --q-text-link: var(--q-primary);
+  --q-text-on-primary: var(--q-white);
+
+  // ── Superficies (semántico — re-apuntable por tema) ──
+  --q-surface: var(--q-white);
+  --q-surface-variant: var(--q-gray-100);
+  --q-surface-hover: var(--q-gray-200);
+
+  // ── Bordes (semántico) ──
+  --q-border-color: var(--q-gray-200);
+  --q-border-color-strong: var(--q-gray-300);
+  --q-border-color-input: var(--q-gray-300);
+
+  // ── Tipografía ──
+  --q-font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  --q-font-family-mono: 'DM Mono', 'JetBrains Mono', monospace;
+
+  --q-fs-3xl: 2.5rem; // 40px — Display / H1 (RFS: escala desde ~28px en móvil)
+  --q-fs-2xl: 2rem; // 32px — H2 (RFS: escala desde ~25px en móvil)
+  --q-fs-xl: 1.75rem; // 28px — H3 (RFS: escala desde ~22px en móvil)
+  --q-fs-lg: 1.5rem; // 24px — H4 (RFS: escala desde ~20px en móvil)
+  --q-fs-md: 1.25rem; // 20px — H5 / Lead (RFS: escala desde ~18px en móvil)
+  --q-fs-base: 1rem; // 16px — Body (fijo, no escala)
+  --q-fs-sm: 0.875rem; // 14px — Small / Metadatos (fijo)
+  --q-fs-xs: 0.75rem; // 12px — Caption (fijo)
+
+  --q-fw-regular: 400;
+  --q-fw-medium: 500;
+  --q-fw-semibold: 600;
+  --q-fw-bold: 700;
+
+  --q-lh-tight: 1.2; // Headings grandes (H1-H3)
+  --q-lh-snug: 1.3; // Headings medianos (H4-H5)
+  --q-lh-normal: 1.5; // Body text
+  --q-lh-relaxed: 1.6; // Párrafos largos, descripciones
+
+  // Letter-spacing (nuevo)
+  --q-ls-tight: -0.02em; // Headings grandes
+  --q-ls-normal: 0; // Body
+  --q-ls-wide: 0.025em; // Captions, labels uppercase
+
+  // ── Border Radius ──
+  --q-radius-sm: 4px;
+  --q-radius-md: 8px;
+  --q-radius-lg: 10px;
+  --q-radius-xl: 16px;
+  --q-radius-pill: 100px;
+  --q-radius-circle: 50%;
+
+  // ── Sombras ──
+  --q-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --q-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --q-shadow-lg: 0 10px 30px rgba(0, 74, 153, 0.08);
+  --q-shadow-xl: 0 15px 25px rgba(0, 74, 153, 0.15);
+  --q-shadow-focus: 0 0 0 3px rgba(41, 121, 255, 0.1);
+  --q-shadow-drag: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 24px rgba(0, 0, 0, 0.22);
+
+  // ── Z-index ──
+  --q-z-navbar: 1020;
+  --q-z-edit-bar: 1030;
+  --q-z-overlay: 2000;
+  --q-z-spinner: 9999;
+}

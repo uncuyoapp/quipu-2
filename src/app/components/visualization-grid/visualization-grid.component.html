@@ -1,0 +1,116 @@
+<div class="visualization-grid">
+  <!-- Sección de Acciones (Fondo Blanco) -->
+  <div class="actions-wrapper">
+    <div class="container py-4">
+      <app-visualization-actions [visualizations]="visualizations()" [enableSearchBar]="enableSearchBar()"
+        [enableFilter]="enableFilter()" [enableOrder]="enableOrder()" (filterChange)="filter.set($event)"
+        (orderChange)="order.set($event)"></app-visualization-actions>
+    </div>
+  </div>
+
+  <!-- Sección de Grilla (Fondo Gris con Bordes Redondeados) -->
+  <div class="grid-content-wrapper">
+    <div class="container py-5">
+      <!-- Contador y Acciones Masivas -->
+      <div class="toolbar-container d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex align-items-center gap-3">
+          <div class="visualization-count">
+            {{ filteredVisualizations().length }} visualizaciones
+          </div>
+          @if (
+          editService?.isSelectable() && editService?.selectedIds()?.length
+          ) {
+          <div class="divider"></div>
+          <div class="selection-count text-primary fw-bold">
+            {{ editService?.selectedIds()?.length }} seleccionadas
+          </div>
+          }
+        </div>
+
+        @if (editService?.isSelectable() || actionButtonLabel()) {
+        <div class="selection-actions d-flex gap-2">
+          @if (editService?.visibleActions()?.includes('create')) {
+          <app-button label="Crear visualización" variant="text" palette="blue" [icon]="icons.actions.add"
+            (btnClick)="openCreateModal()"></app-button>
+          <div class="divider"></div>
+          }
+
+          @if (actionButtonLabel()) {
+          <app-button [label]="actionButtonLabel()!" variant="text" palette="blue" [icon]="actionButtonIcon()"
+            (btnClick)="actionButtonClick.emit()"></app-button>
+          }
+
+          @if (editService?.isSelectable()) {
+          @if (actionButtonLabel()) {
+          <div class="divider"></div>
+          }
+
+          <app-button label="Seleccionar todas" variant="text" palette="blue"
+            (btnClick)="selectAllVisible()"></app-button>
+          <div class="divider"></div>
+          <app-button label="Limpiar selección" variant="text" palette="red"
+            [disabled]="!editService?.selectedIds()?.length" (btnClick)="clearAllSelection()"></app-button>
+
+          <!-- Acciones por lote -->
+          @if (editService?.visibleActions()?.includes('publish')) {
+          <div class="divider"></div>
+          <app-button label="Publicar" variant="text" palette="blue" [disabled]="!editService?.selectedIds()?.length"
+            (btnClick)="editService?.publish()"></app-button>
+          }
+          @if (editService?.visibleActions()?.includes('unpublish')) {
+          <div class="divider"></div>
+          <app-button label="Despublicar" variant="text" palette="blue" [disabled]="!editService?.selectedIds()?.length"
+            (btnClick)="editService?.unpublish()"></app-button>
+          }
+          @if (editService?.visibleActions()?.includes('delete')) {
+          <div class="divider"></div>
+          <app-button label="Eliminar" variant="text" palette="red" [disabled]="!editService?.selectedIds()?.length"
+            (btnClick)="editService?.deleteSelection()"></app-button>
+          }
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Grilla de Tarjetas -->
+      <div class="row g-4">
+        @for (visualization of filteredVisualizations(); track $index) {
+        <div class="col-12 col-md-6 col-lg-4">
+          @defer (on viewport) {
+          <app-visualization-card [visualization]="visualization"></app-visualization-card>
+          } @placeholder {
+          <div class="card-placeholder"
+            style="height: 300px; background-color: var(--q-surface-variant); border-radius: var(--q-radius-md)"></div>
+          }
+        </div>
+        } @empty {
+        @if (!loading()) {
+        <div class="col-12 py-5">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-12 col-md-5 col-lg-5 text-center">
+              <img [src]="graphics.gridEmpty" alt="No hay visualizaciones" class="img-fluid mb-4 mb-md-0"
+                style="max-height: 250px" />
+            </div>
+            <div class="col-12 col-md-7 col-lg-6 text-center text-md-start ps-md-4">
+              <h3 class="mb-3 fw-bold text-dark">Lo sentimos</h3>
+              <p class="text-muted fs-5 mb-0">
+                No existen visualizaciones para la búsqueda realizada. Te
+                recomendamos cambiar los términos de búsqueda o quitar
+                filtros.
+              </p>
+
+              @if (hasFilters()) {
+              <div class="mt-4">
+                <app-button label="Quitar filtros" variant="secondary" palette="blue"
+                  (btnClick)="resetFilters()"></app-button>
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        }
+        }
+      </div>
+    </div>
+  </div>
+</div>

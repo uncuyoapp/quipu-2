@@ -1,0 +1,59 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+/** 
+ * Estilos para el pie de página de la aplicación.
+ */
+.footer {
+  background-color: var(--q-surface);
+  border-top: 1px solid var(--q-border-color);
+  padding: 0 3rem;
+  width: 100%;
+  margin: 0;
+
+  @include media-breakpoint-down(md) {
+    padding: 0 1rem;
+  }
+
+  &__logo {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__meta {
+    font-size: var(--q-fs-xs);
+    color: var(--q-text-muted);
+    letter-spacing: 0.05em;
+    border-left: 1px solid var(--q-border-color);
+
+    a {
+      color: var(--q-text-muted);
+      font-weight: var(--q-fw-medium);
+      text-decoration: none;
+      border-bottom: 1px solid var(--q-border-color-strong);
+
+      &:hover {
+        color: var(--q-text-primary);
+        border-color: var(--q-primary);
+      }
+    }
+
+    .heart-icon {
+      color: var(--q-danger);
+    }
+  }
+
+  &__label {
+    cursor: pointer;
+    font-size: var(--q-fs-sm);
+  }
+
+  &__switch {
+    cursor: pointer;
+  }
+}

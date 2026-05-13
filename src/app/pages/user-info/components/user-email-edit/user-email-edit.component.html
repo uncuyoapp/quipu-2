@@ -1,0 +1,61 @@
+<div class="email-edit">
+  @if (status === 'form' || status === 'loading') {
+  <div class="email-edit__form">
+    <p class="email-edit__hint mb-4">
+      Ingresa tu nueva dirección de correo electrónico.
+    </p>
+
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
+      <!-- Nuevo email -->
+      <div class="form-group border-bottom pb-4">
+        <app-text-input label="Nuevo correo electrónico" placeholder="ejemplo@correo.com" type="email"
+          [initialValue]="emailForm.get('email')?.value" [validationState]="getValidationState('email')"
+          [errorMessage]="getError('email')" (valueChange)="onEmailChange($event)"
+          (blurred)="onEmailBlur()"></app-text-input>
+      </div>
+
+      <!-- Repetir nuevo email -->
+      <div class="form-group border-bottom pb-4">
+        <app-text-input label="Repetir nuevo correo electrónico" placeholder="Repite el correo electrónico" type="email"
+          [initialValue]="emailForm.get('confirmEmail')?.value" [validationState]="getEmailRepeatValidationState()"
+          [errorMessage]="getEmailRepeatErrorMessage()" (valueChange)="onConfirmEmailChange($event)"
+          (blurred)="onConfirmEmailBlur()"></app-text-input>
+      </div>
+
+      <div class="mt-4 d-flex gap-3">
+        <app-button label="Cancelar" variant="secondary" palette="gray" (btnClick)="goBack()"></app-button>
+        <app-button label="Aplicar" variant="primary" [palette]="emailForm.valid ? 'blue' : 'gray'"
+          [loading]="status === 'loading'" [disabled]="emailForm.invalid" (btnClick)="onSubmit()"></app-button>
+      </div>
+    </form>
+  </div>
+  } @else if (status === 'error') {
+  <div class="email-edit__error text-center py-5">
+    <div class="error-icon-wrapper mb-4">
+      <ng-icon [name]="icons.status.error" size="64" class="q-text-danger"></ng-icon>
+    </div>
+    <h2 class="mb-3">¡Ocurrió un error!</h2>
+    <p class="q-text-muted mb-5">
+      {{ errorMessage }}
+    </p>
+    <div>
+      <app-button label="Volver a intentar" variant="secondary" palette="gray" [icon]="icons.actions.refresh"
+        iconPosition="left" (btnClick)="retry()"></app-button>
+    </div>
+  </div>
+  } @else if (status === 'success') {
+  <div class="email-edit__success text-center py-5">
+    <div class="success-icon-wrapper mb-4">
+      <ng-icon [name]="icons.status.success" size="64" class="q-text-success"></ng-icon>
+    </div>
+    <h2 class="mb-3">¡Correo electrónico actualizado!</h2>
+    <p class="q-text-muted mb-5">
+      Tu dirección de correo ha sido modificada correctamente.
+    </p>
+    <div>
+      <app-button label="Volver" variant="secondary" palette="gray" [icon]="icons.nav.back" iconPosition="left"
+        (btnClick)="goBack()"></app-button>
+    </div>
+  </div>
+  }
+</div>

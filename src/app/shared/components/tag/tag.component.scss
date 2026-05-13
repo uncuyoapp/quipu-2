@@ -1,0 +1,192 @@
+// Tag variables
+:host {
+  // Spacing
+  --tag-padding-large: 12px 20px;
+  --tag-padding-medium: 8px 16px;
+  --tag-padding-small: 4px 12px;
+  --tag-gap: 8px;
+
+  // Typography
+  --tag-font-size-large: var(--q-fs-base);
+  --tag-font-size-medium: var(--q-fs-sm);
+  --tag-font-size-small: var(--q-fs-xs);
+  --tag-font-weight: var(--q-fw-medium);
+
+  // Border radius
+  --tag-border-radius-pill: var(--q-radius-pill);
+  --tag-border-radius-default: var(--q-radius-md);
+
+  // Icons
+  --tag-icon-size-large: 20px;
+  --tag-icon-size-medium: 16px;
+  --tag-icon-size-small: 14px;
+
+  // States
+  --tag-disabled-opacity: 0.5;
+  --tag-transition: all 0.2s ease;
+
+  // Color variables (set dynamically from component)
+  --tag-custom-background: transparent;
+  --tag-bg-default: transparent;
+  --tag-color-default: inherit;
+  --tag-border-default: transparent;
+  --tag-bg-hover: transparent;
+  --tag-color-hover: inherit;
+  --tag-border-hover: transparent;
+  --tag-bg-active: transparent;
+  --tag-color-active: inherit;
+  --tag-border-active: transparent;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tag-gap);
+  font-family: inherit;
+  font-weight: var(--tag-font-weight);
+  border: 1px solid var(--tag-border-default);
+  background-color: var(--tag-bg-default);
+  color: var(--tag-color-default);
+  cursor: pointer;
+  transition: var(--tag-transition);
+  user-select: none;
+
+  &:hover:not(&--disabled):not(.tag--custom-bg) {
+    background-color: var(--tag-bg-hover);
+    color: var(--tag-color-hover);
+    border-color: var(--tag-border-hover);
+  }
+
+  &--custom-bg:hover:not(&--disabled) {
+    background-color: var(--tag-bg-hover);
+    border-color: var(--tag-border-hover);
+
+    .tag__icon {
+      color: var(--tag-color-hover);
+    }
+  }
+
+  &:active:not(&--disabled) {
+    background-color: var(--tag-bg-active);
+    color: var(--tag-color-active);
+    border-color: var(--tag-border-active);
+  }
+
+  &__label {
+    line-height: 1;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &--move {
+      cursor: grab;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &--edit {
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.2s;
+
+      &:hover {
+        opacity: 1;
+        color: var(--q-primary);
+      }
+    }
+
+    &--delete {
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.2s;
+
+      &:hover {
+        opacity: 1;
+        color: var(--q-danger); // Redish color for delete
+      }
+    }
+  }
+
+  // Icon position
+  &--icon-left {
+    flex-direction: row;
+  }
+
+  &--icon-right {
+    flex-direction: row;
+  }
+
+  // Variants (Border radius)
+  &--pill {
+    border-radius: var(--tag-border-radius-pill);
+  }
+
+  &--default {
+    border-radius: var(--tag-border-radius-default);
+  }
+
+  // Sizes
+  &--large {
+    padding: var(--tag-padding-large);
+    font-size: var(--tag-font-size-large);
+
+    .tag__icon {
+      width: var(--tag-icon-size-large);
+      height: var(--tag-icon-size-large);
+      font-size: var(--tag-icon-size-large);
+    }
+  }
+
+  &--medium {
+    padding: var(--tag-padding-medium);
+    font-size: var(--tag-font-size-medium);
+
+    .tag__icon {
+      width: var(--tag-icon-size-medium);
+      height: var(--tag-icon-size-medium);
+      font-size: var(--tag-icon-size-medium);
+    }
+  }
+
+  &--small {
+    padding: var(--tag-padding-small);
+    font-size: var(--tag-font-size-small);
+
+    .tag__icon {
+      width: var(--tag-icon-size-small);
+      height: var(--tag-icon-size-small);
+      font-size: var(--tag-icon-size-small);
+    }
+  }
+
+  // Disabled state
+  &--disabled {
+    opacity: var(--tag-disabled-opacity);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &--edit-mode {
+    cursor: default;
+    user-select: none;
+
+    .tag__label {
+      outline: none;
+      // cursor: text;
+      min-width: 20px;
+      display: inline-block;
+
+      &[contenteditable="true"] {
+        user-select: text;
+      }
+    }
+  }
+}

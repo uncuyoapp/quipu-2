@@ -1,0 +1,104 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+/**
+ * Estilos para la barra de navegación principal.
+ */
+.nav-bar {
+  background-color: var(--q-surface);
+  color: var(--q-text-primary) !important;
+  min-height: 70px;
+  border-bottom: 1px solid var(--q-border-color-strong);
+  position: relative;
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 3rem;
+
+  @include media-breakpoint-down(md) {
+    padding: 0 1rem;
+  }
+
+  &__container {
+    height: 70px;
+  }
+
+  /** Oculta la barra con una animación de traslación */
+  &.hidden {
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /** Barra fija en la parte superior con sombra */
+  &.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--q-z-navbar);
+    background-color: var(--q-surface) !important;
+    color: var(--q-text-primary) !important;
+    border-bottom: 1px solid var(--q-border-color-strong) !important;
+    box-shadow: var(--q-shadow-sm);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /** Oculta la barra en mobile si no está en Home */
+  &.mobile-hidden {
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+}
+
+/** Contenedor de acciones de navegación */
+.actions {
+  gap: 3.5rem;
+
+  @include media-breakpoint-down(lg) {
+    gap: 1rem;
+  }
+
+  &__btn,
+  &__menu {
+    color: inherit !important;
+  }
+}
+
+/** Estilos específicos cuando la navegación ocurre en la página de inicio (Home) */
+.is-home {
+  @include media-breakpoint-up(md) {
+    background-color: var(--q-primary);
+    color: var(--q-white) !important;
+    border: none !important;
+
+    &.hidden {
+      transform: translateY(-100%);
+      background-color: var(--q-surface) !important;
+      color: var(--q-text-primary) !important;
+      border-bottom: 1px solid var(--q-border-color-strong) !important;
+    }
+
+    &.fixed {
+      background-color: var(--q-surface) !important;
+      color: var(--q-text-primary) !important;
+      border-bottom: 1px solid var(--q-border-color-strong) !important;
+    }
+
+    /** Estado normal en Home (sin scroll) */
+    &:not(.fixed) {
+      background-color: var(--q-primary) !important;
+      color: var(--q-white) !important;
+      border: none !important;
+    }
+  }
+}
+
+/** Estilo para el contenedor del logo */
+.logo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

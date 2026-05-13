@@ -1,0 +1,41 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.buscador {
+  background-color: var(--q-primary);
+  background-image: var(--home-bg);
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  @include media-breakpoint-up(md) {
+    h3 {
+      border-left: 1px solid var(--q-white);
+    }
+  }
+}
+
+.no-thematics-view {
+  .illustration {
+    max-height: 280px;
+    width: auto;
+  }
+
+  h2 {
+    color: var(--q-text-primary);
+    font-weight: var(--q-fw-bold);
+  }
+
+  p {
+    color: var(--q-text-secondary);
+    max-width: 420px;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include media-breakpoint-up(md) {
+      margin-left: 0;
+    }
+  }
+
+}

@@ -1,0 +1,105 @@
+<div class="visualization-create-modal">
+  <!-- Cuerpo scrollable que contiene el header y el contenido de los pasos -->
+  <div mat-dialog-content class="modal-main-container">
+    <div class="modal-header">
+      <div class="header-left">
+        <h2 class="m-0">Nueva visualización</h2>
+      </div>
+
+      <!-- Stepper indicator integrado en el header -->
+      <div class="stepper-indicator-compact">
+        <app-tag label="1 Dataset" [palette]="currentStep() > 1 ? 'green' : 'blue'" variant="pill"
+          [appearance]="currentStep() >= 1 ? 'filled' : 'outlined'"
+          [icon]="currentStep() > 1 ? icons.status.check : undefined" iconPosition="right" size="medium">
+        </app-tag>
+
+        <div class="step-connector"></div>
+
+        <app-tag label="2 Filtros" [palette]="currentStep() > 2 ? 'green' : (currentStep() === 2 ? 'blue' : 'gray')"
+          variant="pill" [appearance]="currentStep() >= 2 ? 'filled' : 'outlined'"
+          [icon]="currentStep() > 2 ? icons.status.check : undefined" iconPosition="right" size="medium">
+        </app-tag>
+
+        <div class="step-connector"></div>
+
+        <app-tag label="3 Configuración" [palette]="currentStep() === 3 ? 'blue' : 'gray'" variant="pill"
+          [appearance]="currentStep() === 3 ? 'filled' : 'outlined'" size="medium">
+        </app-tag>
+      </div>
+
+      <div class="header-right">
+        <app-button variant="icon-only" [icon]="icons.actions.close" (btnClick)="close()"></app-button>
+      </div>
+    </div>
+
+    <div class="modal-content-wrapper">
+      <app-orientation-warning></app-orientation-warning>
+
+      <!-- Pasos del Wizard -->
+      <div class="stepper-content">
+        @switch (currentStep()) {
+        @case (1) {
+        <app-step1-dataset-selection (datasetSelected)="onDatasetSelected($event)"></app-step1-dataset-selection>
+        }
+        @case (2) {
+        <app-data-filter-step [datasetInfo]="selectedDatasetInfo()!"
+          (configured)="onDataConfigured($event)"></app-data-filter-step>
+        }
+        @case (3) {
+        <app-visualization-config-step [dataset]="configuredDataset()!" [visualizationInput]="visualization()!"
+          (save)="onSave()"></app-visualization-config-step>
+        }
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Fijo con Navegación -->
+  <div class="modal-footer">
+    <div class="footer-left">
+      <app-button variant="text" [icon]="icons.nav.back" (btnClick)="currentStep() === 1 ? close() : prevStep()"
+        label="Volver" [disabled]="currentStep() === 1">
+      </app-button>
+    </div>
+
+    <div class="footer-center">
+      @if (currentStep() === 1 && !step1()?.selectedDataset()) {
+      <div class="validation-message info">
+        <app-button variant="icon-only" [icon]="icons.status.info" palette="gray" size="small"></app-button>
+        <span>Debe seleccionar un dataset para continuar</span>
+      </div>
+      }
+
+      @if (currentStep() === 2) {
+      <div class="validation-message info">
+        <app-button variant="icon-only" [icon]="icons.status.info" palette="gray" size="small"></app-button>
+        <span>Los filtros aplicados realizarán un recorte de los datos disponibles para la visualización</span>
+      </div>
+      }
+
+      @if (currentStep() === 3 && step3()?.hasErrors?.()) {
+      <div class="validation-message error">
+        <app-button variant="icon-only" [icon]="icons.status.info" palette="pink" size="small"></app-button>
+        <span>Hay campos obligatorios sin llenar</span>
+      </div>
+      }
+    </div>
+
+    <div class="footer-right">
+      @if (currentStep() < 3) { <app-button palette="blue" (btnClick)="nextStep()"
+        [label]="currentStep() === 2 ? 'Siguiente' : 'Siguiente'" [icon]="icons.nav.forward" iconPosition="right"
+        [disabled]="currentStep() === 1 && !step1()?.selectedDataset()">
+        </app-button>
+        } @else {
+        <div class="save-actions">
+          <app-button variant="secondary" [icon]="icons.actions.draft" (btnClick)="onSave(false)"
+            label="Guardar como borrador" [disabled]="step3()?.hasErrors?.() || false">
+          </app-button>
+          <app-button palette="blue" [icon]="icons.actions.publish" (btnClick)="onSave(true)" label="Guardar y publicar"
+            iconPosition="right" [disabled]="step3()?.hasErrors?.() || false">
+          </app-button>
+        </div>
+        }
+    </div>
+  </div>
+</div>

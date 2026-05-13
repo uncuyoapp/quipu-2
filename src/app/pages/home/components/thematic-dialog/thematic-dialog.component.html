@@ -1,0 +1,50 @@
+<div class="modal-header d-flex justify-content-between align-items-center px-4 py-3">
+  <h2 mat-dialog-title class="m-0 p-0 fs-5 q-fw-bold q-text-dark">
+    {{ isEditMode ? 'Editar temática' : 'Crear nueva temática' }}
+  </h2>
+  <button type="button" class="btn-close shadow-none" aria-label="Close" (click)="onCancel()"></button>
+</div>
+
+<mat-dialog-content class="mat-typography px-4 pt-3 pb-0">
+  <form [formGroup]="thematicForm" (ngSubmit)="onSave()" id="thematicForm">
+
+    <div class="mb-4">
+      <label class="form-label text-gray-medium small mb-2">Título de temática</label>
+      <app-text-input cdkFocusInitial [placeholder]="'Ingrese un título para la temática'"
+        [initialValue]="thematicForm.get('name')?.value ?? ''" [validationState]="getNameValidationState()"
+        [errorMessage]="getNameErrorMessage()" (valueChange)="onNameChange($event)"
+        (blurred)="onNameBlur()"></app-text-input>
+    </div>
+
+    <hr class="my-4 separator">
+
+    <div class="mb-2">
+      <label class="form-label text-gray-medium small mb-2">Ilustración</label>
+      <div class="illustration-slider mt-2" (wheel)="onWheel($event)">
+        <div class="illustration-track">
+          @for (illus of illustrations; track illus) {
+          <div class="illustration-item" [class.active]="thematicForm.get('illustration')?.value === illus"
+            (click)="selectIllustration(illus)">
+            <div class="radio-indicator"></div>
+            <img [src]="getThematicIllustrationPath(illus)" [alt]="illus">
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4 separator">
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="px-4 pb-4 pt-2 border-0 justify-content-center">
+  <app-button label="Cancelar" variant="secondary" palette="gray" (btnClick)="onCancel()">
+  </app-button>
+
+  <div class="ms-3">
+    <app-button label="Guardar" variant="primary" palette="blue" [disabled]="thematicForm.invalid"
+      (btnClick)="onSave()">
+    </app-button>
+  </div>
+</mat-dialog-actions>

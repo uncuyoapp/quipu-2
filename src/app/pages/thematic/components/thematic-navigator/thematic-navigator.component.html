@@ -1,0 +1,12 @@
+<div class="thematic-navigator">
+  <div class="row align-items-start">
+    <div class="col-12 col-md-6 col-lg-5">
+      <app-thematic-card [thematic]="thematic()"></app-thematic-card>
+    </div>
+    <div class="col-12 col-md-6 col-lg-7 align-self-start">
+      <app-thematic-child-selector [categories]="thematic().childrens || []" [parentId]="thematic().id"
+        [thematicColor]="thematic().color" (thematicSelected)="selectThematic($event)">
+      </app-thematic-child-selector>
+    </div>
+  </div>
+</div>

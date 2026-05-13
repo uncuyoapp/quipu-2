@@ -1,0 +1,9 @@
+<div class="search-bar d-flex w-100 align-items-center" [class.default]="style() === 'default'"
+  [class.minimal]="style() === 'minimal'">
+  <div class="search-wrapper d-flex w-100">
+    <app-text-input class="flex-grow-1 flex-shrink-0" [backgroundColor]="'white'" [placeholder]="placeholder()"
+      [rightIcon]="icons.actions.search" variant="search" [suggestions]="sugerencias()"
+      (valueChange)="onSearchTextChange($event)" (optionSelected)="onSearch($event)" (enterPressed)="onSearch($event)"
+      (focused)="onInputFocus()" (blurred)="onInputBlur()"></app-text-input>
+  </div>
+</div>

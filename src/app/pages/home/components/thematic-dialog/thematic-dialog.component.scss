@@ -1,0 +1,126 @@
+.text-gray-medium {
+  color: var(--q-text-muted);
+  font-weight: var(--q-fw-medium);
+}
+
+.separator {
+  border: none;
+  border-top: 1px solid var(--q-border-color);
+  opacity: 1;
+}
+
+:host {
+  display: block;
+  border-radius: var(--q-radius-lg);
+  overflow: hidden;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--q-border-color);
+  background-color: var(--q-surface);
+}
+
+.illustration-slider {
+  width: 100%;
+  overflow-x: auto;
+  padding: 10px 0 20px;
+  
+  /* Scrollbar styling */
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--q-gray-200);
+    border-radius: var(--q-radius-pill);
+  }
+
+  .illustration-track {
+    display: flex;
+    gap: 12px;
+  }
+
+  .illustration-item {
+    position: relative;
+    flex: 0 0 115px;
+    height: 115px;
+    background: var(--q-surface);
+    border-radius: var(--q-radius-md);
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border: 1.5px solid var(--q-border-color);
+
+    .radio-indicator {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: var(--q-radius-circle);
+      border: 1.5px solid var(--q-gray-400);
+      background: var(--q-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+
+      &::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: transparent;
+        transition: background 0.2s ease;
+      }
+    }
+
+    img {
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      border-color: var(--q-border-color-strong);
+    }
+
+    &.active {
+      background-color: var(--q-primary-bg);
+      border-color: var(--q-primary);
+      
+      .radio-indicator {
+        border-color: var(--q-primary);
+        &::after {
+          background: var(--q-primary);
+        }
+      }
+    }
+  }
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: center !important;
+  gap: 12px;
+}
+
+/* Forzar fondo blanco para el contenedor de Material Dialog */
+// TODO: eliminar ::ng-deep cuando Angular provea alternativa
+::ng-deep {
+  .mat-mdc-dialog-surface {
+    background-color: var(--q-surface) !important;
+    border-radius: var(--q-radius-lg) !important;
+  }
+}
+
+// TODO: eliminar ::ng-deep cuando Angular provea alternativa
+::ng-deep .cdk-overlay-pane {
+  max-width: 500px !important;
+}
+
+

@@ -1,0 +1,55 @@
+<div class="search-page">
+
+  <!-- ══════════════════════════════════════════════
+       PASO 1: Estado inicial de búsqueda
+       ══════════════════════════════════════════════ -->
+  @if (paso() === 'busqueda') {
+  <div class="search-step">
+    <div class="container">
+
+      <!-- Ícono de lupa decorativo -->
+      <div class="search-icon-wrapper mb-4">
+        <ng-icon [name]="icons.actions.search" size="36"></ng-icon>
+      </div>
+
+      <!-- Texto guía -->
+      <p class="search-hint">Ingrese al menos 3 caracteres<br>para su búsqueda.</p>
+
+      <!-- Buscador reutilizable (igual que en home) -->
+      <div class="search-bar-wrapper">
+        <app-search-bar (search)="onSearch($event)">
+        </app-search-bar>
+      </div>
+
+    </div>
+  </div>
+  }
+
+  <!-- ══════════════════════════════════════════════
+       PASO 2: Resultados de la búsqueda
+       ══════════════════════════════════════════════ -->
+  @if (paso() === 'resultados') {
+  <div class="results-step">
+
+    <!-- Encabezado de resultados -->
+    <div class="results-header">
+      <div class="container">
+        <div class="results-header__inner">
+          <h1 class="results-header__title">
+            Resultados para <strong>"{{ searchText() }}"</strong>
+          </h1>
+          <app-button class="results-header__reset" variant="icon-only" [icon]="icons.actions.close"
+            ariaLabel="Nueva búsqueda" (btnClick)="resetBusqueda()">
+          </app-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grilla de visualizaciones -->
+    <app-visualization-grid [visualizations]="visualizations()" [enableSearchBar]="true" [loading]="loading()">
+    </app-visualization-grid>
+
+  </div>
+  }
+
+</div>

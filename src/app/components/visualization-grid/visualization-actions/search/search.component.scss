@@ -1,0 +1,13 @@
+.search-section {
+  h6 {
+    margin-bottom: 1rem;
+    font-weight: var(--q-fw-medium);
+  }
+
+  // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+  ::ng-deep app-search-bar {
+    .search-bar {
+      height: 2.5rem;
+    }
+  }
+}

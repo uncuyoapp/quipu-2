@@ -1,0 +1,173 @@
+<div class="info-card">
+  <!-- Usuario -->
+  <div class="info-field">
+    <span class="info-field__label">Usuario</span>
+    <div class="info-field__value-container">
+      <span class="info-field__value">{{ user()?.username }}</span>
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="info-field">
+    <span class="info-field__label">Email</span>
+    <div class="info-field__value-container">
+      <span class="info-field__value">{{ user()?.email }}</span>
+      <app-button
+        variant="icon-only"
+        [icon]="icons.actions.edit"
+        ariaLabel="Editar email"
+        palette="blue"
+        (btnClick)="editEmail()"
+      ></app-button>
+    </div>
+  </div>
+
+  <!-- Nombre y apellido -->
+  <div class="info-field">
+    <span class="info-field__label">Nombre y apellido</span>
+    <div class="info-field__value-container">
+      <span class="info-field__value">{{ user()?.name }}</span>
+      <app-button
+        variant="icon-only"
+        [icon]="icons.actions.edit"
+        ariaLabel="Editar nombre"
+        palette="blue"
+        (btnClick)="editName()"
+      ></app-button>
+    </div>
+  </div>
+
+  <!-- Área donde trabaja -->
+  <div class="info-field">
+    <span class="info-field__label">Área donde trabaja</span>
+    <div class="info-field__value-container">
+      <span class="info-field__value">
+        {{ user()?.workArea || 'No especificada' }}
+      </span>
+      <app-button
+        variant="icon-only"
+        [icon]="icons.actions.edit"
+        ariaLabel="Editar área"
+        palette="blue"
+        (btnClick)="editWorkArea()"
+      ></app-button>
+    </div>
+  </div>
+
+  <!-- Contraseña -->
+  <div class="info-field">
+    <span class="info-field__label">Contraseña</span>
+    <div class="info-field__value-container">
+      <span class="info-field__value">************</span>
+      <app-button
+        variant="icon-only"
+        [icon]="icons.actions.edit"
+        ariaLabel="Editar contraseña"
+        palette="blue"
+        (btnClick)="editPassword()"
+      ></app-button>
+    </div>
+  </div>
+
+  <!-- Configuración de interfaz -->
+  <div class="d-flex flex-wrap gap-5 my-5">
+    <div class="info-field border-0 py-0">
+      <span class="info-field__label">Modo edición</span>
+      <div class="info-field__value-container">
+        <app-switch
+          [checked]="editModeService.isEditModeEnabled()"
+          [showStateText]="true"
+          onText="Activado"
+          offText="Desactivado"
+          (valueChange)="editModeService.setEditMode($event)"
+        ></app-switch>
+      </div>
+    </div>
+
+    <div class="info-field border-0 py-0">
+      <span class="info-field__label">Barra de modo edición</span>
+      <div class="info-field__value-container">
+        <app-switch
+          [checked]="editModeService.isBarVisible()"
+          [showStateText]="true"
+          onText="Visible"
+          offText="Oculta"
+          (valueChange)="editModeService.setBarVisibility($event)"
+        ></app-switch>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gamificación (Solo si está habilitada y el juego está iniciado) -->
+  @if (isGamificationEnabled() && isActive()) {
+    <div class="info-field border-0 py-0 mt-5">
+      <span class="info-field__label">Misión Ancestral</span>
+      <div
+        class="info-field__value-container flex-column align-items-start gap-3 w-100"
+      >
+        <div class="mission-status d-flex align-items-center gap-3">
+          <span class="status-badge" [ngClass]="{ completed: allCompleted() }">
+            {{ gameState().completedCount }} /
+            {{ gameState().totalCount }} Hilos restaurados
+          </span>
+          @if (allCompleted()) {
+            <span class="text-success fw-bold">¡Quipu Restaurado!</span>
+          }
+        </div>
+
+        <div class="d-flex gap-2">
+          @if (allCompleted()) {
+            <app-button
+              label="Ver Recompensa"
+              palette="purple"
+              variant="primary"
+              [icon]="icons.ui.eye"
+              (btnClick)="reopenReward()"
+            ></app-button>
+          } @else {
+            <app-button
+              label="Pedir Ayuda"
+              palette="blue"
+              variant="primary"
+              [icon]="icons.status.info"
+              (btnClick)="requestHelp()"
+            ></app-button>
+          }
+
+          <app-button
+            label="Finalizar juego"
+            palette="red"
+            variant="secondary"
+            [icon]="icons.actions.delete"
+            (btnClick)="finalizeGame()"
+          ></app-button>
+        </div>
+
+        <!-- Atajos de prueba (Debug) -->
+        @if (isDev()) {
+          <div
+            class="debug-shortcuts d-flex flex-column gap-2 p-3 border rounded bg-light"
+          >
+            <span class="text-muted small fw-bold">Atajos de prueba:</span>
+            <div class="d-flex gap-2">
+              <app-button
+                label="Completar Explorador"
+                palette="gray"
+                variant="secondary"
+                [icon]="icons.status.success"
+                (btnClick)="completeViewer()"
+              ></app-button>
+              <app-button
+                label="Completar Guardián"
+                palette="gray"
+                variant="secondary"
+                [icon]="icons.status.success"
+                (btnClick)="completeAdmin()"
+              ></app-button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

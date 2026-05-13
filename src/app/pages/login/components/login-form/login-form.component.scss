@@ -1,0 +1,23 @@
+.login-form {
+  width: 100%;
+  
+
+  form {
+    p {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  // TODO: eliminar ::ng-deep cuando Angular provea alternativa
+  ::ng-deep {
+    .btn--link {
+      font-size: var(--q-fs-sm);
+      color: var(--q-primary);
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<div [innerHTML]="gridStyles()"></div>
+
+<div 
+  class="row thematic-grid-container gy-4"
+  cdkDropList
+  cdkDropListOrientation="mixed"
+  [cdkDropListDisabled]="!editModeService.isEditModeEnabled()"
+  (cdkDropListDropped)="onDrop($event)"
+  (cdkDropListSorted)="onDragSorted($event)"
+>
+  @for (thematic of thematics(); track thematic.id; let i = $index) {
+  <div class="col-12 col-md-6 col-lg-4" 
+       cdkDrag [cdkDragData]="thematic"
+       (cdkDragStarted)="onDragStarted(i)">
+    <app-thematic-card
+      (clickCard)="onSelectThematic($event)"
+      (editCard)="onEditThematic($event)"
+      (deleteCard)="onDeleteThematic($event)"
+      [thematic]="thematic"
+      [editable]="editable()"
+    ></app-thematic-card>
+  </div>
+  }
+</div>

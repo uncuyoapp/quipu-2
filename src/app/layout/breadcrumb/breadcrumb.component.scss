@@ -1,0 +1,47 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+.breadcrumb-container {
+  padding: 1rem 0;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+
+  @include media-breakpoint-down(md) {
+    padding: 1rem 12px;
+  }
+}
+
+/** 
+ * Navegación de migas de pan 
+ */
+.breadcrumb-nav {
+  font-size: var(--q-fs-sm);
+
+  .breadcrumb-list {
+    gap: 0;
+  }
+
+  .breadcrumb-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--q-primary);
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+  }
+
+  .breadcrumb-current {
+    color: var(--q-text-muted);
+    font-weight: var(--q-fw-medium);
+  }
+
+  .breadcrumb-separator {
+    color: var(--q-gray-400);
+    user-select: none;
+  }
+}

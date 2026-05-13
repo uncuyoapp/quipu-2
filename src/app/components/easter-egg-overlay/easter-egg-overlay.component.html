@@ -1,0 +1,98 @@
+<div class="easter-egg">
+
+  <!-- 1. Estado de Aparición (Peeking) -->
+  @if (isHome() && peekState() === 'peeking' && !isActive()) {
+  <div class="easter-egg__peek-wrapper" [ngClass]="['pos-' + peekPosition(), isHovered() ? 'is-hovered' : '']"
+    [ngStyle]="getPeekStyles()" (mouseenter)="onHover(true)" (mouseleave)="onHover(false)" (click)="onStartNarrative()">
+    <img [src]="getPeekImage()" alt="Anciano Quipu asomándose">
+  </div>
+  }
+
+  <!-- 2. Estado Minimizado (Docked) -->
+  @if (isActive() && peekState() === 'minimized') {
+  <div class="easter-egg__active-content minimized">
+
+    @if (currentMessage()) {
+    <div class="easter-egg__speech-bubble">
+      <button class="bubble-close" (click)="onClearMessage($event)" title="Cerrar mensaje">
+        <ng-icon [name]="icons.actions.close"></ng-icon>
+      </button>
+      <p>{{ currentMessage() }}</p>
+
+      @if (isGameFinished()) {
+      <div class="bubble-actions">
+        <button class="btn-mission" (click)="onOpenReward()">Ver Recompensa</button>
+      </div>
+      }
+    </div>
+    }
+
+    <div class="easter-egg__minimized" (click)="onRestore()" title="Continuar misión">
+      <img src="assets/img/quipu-chibi.png" alt="Anciano Quipu esperando">
+    </div>
+  </div>
+  }
+
+  <!-- 3. Estado Activo (Narrativa y Misiones) -->
+  @if (peekState() === 'active') {
+  <div class="easter-egg__active-content">
+    <button class="easter-egg__close-btn" (click)="onStop()" title="Ocultar anciano">×</button>
+
+    @if (currentMessage()) {
+    <div class="easter-egg__speech-bubble">
+      <button class="bubble-close" (click)="onClearMessage($event)" title="Cerrar mensaje">
+        <ng-icon [name]="icons.actions.close"></ng-icon>
+      </button>
+      <p>{{ currentMessage() }}</p>
+
+      <!-- Botones de Acción -->
+      <div class="bubble-actions">
+        @if (!isActive()) {
+        <button class="btn-mission" (click)="onConfirmMission()">Iniciar misión</button>
+        } @else if (isGameFinished()) {
+        <button class="btn-mission" (click)="onOpenReward()">Ver Recompensa</button>
+        }
+      </div>
+    </div>
+    }
+
+    <div class="easter-egg__character-active" (click)="onStop()">
+      <img src="assets/img/quipu-chibi.png" alt="Anciano Quipu">
+    </div>
+
+    <!-- Barra de Progreso -->
+    @if (isActive()) {
+    <div class="easter-egg__stats">
+      <span class="dot"></span>
+      <span>{{ completedCount() }} / {{ totalCount() }} Hilos del Quipu</span>
+    </div>
+    }
+  </div>
+  }
+
+  <!-- 4. Estado Final (Recompensa) -->
+  @if (isFinished()) {
+  <div class="easter-egg__reward-overlay">
+    @if (!showVideo()) {
+    <div class="reward-intro">
+      <h2>¡Felicidades, Guardián del Conocimiento!</h2>
+      <p>Has restaurado los hilos del Quipu Ancestral. Tu curiosidad ha devuelto la luz a nuestra memoria.</p>
+      <div class="reward-warning">
+        <span class="icon">🎧</span>
+        <p>Prepara tus auriculares o altavoces para recibir el secreto final...</p>
+      </div>
+      <button class="btn-reveal" (click)="onRevealReward()">Abrir Recompensa</button>
+    </div>
+    } @else {
+    <h2>El Secreto del Quipu</h2>
+    <div class="video-container">
+      <video controls autoplay>
+        <source src="assets/video/reward.mp4" type="video/mp4">
+        Tu navegador no soporta el tag de video.
+      </video>
+    </div>
+    <button class="finish-btn" (click)="onCloseReward()">Sabiduría Completada</button>
+    }
+  </div>
+  }
+</div>

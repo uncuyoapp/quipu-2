@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.user-info-page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  margin-top: 2rem;
+
+  .container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    .row {
+      flex-grow: 1;
+    }
+  }
+
+  .illustration {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.05));
+  }
+}

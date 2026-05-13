@@ -1,0 +1,5516 @@
+{
+  "visualizations": [
+    {
+      "id": "FCS_A_01-66mvbia",
+      "published": true,
+      "title": "Resultados de cursadas - Licenciatura en Psicología",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Condición académica",
+        "Espacio curricular",
+        "Año"
+      ],
+      "datasetId": "FCS_A_01",
+      "thematics": [
+        {
+          "id": 20611,
+          "name": "Cursadas"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Resultados de cursadas - Licenciatura en Psicología",
+            "type": "column",
+            "stacked": 1,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 3,
+              "secondLevel": 2,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de estudiantes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": null,
+              "showTotal": true
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe el resultado de la cursada de estudiantes de la Licenciatura en Psicología por espacio curricular y condición académica final del cursado.",
+        "formula": "Sumatoria de estudiantes de la Licenciatura en Psicología, anual, según condición académica final del cursado y espacio curricular.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-07T13:41:49.484Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-07T13:41:49.484Z",
+        "createdAt": "2026-05-07T13:41:49.484Z"
+      }
+    },
+    {
+      "id": "FCS_A_02",
+      "title": "Recursantes - Licenciatura en Psicología",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Porcentaje",
+      "periodicity": "Anual",
+      "timeRange": "2020-2025",
+      "dimensions": [
+        "Espacio curricular",
+        "Año"
+      ],
+      "datasetId": "FCS_A_02",
+      "thematics": [
+        {
+          "id": 20611,
+          "name": "Cursadas"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Recursantes  - Licenciatura en Psicología",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 2,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Porcentaje",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 1,
+              "suffix": "%"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Porcentaje",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe el porcentaje de estudiantes inscriptos 2 veces o más en los espacios curriculares de la Licenciatura en Psicología ",
+        "formula": "(Cantidad de inscriptos que cursan el espacio curricular por segunda vez o más / Cantidad total de inscriptos en el espacio curricular) × 100",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-03-31",
+        "registrationMode": "Manual",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_A_03",
+      "title": "Aspirantes a la Facultad de Ciencias de la Salud",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Carrera",
+        "Departamento de procedencia",
+        "Género",
+        "Año"
+      ],
+      "datasetId": "FCS_A_03",
+      "thematics": [
+        {
+          "id": 20511,
+          "name": "Aspirantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Aspirantes a la Facultad de Ciencias de la Salud",
+            "type": "column",
+            "stacked": 3,
+            "xAxis": {
+              "title": "Año / Carrera",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de aspirantes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1,
+              3
+            ],
+            "rows": [
+              4,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe la distribución anual de aspirantes a la Facultad de Ciencias de la Salud según carrera, departamento de procedencia y género.",
+        "formula": "Sumatoria anual de aspirantes a la FCS por carrera, departamento de procedencia y género.",
+        "producerArea": "Departamento de Ingreso",
+        "lastUpdate": "2026-03-31",
+        "registrationMode": "Importación SIU",
+        "dataResponsible": "García Márquez, Gabriela",
+        "loadResponsible": "Allende, Isabel",
+        "responsible": [
+          "Allende",
+          "Isabel"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_A_04-5jikkno",
+      "published": true,
+      "title": "Ingresantes a la Facultad de Ciencias de la Salud",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Carrera",
+        "Departamento de procedencia",
+        "Género",
+        "Año"
+      ],
+      "datasetId": "FCS_A_04",
+      "thematics": [
+        {
+          "id": 20512,
+          "name": "Ingresantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Ingresantes a la Facultad de Ciencias de la Salud",
+            "type": "column",
+            "stacked": 3,
+            "xAxis": {
+              "title": "Año / Carrera",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de ingresantes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1,
+              3
+            ],
+            "rows": [
+              4,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe la distribución anual de ingresantes a la Facultad de Ciencias de la Salud según carrera, departamento de procedencia y género.",
+        "formula": "Sumatoria anual de ingresantes a la FCS por carrera, departamento de procedencia y género.",
+        "producerArea": "Departamento de Ingreso",
+        "lastUpdate": "2026-05-07T15:24:36.846Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "García Márquez",
+          "Gabriela"
+        ],
+        "dataResponsible": "Allende, Isabel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-07T15:24:36.846Z",
+        "createdAt": "2026-05-07T15:24:36.846Z"
+      }
+    },
+    {
+      "id": "FCS_A_05-ez8ejxq",
+      "published": true,
+      "title": "Exámenes Introducción a la Psicología",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad de estudiantes",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Llamado de Examen",
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Exámenes Introducción a la Psicología",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Resultado de examen",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Llamado de examen",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              4
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe los resultados de exámenes de estudiantes inscriptos a examen del espacio curricular Introducción a la Psicología de la Lic. en Psicología, según llamado de examen y tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen del espacio curricular Introducción a la Psicología de la Lic. en Psicología, anual, según llamado de examen y tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-06T14:12:38.606Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": [
+            {
+              "name": 1,
+              "items": [
+                "Introducción a la Psicología"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T14:12:38.606Z",
+        "createdAt": "2026-05-06T14:12:38.606Z"
+      }
+    },
+    {
+      "id": "FCS_A_05",
+      "title": "Resultados de examen agregado - Lic. en Psicología",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Resultados de examen agregado - Lic. en Psicología",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 4,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Resultado",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 0,
+              "suffix": null,
+              "showTotal": true
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": true,
+            "cols": [
+              4
+            ],
+            "rows": [
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe el agregado anual de los resultados de exámenes de estudiantes inscriptos a examen de la Licenciatura en Psicología, según tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen de la Licenciatura en Psicología, anual, según tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-03-31",
+        "registrationMode": "Importación SIU",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Rosas, Pedro Pablo",
+        "responsible": []
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1,
+            2
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_A_05-k2juby3",
+      "published": true,
+      "title": "Exámenes Psicología Educativa",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad de estudiantes",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Llamado de Examen",
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Exámenes Psicología Educativa",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Resultado de examen",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Llamado de examen",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              4
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe los resultados de exámenes de estudiantes inscriptos a examen del espacio curricular Psicología Educativa de la Lic. en Psicología, según llamado de examen y tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen del espacio curricular Psicología Educativa de la Lic. en Psicología, anual, según llamado de examen y tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-06T14:19:42.934Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": [
+            {
+              "name": 1,
+              "items": [
+                "Psicología Educativa"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T14:19:42.934Z",
+        "createdAt": "2026-05-06T14:19:42.934Z"
+      }
+    },
+    {
+      "id": "FCS_A_05-p8gh2kk",
+      "published": true,
+      "title": "Exámenes Neuropsicología",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad de estudiantes",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Llamado de Examen",
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Exámenes Neuropsicología",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Resultado de examen",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Llamado de examen",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              4
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe los resultados de exámenes de estudiantes inscriptos a examen del espacio curricular Neuropsicología de la Lic. en Psicología, según llamado de examen y tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen del espacio curricular Neuropsicología de la Lic. en Psicología, anual, según llamado de examen y tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-06T14:26:21.552Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": [
+            {
+              "name": 1,
+              "items": [
+                "Neuropsicología"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T14:26:21.552Z",
+        "createdAt": "2026-05-06T14:26:21.552Z"
+      }
+    },
+    {
+      "id": "FCS_A_05-rh5arz7",
+      "published": true,
+      "title": "Exámenes Psicología del Desarrollo",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad de estudiantes",
+      "periodicity": "Anual",
+      "timeRange": "S/D",
+      "dimensions": [
+        "Llamado de Examen",
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Exámenes Psicología del Desarrollo",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Resultado de examen",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Llamado",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              4
+            ],
+            "rows": [
+              2,
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe los resultados de exámenes de estudiantes inscriptos a examen del espacio curricular Psicología del Desarrollo de la Lic. en Psicología, según llamado de examen y tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen del espacio curricular Psicología del Desarrollo de la Psicología de la Lic. en Psicología, anual, según llamado de examen y tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-05T16:12:46.174Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": [
+            {
+              "name": 1,
+              "items": [
+                "Psicología del Desarrollo"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-05T16:12:46.174Z",
+        "createdAt": "2026-05-05T16:12:46.174Z"
+      }
+    },
+    {
+      "id": "FCS_A_05-s63jsk8",
+      "published": false,
+      "title": "Resultados de examen - Lic. en Psicología",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "S/D",
+      "dimensions": [
+        "Llamado de Examen",
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Resultados de examen - Lic. en Psicología",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Resultado de Mesa",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Estudiantes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 0,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              4
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe los resultados de exámenes de estudiantes inscriptos a examen de la Licenciatura en Psicología, según llamado de examen y tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen de la Licenciatura en Psicología, anual, según llamado de examen y tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-05T14:19:05.499Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-05T14:19:05.499Z",
+        "createdAt": "2026-05-05T14:19:05.499Z"
+      }
+    },
+    {
+      "id": "FCS_A_05-u2t3djw",
+      "published": true,
+      "title": "Exámenes Psicología Social",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad de estudiantes",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Llamado de Examen",
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Exámenes Psicología Social",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Resultado de examen",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Llamado de examen",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              4
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe los resultados de exámenes de estudiantes inscriptos a examen del espacio curricular Psicología Social de la Lic. en Psicología, según llamado de examen y tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen del espacio curricular Psicología Social de la Lic. en Psicología, anual, según llamado de examen y tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-06T14:23:03.354Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": [
+            {
+              "name": 1,
+              "items": [
+                "Psicología Social"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T14:23:03.354Z",
+        "createdAt": "2026-05-06T14:23:03.354Z"
+      }
+    },
+    {
+      "id": "FCS_A_05-xbta3or",
+      "published": true,
+      "title": "Exámenes Psicología Cognitiva",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad de estudiantes",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Llamado de Examen",
+        "Resultado Examen",
+        "Año"
+      ],
+      "datasetId": "FCS_A_05",
+      "thematics": [
+        {
+          "id": 20612,
+          "name": "Exámenes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Exámenes Psicología Cognitiva",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Resultado de examen",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Llamado de examen",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              4
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe los resultados de exámenes de estudiantes inscriptos a examen del espacio curricular Psicología Cognitiva de la Lic. en Psicología, según llamado de examen y tipo de resultado de examen.",
+        "formula": "Sumatoria de estudiantes inscriptos a examen del espacio curricular Psicología Cognitiva de la Lic. en Psicología, anual, según llamado de examen y tipo de resultado de examen.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-06T14:17:00.017Z",
+        "registrationMode": "Importación SIU",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": [
+            {
+              "name": 1,
+              "items": [
+                "Psicología Cognitiva"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T14:17:00.017Z",
+        "createdAt": "2026-05-06T14:17:00.017Z"
+      }
+    },
+    {
+      "id": "FCS_A_06",
+      "title": "Egresados Facultad de Ciencias de la Salud",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Carrera",
+        "Género",
+        "Año"
+      ],
+      "datasetId": "FCS_A_06",
+      "thematics": [
+        {
+          "id": 2053,
+          "name": "Egreso"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Egresados Facultad de Ciencias de la Salud",
+            "type": "column",
+            "stacked": 1,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 3,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Carrera / Género",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 0,
+              "suffix": null,
+              "showTotal": true
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": true,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": true,
+            "cols": [
+              3
+            ],
+            "rows": [
+              1,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "percentage"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe la distribución anual de egresados/as de la Facultad de Ciencias de la Salud según carrera y género.",
+        "formula": "Sumatoria anual de egresados/as de la FCS por carrera y género.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-03-31",
+        "registrationMode": "Importación SIU",
+        "dataResponsible": "Rosas, Pedro Pablo",
+        "loadResponsible": "Rosas, Pedro Pablo",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_A_07-356l0sz",
+      "published": true,
+      "title": "Relación duración media y duración teórica",
+      "informationUnitName": "FCS",
+      "measureUnit": "Índice",
+      "periodicity": "Anual",
+      "timeRange": "2016-2025",
+      "dimensions": [
+        "Carrera",
+        "Año"
+      ],
+      "datasetId": "FCS_A_07",
+      "thematics": [
+        {
+          "id": 2053,
+          "name": "Egreso"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Relación duración media y duración teórica",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 2,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Carrera",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 1,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 1,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización muestra la relación entre la duración media y la duración teórica de las carreras de la Facultad de Ciencias de la Salud. Nota: SPU utiliza indicadores como la duración teórica (prevista en el plan de estudios) y la duración media (tiempo real de egreso) para calcular el índice de retraso. Nota: para el año 2023 no se cuenta con datos.",
+        "formula": "Ver: Síntesis de Información Estadísticas Universitarias. SPU, Ministerio de Capital Humano.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-05-07T13:32:59.367Z",
+        "registrationMode": "Manual",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": [
+            {
+              "name": 2,
+              "items": [
+                "2016",
+                "2017",
+                "2018",
+                "2019",
+                "2020",
+                "2021",
+                "2022",
+                "2024",
+                "2025"
+              ]
+            }
+          ]
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-07T13:32:59.367Z",
+        "createdAt": "2026-05-07T13:32:59.367Z"
+      }
+    },
+    {
+      "id": "FCS_A_08",
+      "title": "Matrícula Facultad de Ciencias de la Salud",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Carrera",
+        "Género",
+        "Año"
+      ],
+      "datasetId": "FCS_A_08",
+      "thematics": [
+        {
+          "id": 2052,
+          "name": "Matricula"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Matrícula Facultad de Ciencias de la Salud",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año / Género",
+              "firstLevel": 3,
+              "secondLevel": 2,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Carrera",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 0,
+              "suffix": null,
+              "showTotal": true
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": true,
+            "cols": [
+              3
+            ],
+            "rows": [
+              1,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe la distribución anual de la matrícula activa de la Facultad de Ciencias de la Salud según carrera y género.",
+        "formula": "Sumatoria anual de estudiantes que realizaron la reinscripción anual por SIU Guaraní para el año académico correspondiente, según carrera y género.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-03-31",
+        "registrationMode": "Importación SIU",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Rosas, Pedro Pablo"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_A_09",
+      "title": "Inscripción a cursadas - Licenciatura en Psicología",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2015-2025",
+      "dimensions": [
+        "Espacio curricular",
+        "Año"
+      ],
+      "datasetId": "FCS_A_09",
+      "thematics": [
+        {
+          "id": 20611,
+          "name": "Cursadas"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Inscripción a cursadas - Licenciatura en Psicología",
+            "type": "bar",
+            "stacked": 1,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 2,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Carrera",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización exhibe la inscripción a la cursada anual de estudiantes de la Licenciatura en Psicología por espacio curricular.",
+        "formula": "Sumatoria de estudiantes con inscripción a cursada en espacios curriculares de la Licenciatura en Psicología, anual, según espacio curricular.",
+        "producerArea": "Departamento de Estudiantes",
+        "lastUpdate": "2026-03-31",
+        "registrationMode": "Importación SIU",
+        "dataResponsible": "Rosas, Pedro Pablo",
+        "loadResponsible": "Rosas, Pedro Pablo",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_11",
+      "title": "Crédito presupuestario de recursos propios",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Año"
+      ],
+      "datasetId": "FCS_E_11",
+      "thematics": [
+        {
+          "id": 2012,
+          "name": "Datos presupuestarios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Crédito presupuestario de recursos propios",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 2,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [],
+            "rows": [
+              2,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el crédito presupuestario de recursos propios (Fuente 12).",
+        "formula": "Sumatoria del crédito presupuestario de los recursos propios",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Belgrano, Manuel",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_12_2",
+      "title": "Ejecución presupuestaria",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Año"
+      ],
+      "datasetId": "FCS_E_12",
+      "thematics": [
+        {
+          "id": 2012,
+          "name": "Datos presupuestarios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria por mes.",
+        "formula": "Sumatoria de la ejecución presupuestaria por mes",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            2
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_12-fxriw27",
+      "published": true,
+      "title": "Ejecución presupuestaria",
+      "informationUnitName": "FCS",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Inciso del gasto",
+        "Año"
+      ],
+      "datasetId": "FCS_E_12",
+      "thematics": [
+        {
+          "id": 2012,
+          "name": "Datos presupuestarios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": null,
+              "suffix": "$",
+              "showTotal": true
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria según inciso del gasto. Es decir, podemos ver en qué gasta la Facultad de Ciencias de la Salud.",
+        "formula": "Sumatoria de la ejecución presupuestaria por inciso del gasto",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-05-06T13:01:24.736Z",
+        "registrationMode": "Importación SIU Pilagá",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T13:01:24.736Z",
+        "createdAt": "2026-05-06T13:01:24.736Z"
+      }
+    },
+    {
+      "id": "FCS_E_13",
+      "title": "Ejecución presupuestaria",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Tipo de fuente",
+        "Año"
+      ],
+      "datasetId": "FCS_E_13",
+      "thematics": [
+        {
+          "id": 2012,
+          "name": "Datos presupuestarios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria por fuente",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 2,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria por el tipo de fuente utilizada.",
+        "formula": "Es la sumatoria de la ejecución presupuestaria por tipo de fuente utilizada",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_14-1qymm97",
+      "published": true,
+      "title": "Ejecución presupuestaria",
+      "informationUnitName": "FCS",
+      "measureUnit": "Porcentaje",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Año"
+      ],
+      "datasetId": "FCS_E_14",
+      "thematics": [
+        {
+          "id": 2012,
+          "name": "Datos presupuestarios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Porcentaje de ejecución presupuestaria",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 2,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Porcentaje",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": false
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [],
+            "rows": [
+              2,
+              1
+            ],
+            "suffix": "%",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el porcentaje de ejecución del presupuesto por mes.",
+        "formula": "Cociente entre el presupuesto preventivo y el crédito presupuestario, multiplicado por 100.",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-05-06T13:09:38.783Z",
+        "registrationMode": "Importación SIU Pilagá",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T13:09:38.783Z",
+        "createdAt": "2026-05-06T13:09:38.783Z"
+      }
+    },
+    {
+      "id": "FCS_E_17",
+      "title": "Flujo de egresos mensuales",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2023-2025",
+      "dimensions": [
+        "Mes",
+        "Grandes rubros",
+        "Año"
+      ],
+      "datasetId": "FCS_E_17",
+      "thematics": [
+        {
+          "id": 2013,
+          "name": "Información financiera"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Flujo de egresos mensuales",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "pesos"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el flujo de egresos de tesorería por mes según grandes rubros de egreso.",
+        "formula": "Sumatoria de los egresos en un mes determinado por grandes rubros de egreso.",
+        "producerArea": "Dirección de Tesorería",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Sarmiento, Domingo",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_2_2",
+      "title": "Becas otorgadas",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Tipo de becas",
+        "Año"
+      ],
+      "datasetId": "FCS_E_2",
+      "thematics": [
+        {
+          "id": 202,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "line",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 3,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "becas"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": true,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1
+            ],
+            "rows": [
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "percentage"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado anualmente a los y las estudiantes e ingresantes  de la Facultad de Ciencias de la Salud por tipo de beca.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas anualmente por tipo de beca.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Carrillo, Ramón",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            2
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_2_3",
+      "title": "Becas otorgadas",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Género",
+        "Año"
+      ],
+      "datasetId": "FCS_E_2",
+      "thematics": [
+        {
+          "id": 202,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 3,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado anualmente a los y las estudiantes e ingresantes de la Facultad de Ciencias de la Salud por género.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas anualmente por género.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Carrillo, Ramón",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_2_4",
+      "title": "Becas otorgadas",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Año"
+      ],
+      "datasetId": "FCS_E_2",
+      "thematics": [
+        {
+          "id": 202,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "bar",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 3,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "becas"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [],
+            "rows": [
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado en la Facultad de Ciencias de la Salud por año.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas por año",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Carrillo, Ramón",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1,
+            2
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_E_2-ukyp2cf",
+      "published": true,
+      "title": "Becas otorgadas",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Tipo de becas",
+        "Género",
+        "Año"
+      ],
+      "datasetId": "FCS_E_2",
+      "thematics": [
+        {
+          "id": 202,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 3,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1,
+              2
+            ],
+            "rows": [
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado anualmente a los y las estudiantes e ingresantes de la Facultad de Ciencias de la Salud por tipo de beca y género.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas anualmente por tipo de beca y género.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-05-07T16:27:48.808Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Carrillo",
+          "Ramón"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-07T16:27:48.808Z",
+        "createdAt": "2026-05-07T16:27:48.808Z"
+      }
+    },
+    {
+      "id": "FCS_E_6-wctq0xn",
+      "published": false,
+      "title": "Erogaciones",
+      "informationUnitName": "FCS",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Anual",
+      "timeRange": "S/D",
+      "dimensions": [
+        "Trimestre",
+        "Tipo de servicio",
+        "Año"
+      ],
+      "datasetId": "FCS_E_6",
+      "thematics": [
+        {
+          "id": 2011,
+          "name": "Gastos en servicios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Erogaciones",
+            "type": "spline",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Trimestre",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el monto en pesos corrientes destinado al pago de servicios básicos, seguridad y limpieza, por tipo de servicio.",
+        "formula": "Sumatoria de los montos destinados al pago de servicios básicos, seguridad y limpieza por tipo de servicio.",
+        "producerArea": "Dirección de Contabilidad",
+        "lastUpdate": "2026-05-05T15:49:53.658Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Azurduy",
+          "Juana"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-05T15:49:53.658Z",
+        "createdAt": "2026-05-05T15:49:53.658Z"
+      }
+    },
+    {
+      "id": "FCS_E_8",
+      "title": "Crédito y ejecución presupuestaria de recursos propios",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Crédito y Ejecución",
+        "Año"
+      ],
+      "datasetId": "FCS_E_8",
+      "thematics": [
+        {
+          "id": 2012,
+          "name": "Datos presupuestarios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Crédito y ejecución presupuestaria de recursos propios",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el crédito y la ejecución presupuestaria en pesos corrientes de los Recursos propios (Fuente 12). Para la ejecución se consideran las erogaciones de los incisos 1 a 5 que están en la etapa del preventivo.",
+        "formula": "Sumatoria de las erogaciones de la fuente 12 (crédito presupuestario de la fuente 12) que se encuentran en etapa de preventivo.",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_P_1",
+      "title": "Estado de dotación docente Lic. en Psicología",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Módulos",
+      "periodicity": "Anual",
+      "timeRange": "2025",
+      "dimensions": [
+        "Tipo de dotación docente",
+        "Espacio curricular",
+        "Año"
+      ],
+      "datasetId": "FCS_P_1",
+      "thematics": [
+        {
+          "id": 203,
+          "name": "Dotación docente"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Estado de dotación docente Lic. en Psicología",
+            "type": "bar",
+            "stacked": null,
+            "xAxis": {
+              "title": "",
+              "firstLevel": 2,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Módulos",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 2,
+              "suffix": null,
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Módulos",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              3,
+              1
+            ],
+            "rows": [
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el estado de dotación docente en módulos por espacio curricular de la carrera Lic. en Psicología.",
+        "formula": "El estado de dotación resulta de la diferencia entre la dotación estándar (determinada según cantidad de alumnos, carga horaria y tipo de asignatura), y la dotación total de un espacio curricular, que está compuesta por dotación propia y por aportes de otra dotación. Todos los valores medidos en módulos. Estado de dotación = dotación estándar - dotación total. Dotación total = dotación propia + aportes de otra dotación",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2025-12-20",
+        "registrationMode": "Importación WICHI",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Belgrano, Manuel",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_P_2-hphqcv1",
+      "published": true,
+      "title": "Docentes de Lic. en Terapia Ocupacional",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "S/D",
+      "dimensions": [
+        "Tipo de cargo",
+        "Dedicación",
+        "Espacio curricular",
+        "Año"
+      ],
+      "datasetId": "FCS_P_2",
+      "thematics": [
+        {
+          "id": 20411,
+          "name": "Docente"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Docentes de Lic. en Terapia Ocupacional",
+            "type": "column",
+            "stacked": 1,
+            "xAxis": {
+              "title": "",
+              "firstLevel": 3,
+              "secondLevel": null,
+              "rotateLabels": -1
+            },
+            "yAxis": {
+              "title": "",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1,
+              2
+            ],
+            "rows": [
+              3,
+              5
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de docentes de la carrera Lic. en Terapia Ocupacional, por espacio curricular, según cargo y dedicación.",
+        "formula": "Sumatoria de docentes de la carrera Lic. en Terapia Ocupacional, por espacio curricular, según cargo y dedicación.",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2026-05-04T16:41:34.148Z",
+        "registrationMode": "Importación WICHI",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            4
+          ],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-04T16:41:34.148Z",
+        "createdAt": "2026-05-04T16:41:34.148Z"
+      }
+    },
+    {
+      "id": "FCS_P_3-iwko87a",
+      "published": true,
+      "title": "Afectaciones de cargos docentes",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2025",
+      "dimensions": [
+        "Cargo docente",
+        "Carreras - Sede Central",
+        "Dedicación docente",
+        "Año"
+      ],
+      "datasetId": "FCS_P_3",
+      "thematics": [
+        {
+          "id": 20411,
+          "name": "Docente"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Afectaciones de cargos docentes",
+            "type": "column",
+            "stacked": 1,
+            "xAxis": {
+              "title": "Año/Carrera-Sede Central",
+              "firstLevel": 4,
+              "secondLevel": 2,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Afectaciones",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": true,
+            "cols": [
+              2
+            ],
+            "rows": [
+              4,
+              1,
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de afectaciones de cargos docentes en Facultad de Ciencias de la Salud, según tipo de cargo y dedicación, por año. Nota: se excluye a docentes con contrato. Para la personalización de la vista no se recomienda la agregación de datos por dimensión, ya que la presentación de la información sería incorrecta.",
+        "formula": "Sumatoria de afectaciones de cargos docentes a la Facultad de Ciencias de la Salud, por carrera, tipo de cargo y dedicación con una periodicidad anual.",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2026-05-06T13:00:02.920Z",
+        "registrationMode": "Importación WICHI",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T13:00:02.920Z",
+        "createdAt": "2026-05-06T13:00:02.920Z"
+      }
+    },
+    {
+      "id": "FCS_P_4",
+      "title": "Docentes capacitados",
+      "summary": "",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Semestral",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Tipo de capacitación docente",
+        "Semestre",
+        "Año"
+      ],
+      "datasetId": "FCS_P_4",
+      "thematics": [
+        {
+          "id": 2042,
+          "name": "Capacitación"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Docentes capacitados",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año/Semestre",
+              "firstLevel": 3,
+              "secondLevel": 2,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Capacitaciones",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1,
+              2
+            ],
+            "rows": [
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos contiene datos sobre la cantidad de docentes que accedieron a las capacitaciones dictadas por tipo de capacitación por semestre en la Facultad de Ciencias de la Salud.",
+        "formula": "Sumatoria de la cantidad de docentes que participaron en capacitaciones por tipo de capacitación por semestre",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2025-12-15",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "FCS_P_5-p6rikvo",
+      "published": true,
+      "title": "Personal nodocente",
+      "informationUnitName": "FCS",
+      "measureUnit": "Porcentaje",
+      "periodicity": "Anual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Máx nivel educativo alcanzado",
+        "Año"
+      ],
+      "datasetId": "FCS_P_5",
+      "thematics": [
+        {
+          "id": 2042,
+          "name": "Capacitación"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Personal nodocente",
+            "type": "bar",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 2,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Porcentaje",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 2,
+              "suffix": "%"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1
+            ],
+            "rows": [
+              2
+            ],
+            "suffix": "%",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la distribución porcentual de empleados/as de la Facultad de Ciencias de la Salud según máximo nivel educativo alcanzado.",
+        "formula": "Cociente entre la cantidad de empleados/as por nivel educativo y la cantidad total de empleados/as, multiplicado por 100",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2026-05-06T13:11:43.346Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T13:11:43.346Z",
+        "createdAt": "2026-05-06T13:11:43.346Z"
+      }
+    },
+    {
+      "id": "FCS_P_6-cj90lcq",
+      "published": true,
+      "title": "Personal nodocente",
+      "informationUnitName": "FCS",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2025",
+      "dimensions": [
+        "Dependencia",
+        "Categoría nodocente",
+        "Año"
+      ],
+      "datasetId": "FCS_P_6",
+      "thematics": [
+        {
+          "id": 20412,
+          "name": "Nodocente"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Personal nodocente",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año/Dependencia",
+              "firstLevel": 1,
+              "secondLevel": null,
+              "rotateLabels": 5
+            },
+            "yAxis": {
+              "title": "Personal",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": true,
+            "cols": [
+              3,
+              2
+            ],
+            "rows": [
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de personal nodocente por categoría según dependencia de la Facultad de Ciencias de la Salud",
+        "formula": "Sumatoria de la cantidad de personal nodocente, según facultad y categoría",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2026-05-06T13:26:52.627Z",
+        "registrationMode": "Importación WICHI",
+        "responsible": [
+          "Moreau de Justo",
+          "Alicia"
+        ],
+        "dataResponsible": "Walsh, María Elena"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T13:26:52.627Z",
+        "createdAt": "2026-05-06T13:26:52.627Z"
+      }
+    },
+    {
+      "id": "SGE_E_10",
+      "title": "Recaudación de recursos propios",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Concepto",
+        "Año"
+      ],
+      "datasetId": "SGE_E_10",
+      "thematics": [
+        {
+          "id": 1021,
+          "name": "Gestión de recursos propios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Recaudación de recursos propios",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este indicador muestra el monto de recaudación de recursos propios (Fuente 12) por concepto.",
+        "formula": "Sumatoria de la recaudación de recursos propios por concepto.",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Belgrano, Manuel",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_11-bvtodj2",
+      "published": true,
+      "title": "Crédito presupuestario de recursos propios",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Anual",
+      "timeRange": "S/D",
+      "dimensions": [
+        "Mes",
+        "Año"
+      ],
+      "datasetId": "SGE_E_11",
+      "thematics": [
+        {
+          "id": 1021,
+          "name": "Gestión de recursos propios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Crédito presupuestario de recursos propios",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el crédito presupuestario de recursos propios (Fuente 12).",
+        "formula": "Sumatoria del crédito presupuestario de los recursos propios.",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-05-05T14:22:10.593Z",
+        "registrationMode": "Importación SIU Pilagá",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            2
+          ],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-05T14:22:10.593Z",
+        "createdAt": "2026-05-05T14:22:10.593Z"
+      }
+    },
+    {
+      "id": "SGE_E_11",
+      "title": "Crédito presupuestario de recursos propios",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Dependencia",
+        "Año"
+      ],
+      "datasetId": "SGE_E_11",
+      "thematics": [
+        {
+          "id": 1021,
+          "name": "Gestión de recursos propios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Crédito presupuestario de recursos propios",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el crédito presupuestario de recursos propios (Fuente 12) por dependencia.",
+        "formula": "Sumatoria del crédito presupuestario de los recursos propios por dependencia.",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_12_2",
+      "title": "Ejecución presupuestaria",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Inciso del gasto",
+        "Año"
+      ],
+      "datasetId": "SGE_E_12",
+      "thematics": [
+        {
+          "id": 1022,
+          "name": "Ejecución presupuestaria"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria por inciso",
+            "type": "column",
+            "stacked": 3,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 0,
+              "suffix": "$",
+              "showTotal": true
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              4,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria según inciso del gasto.",
+        "formula": "Sumatoria de la ejecución presupuestaria por inciso del gasto",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            2
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_1_2",
+      "title": "Presupuesto destinado a becas",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Anual",
+      "timeRange": "2020-2025",
+      "dimensions": [
+        "Año"
+      ],
+      "datasetId": "SGE_E_1",
+      "thematics": [
+        {
+          "id": 104,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Presupuesto destinado a becas",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 2,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [],
+            "rows": [
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos detalla el monto total del dinero en pesos corrientes asignado a becas por año.",
+        "formula": "Sumatoria de dinero en pesos corrientes asignado presupuestariamente para becas.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Carrillo, Ramón",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_12",
+      "title": "Ejecución presupuestaria",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Dependencia",
+        "Inciso del gasto",
+        "Año"
+      ],
+      "datasetId": "SGE_E_12",
+      "thematics": [
+        {
+          "id": 10221,
+          "name": "Por dependencia"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria por inciso",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              4,
+              1,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria de cada dependencia según inciso del gasto. Es decir, podemos ver en qué gasta cada dependencia.",
+        "formula": "Sumatoria de la ejecución presupuestaria de las dependencias por inciso del gasto",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_13-1ycmkht",
+      "published": true,
+      "title": "Ejecución presupuestaria",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Anual",
+      "timeRange": "S/D",
+      "dimensions": [
+        "Mes",
+        "Dependencia",
+        "Tipo de fuente",
+        "Año"
+      ],
+      "datasetId": "SGE_E_13",
+      "thematics": [
+        {
+          "id": 10221,
+          "name": "Por dependencia"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              4,
+              1,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria de cada dependencia por el tipo de fuente que utiliza.",
+        "formula": "Es la sumatoria de la ejecución presupuestaria de las dependencias por tipo de fuente utilizada",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-05-05T14:59:49.027Z",
+        "registrationMode": "Importación SIU Pilagá",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-05T14:59:49.027Z",
+        "createdAt": "2026-05-05T14:59:49.027Z"
+      }
+    },
+    {
+      "id": "SGE_E_13_2",
+      "title": "Ejecución presupuestaria",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Tipo de fuente",
+        "Año"
+      ],
+      "datasetId": "SGE_E_13",
+      "thematics": [
+        {
+          "id": 1022,
+          "name": "Ejecución presupuestaria"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria por fuente",
+            "type": "column",
+            "stacked": 3,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": true,
+              "decimals": 0,
+              "suffix": "$",
+              "showTotal": false
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              4,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria por el tipo de fuente utilizada.",
+        "formula": "Es la sumatoria de la ejecución presupuestaria por tipo de fuente",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            2
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_13",
+      "title": "Ejecución presupuestaria",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Dependencia",
+        "Tipo de fuente",
+        "Año"
+      ],
+      "datasetId": "SGE_E_13",
+      "thematics": [
+        {
+          "id": 104,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Ejecución presupuestaria",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": true,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              4,
+              1,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la ejecución presupuestaria de cada dependencia por el tipo de fuente que utiliza.",
+        "formula": "Es la sumatoria de la ejecución presupuestaria de las dependencias por tipo de fuente utilizada",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_14",
+      "title": "Ejecución presupuestaria",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Porcentaje",
+      "periodicity": "Mensual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Mes",
+        "Dependencia",
+        "Año"
+      ],
+      "datasetId": "SGE_E_14",
+      "thematics": [
+        {
+          "id": 1022,
+          "name": "Ejecución presupuestaria"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Porcentaje de ejecución presupuestaria",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Porcentaje",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Porcentaje",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el porcentaje de ejecución del presupuesto de cada dependencia.",
+        "formula": "Cociente entre el presupuesto preventivo y el crédito presupuestario de cada dependencia, multiplicado por 100.",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Importación SIU Pilagá",
+        "dataResponsible": "Belgrano, Manuela",
+        "loadResponsible": "Belgrano, Manuel",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_17-3d3p7i0",
+      "published": true,
+      "title": "Flujo de egresos mensuales",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Mensual",
+      "timeRange": "2023-2025",
+      "dimensions": [
+        "Mes",
+        "Grandes rubros",
+        "Año"
+      ],
+      "datasetId": "SGE_E_17",
+      "thematics": [
+        {
+          "id": 103,
+          "name": "Información financiera"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Flujo de egresos mensuales",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra el flujo de egresos de Tesorería por mes según grandes rubros de egreso.",
+        "formula": "Sumatoria de los egresos en un mes determinado por grandes rubros de egreso.",
+        "producerArea": "Dirección de Tesorería",
+        "lastUpdate": "2026-05-07T16:13:04.655Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Sarmiento",
+          "Domingo"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-07T16:13:04.655Z",
+        "createdAt": "2026-05-07T16:13:04.655Z"
+      }
+    },
+    {
+      "id": "SGE_E_1",
+      "title": "Presupuesto destinado a becas",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Anual",
+      "timeRange": "2020-2025",
+      "dimensions": [
+        "Tipo de becas",
+        "Año"
+      ],
+      "datasetId": "SGE_E_1",
+      "thematics": [
+        {
+          "id": 104,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Presupuesto destinado a becas",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 2,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "sorters": [],
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1
+            ],
+            "rows": [
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos detalla el monto total del dinero en pesos corrientes asignado a becas por año, por tipo de becas.",
+        "formula": "Sumatoria de dinero en pesos corrientes asignado presupuestariamente para becas, por tipo de becas.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Carrillo, Ramón",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_2_3",
+      "title": "Becas otorgadas",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Tipo de becas",
+        "Año"
+      ],
+      "datasetId": "SGE_E_2",
+      "thematics": [
+        {
+          "id": 104,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 4,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1
+            ],
+            "rows": [
+              4
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado anualmente a los y las estudiantes e ingresantes por tipo de beca.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas anualmente por tipo de beca.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Carrillo, Ramón",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            2,
+            3
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_2_4",
+      "title": "Becas otorgadas",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Género",
+        "Año"
+      ],
+      "datasetId": "SGE_E_2",
+      "thematics": [
+        {
+          "id": 104,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 4,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": ""
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              4
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado anualmente a los y las estudiantes e ingresantes por género.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas anualmente por género.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Carrillo, Ramón",
+        "loadResponsible": "Belgrano, Manuel",
+        "responsible": [
+          "Sarmiento",
+          "Faustino"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1,
+            2
+          ],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_2-5n4kffc",
+      "published": true,
+      "title": "Becas otorgadas",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Unidad Académica",
+        "Género",
+        "Año"
+      ],
+      "datasetId": "SGE_E_2",
+      "thematics": [
+        {
+          "id": 104,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "spline",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año",
+              "firstLevel": 4,
+              "secondLevel": null,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2,
+              3
+            ],
+            "rows": [
+              4
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado anualmente a los y las estudiantes e ingresantes por unidad académica.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas anualmente por unidad académica.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-05-06T14:26:53.193Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Carrillo",
+          "Ramón"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [
+            1
+          ],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T14:26:53.193Z",
+        "createdAt": "2026-05-06T14:26:53.193Z"
+      }
+    },
+    {
+      "id": "SGE_E_2-ud85w6w",
+      "published": true,
+      "title": "Becas otorgadas",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2019-2025",
+      "dimensions": [
+        "Tipo de becas",
+        "Unidad Académica",
+        "Género",
+        "Año"
+      ],
+      "datasetId": "SGE_E_2",
+      "thematics": [
+        {
+          "id": 104,
+          "name": "Becas para estudiantes"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Becas otorgadas",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año / Unidad Académica",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Cantidad de becas",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              1,
+              3
+            ],
+            "rows": [
+              4,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de becas que se han otorgado anualmente a los y las estudiantes e ingresantes por unidad académica, tipo de beca y género.",
+        "formula": "Sumatoria de la cantidad de becas otorgadas anualmente por unidad académica, tipo de beca y género.",
+        "producerArea": "Dirección de Estadísticas",
+        "lastUpdate": "2026-05-06T14:11:10.757Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Carrillo",
+          "Ramón"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T14:11:10.757Z",
+        "createdAt": "2026-05-06T14:11:10.757Z"
+      }
+    },
+    {
+      "id": "SGE_E_6",
+      "title": "Erogaciones de servicios básicos, seguridad y limpieza",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Trimestral",
+      "timeRange": "2025",
+      "dimensions": [
+        "Trimestre",
+        "Unidad Académica",
+        "Tipo de servicio",
+        "Año"
+      ],
+      "datasetId": "SGE_E_6",
+      "thematics": [
+        {
+          "id": 101,
+          "name": "Gastos en servicios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Erogaciones de servicios básicos, seguridad y limpieza",
+            "type": "column",
+            "stacked": "all",
+            "xAxis": {
+              "title": "Unidad Académica / Tipo de servicio",
+              "firstLevel": 2,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Pesos corrientes",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              3
+            ],
+            "rows": [
+              4,
+              1,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Esta visualización muestra el monto en pesos corrientes destinado al pago de servicios básicos, seguridad y limpieza, por unidad académica y tipo de servicio.",
+        "formula": "Sumatoria de los montos destinados al pago de servicios básicos, seguridad y limpieza por unidad académica y tipo de servicio.",
+        "producerArea": "Dirección de Contabilidad",
+        "lastUpdate": "2026-02-05",
+        "registrationMode": "Carga manual",
+        "dataResponsible": "Azurduy, Juana",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_E_8-wg4rjtc",
+      "published": true,
+      "title": "Recursos propios",
+      "informationUnitName": "SPF",
+      "measureUnit": "Pesos corrientes",
+      "periodicity": "Anual",
+      "timeRange": "S/D",
+      "dimensions": [
+        "Mes",
+        "Crédito y Ejecución",
+        "Año"
+      ],
+      "datasetId": "SGE_E_8",
+      "thematics": [
+        {
+          "id": 1021,
+          "name": "Gestión de recursos propios"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Crédito y ejecución presupuestaria de recursos propios",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año / Mes",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Pesos corrientes ",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": "$"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos permite observar el crédito y la ejecución presupuestaria en pesos corrientes de los Recursos propios (Fuente 12). Para la ejecución se consideran las erogaciones de los incisos 1 a 5 que están en la etapa del preventivo.",
+        "formula": "Sumatoria de las erogaciones de la fuente 12 (crédito presupuestario de la fuente 12) que se encuentran en etapa de preventivo.",
+        "producerArea": "Dirección de Presupuesto",
+        "lastUpdate": "2026-05-05T13:58:39.252Z",
+        "registrationMode": "Importación SIU Pilagá",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-05T13:58:39.252Z",
+        "createdAt": "2026-05-05T13:58:39.252Z"
+      }
+    },
+    {
+      "id": "SGE_P_1-2uoroeb",
+      "published": true,
+      "title": "Afectaciones de cargos docentes",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2025",
+      "dimensions": [
+        "Facultad",
+        "Cargo docente",
+        "Dedicación docente",
+        "Año"
+      ],
+      "datasetId": "SGE_P_1",
+      "thematics": [
+        {
+          "id": 1051,
+          "name": "Docente"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Afectaciones de cargos docentes",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año/Facultad",
+              "firstLevel": 4,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Afectaciones",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": true,
+            "cols": [
+              4,
+              1
+            ],
+            "rows": [
+              2,
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de afectaciones de cargos docentes en las facultades, según tipo de cargo y dedicación, por año. Nota: se excluye a docentes con contrato. Para la personalización de la vista no se recomienda la agregación de datos por dimensión, ya que la presentación de la información sería incorrecta.",
+        "formula": "Sumatoria de afectaciones de cargos docentes por tipo de cargo y dedicación con una periodicidad anual.",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2026-05-06T13:36:35.422Z",
+        "registrationMode": "Importación WICHI",
+        "responsible": [
+          "Moreau de Justo",
+          "Alicia"
+        ],
+        "dataResponsible": "Walsh, María Elena"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-06T13:36:35.422Z",
+        "createdAt": "2026-05-06T13:36:35.422Z"
+      }
+    },
+    {
+      "id": "SGE_P_2-yr7cb2v",
+      "published": true,
+      "title": "Docentes capacitados",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Semestral",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Facultad",
+        "Tipo de capacitación docente",
+        "Semestre",
+        "Año"
+      ],
+      "datasetId": "SGE_P_2",
+      "thematics": [
+        {
+          "id": 10511,
+          "name": "Capacitación"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Docentes capacitados",
+            "type": "column",
+            "stacked": 1,
+            "xAxis": {
+              "title": "Año/Semestre",
+              "firstLevel": 4,
+              "secondLevel": 3,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Docentes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": null,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": true,
+            "cols": [
+              2
+            ],
+            "rows": [
+              1,
+              4,
+              3
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos contiene datos sobre la cantidad de docentes de las facultades que accedieron a las capacitaciones dictadas por tipo de capacitación por semestre.",
+        "formula": "Sumatoria de la cantidad de docentes que participaron en capacitaciones por tipo de capacitación por semestre",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2026-05-07T15:23:19.474Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-07T15:23:19.474Z",
+        "createdAt": "2026-05-07T15:23:19.474Z"
+      }
+    },
+    {
+      "id": "SGE_P_3-xzypgiv",
+      "published": true,
+      "title": "Proporción de personal nodocente ",
+      "informationUnitName": "SPF",
+      "measureUnit": "Porcentaje",
+      "periodicity": "Anual",
+      "timeRange": "2024-2025",
+      "dimensions": [
+        "Facultad",
+        "Máx nivel educativo alcanzado",
+        "Año"
+      ],
+      "datasetId": "SGE_P_3",
+      "thematics": [
+        {
+          "id": 10521,
+          "name": "Capacitación"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "main-block",
+          "chartOptions": {
+            "title": "Proporción de personal nodocente ",
+            "type": "column",
+            "stacked": 2,
+            "xAxis": {
+              "title": "Año/Facultad",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 2,
+              "suffix": "%"
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "width": null,
+            "height": null,
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 2,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              1,
+              3
+            ],
+            "suffix": "%",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la distribución porcentual de empleados/as de las facultades según máximo nivel educativo alcanzado.",
+        "formula": "Cociente entre la cantidad de empleados/as por nivel educativo y la cantidad total de empleados/as, multiplicado por 100",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2026-05-07T15:30:19.391Z",
+        "registrationMode": "Carga manual",
+        "responsible": [
+          "Belgrano",
+          "Manuel"
+        ],
+        "dataResponsible": "Walsh, María Elena"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "metadata": {
+        "updatedAt": "2026-05-07T15:30:19.391Z",
+        "createdAt": "2026-05-07T15:30:19.391Z"
+      }
+    },
+    {
+      "id": "SGE_P_4",
+      "title": "Personal nodocente ",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2025",
+      "dimensions": [
+        "Facultad",
+        "Categoría nodocente",
+        "Año"
+      ],
+      "datasetId": "SGE_P_4",
+      "thematics": [
+        {
+          "id": 1052,
+          "name": "Nodocente"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Personal nodocente ",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año/Facultad",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Personal",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": true,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": true,
+            "totalCol": false,
+            "cols": [
+              2
+            ],
+            "rows": [
+              3,
+              1
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este conjunto de datos muestra la cantidad de personal nodocente, según facultad y categoría",
+        "formula": "Sumatoria de la cantidad de personal nodocente, según facultad y categoría",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2025-12-20",
+        "registrationMode": "Importación WICHI",
+        "dataResponsible": "Belgrano, Manuel",
+        "loadResponsible": "Belgrano, Manuel",
+        "responsible": [
+          "Grierson",
+          "Cecilia"
+        ]
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    },
+    {
+      "id": "SGE_P_5",
+      "title": "Personal docente",
+      "summary": "",
+      "informationUnitName": "SPF",
+      "measureUnit": "Cantidad",
+      "periodicity": "Anual",
+      "timeRange": "2025",
+      "dimensions": [
+        "Facultad",
+        "Titulación",
+        "Año"
+      ],
+      "datasetId": "SGE_P_5",
+      "thematics": [
+        {
+          "id": 1051,
+          "name": "Docente"
+        }
+      ],
+      "visualBlocks": [
+        {
+          "id": "block-1",
+          "title": "Vista Principal",
+          "chartOptions": {
+            "title": "Personal docente",
+            "type": "column",
+            "stacked": null,
+            "xAxis": {
+              "title": "Año/Facultad",
+              "firstLevel": 3,
+              "secondLevel": 1,
+              "rotateLabels": 0
+            },
+            "yAxis": {
+              "title": "Docentes",
+              "max": null
+            },
+            "tooltip": {
+              "shared": false,
+              "decimals": 0,
+              "suffix": null
+            },
+            "legends": {
+              "enabled": true
+            },
+            "navigator": {
+              "show": false,
+              "start": null,
+              "end": null
+            },
+            "filterLastYear": false,
+            "showYearsLegend": false,
+            "toPercent": false,
+            "measureUnit": "Cantidad",
+            "isPreview": false,
+            "disableAutoUpdate": false
+          },
+          "tableOptions": {
+            "digitsAfterDecimal": 0,
+            "totalRow": false,
+            "totalCol": true,
+            "cols": [
+              1
+            ],
+            "rows": [
+              3,
+              2
+            ],
+            "suffix": "",
+            "valueDisplay": "nominal"
+          }
+        }
+      ],
+      "technicalSheet": {
+        "description": "Este dataset contiene la cantidad de docentes de las facultades según titulación por año. Se deberá considerar el máximo título alcanzado",
+        "formula": "Sumatoria de la cantidad de docentes según titulación",
+        "producerArea": "Dirección de Personal",
+        "lastUpdate": "2025-12-20",
+        "registrationMode": "Importación WICHI",
+        "dataResponsible": "Grierson, Cecilia",
+        "loadResponsible": "Belgrano, Manuel"
+      },
+      "dataConfig": {
+        "baseFilters": {
+          "rollUp": [],
+          "filter": []
+        }
+      },
+      "published": true
+    }
+  ]
+}

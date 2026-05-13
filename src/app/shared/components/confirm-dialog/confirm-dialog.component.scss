@@ -1,0 +1,73 @@
+.confirm-dialog {
+  position: relative;
+  padding: 40px 32px 32px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-width: 320px;
+  max-width: 580px;
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1; // Asegurar que esté por encima de otros elementos
+  }
+
+  &__title {
+    margin: 0;
+    font-size: var(--q-fs-md);
+    font-weight: var(--q-fw-bold);
+    color: var(--q-gray-700); // Color oscuro pero no negro puro
+    padding-top: 8px;
+  }
+
+  &__content {
+    p {
+      margin: 0;
+      font-size: var(--q-fs-base);
+      color: var(--q-text-secondary);
+      line-height: var(--q-lh-normal);
+      white-space: pre-wrap; // Permite saltos de línea si se envían en el mensaje
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column-reverse; /* En móvil: Confirmar arriba, Cancelar abajo */
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-top: 12px;
+
+    @media (min-width: 576px) {
+      flex-direction: row; /* En desktop: Lado a lado */
+      gap: 12px;
+    }
+
+    app-button {
+      width: 100%;
+      
+      @media (min-width: 576px) {
+        flex: 1;
+        max-width: 200px;
+      }
+    }
+  }
+}
+
+// Estilos globales de Material para este componente específico
+:host {
+  display: block;
+}
+
+// Asegurar que el contenedor nativo no meta ruidos
+// TODO: eliminar ::ng-deep cuando Angular provea alternativa
+::ng-deep {
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: var(--q-radius-xl) !important; // Bordes más redondeados y premium
+    padding: 0 !important;
+  }
+}

@@ -1,0 +1,8 @@
+<div class="step-visualization-config">
+  <div class="visualization-preview-container mb-4">
+    @if (visualization()) {
+    <app-visualization [visualizationInput]="visualization()!" [datasetInput]="dataset()" [showControls]="true"
+      [showCloseButton]="false" [showSaveButton]="false" [expandMetadata]="true" [isWizard]="true"></app-visualization>
+    }
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="modal-container">
+  <div class="modal-layout">
+    <!-- Panel Izquierdo: Identidad Visual (Gris) -->
+    <div class="modal-sidebar">
+      <div class="pdf-icon-wrapper">
+        <div class="pdf-icon-document">
+          <div class="pdf-icon-corner"></div>
+          <div class="pdf-icon-tag">PDF</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel Derecho: Contenido y Acciones (Blanco) -->
+    <div class="modal-body">
+      <!-- Botón cerrar posicionado absolutamente en la esquina -->
+      <div class="modal-close-wrapper">
+        <app-button variant="icon-only" palette="gray" [icon]="icons.actions.close" size="small"
+          (btnClick)="closeDialog()" ariaLabel="Cerrar modal"></app-button>
+      </div>
+
+      <div class="modal-content-inner">
+        <h2 class="modal-title">Descargar informe</h2>
+        <p class="modal-subtitle">
+          Seleccione los elementos que desea descargar
+        </p>
+
+        <hr class="modal-divider" />
+
+        <div class="options-group">
+          <div class="option-item">
+            <app-checkbox label="Ficha técnica" [checked]="options.fiche"
+              (valueChange)="options.fiche = $event"></app-checkbox>
+          </div>
+
+          @if (availability.chart) {
+          <div class="option-item">
+            <app-checkbox label="Gráfico" [checked]="options.chart"
+              (valueChange)="options.chart = $event"></app-checkbox>
+          </div>
+          }
+
+          @if (availability.table) {
+          <div class="option-item">
+            <app-checkbox label="Tabla" [checked]="options.table" (valueChange)="options.table = $event"></app-checkbox>
+          </div>
+          }
+        </div>
+
+        @if (!isAnyOptionSelected) {
+        <div class="error-message">
+          <p>Debe seleccionar al menos un elemento para descargar.</p>
+        </div>
+        }
+
+        <hr class="modal-divider mt-auto" />
+
+        <div class="modal-actions">
+          <app-button label="Descargar" palette="blue" size="medium" [disabled]="!isAnyOptionSelected"
+            (btnClick)="onConfirm()"></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

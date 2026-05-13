@@ -1,0 +1,15 @@
+<div class="spinner-overlay">
+  <div class="spinner-container">
+    @if (spinnerTemplate()) {
+    <ng-container *ngTemplateOutlet="spinnerTemplate()"></ng-container>
+    } @else {
+    <mat-spinner diameter="50"></mat-spinner>
+    }
+
+    @if (text()) {
+    <div class="spinner-text">
+      {{ text() }}
+    </div>
+    }
+  </div>
+</div>

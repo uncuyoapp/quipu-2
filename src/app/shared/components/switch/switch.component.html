@@ -1,0 +1,21 @@
+<label class="switch-container" [class.switch-container--disabled]="disabled()">
+  @if (label() && labelPosition() === 'before') {
+  <span class="switch-label">{{ label() }}</span>
+  }
+
+  <div class="switch">
+    <input type="checkbox" [formControl]="formControl()" [checked]="currentValue()"
+      (change)="handleChange($any($event.target).checked)">
+    <span class="slider round"></span>
+  </div>
+
+  @if (label() && labelPosition() === 'after') {
+  <span class="switch-label">{{ label() }}</span>
+  }
+
+  @if (showStateText()) {
+  <span class="switch-state-text" [class.on]="currentValue()">
+    {{ currentValue() ? onText() : offText() }}
+  </span>
+  }
+</label>

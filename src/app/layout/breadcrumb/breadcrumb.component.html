@@ -1,0 +1,29 @@
+@if (breadcrumbs().length > 0) {
+<div class="container breadcrumb-container d-flex align-items-center mb-4 mt-0 mt-md-4">
+  <!-- Botón de Volver al Inicio/Anterior -->
+  <app-button [icon]="icons.nav.back" iconPosition="left" variant="icon-only" class="me-3" (btnClick)="goBack()"
+    title="Volver"></app-button>
+
+  <!-- Lista de migas de pan -->
+  <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+    <ul class="breadcrumb-list d-flex align-items-center mb-0 list-unstyled">
+      @for (item of breadcrumbs(); let last = $last; track $index) {
+      <li class="d-flex align-items-center">
+        @if (!last) {
+        <a (click)="navigate(item.url)" class="breadcrumb-link" role="button">
+          {{ item.label }}
+        </a>
+        <span class="breadcrumb-separator mx-2">›</span>
+        } @else {
+        <span class="breadcrumb-current" aria-current="page">
+          {{ item.label }}
+        </span>
+        }
+      </li>
+      }
+    </ul>
+  </nav>
+
+  <hr class="d-md-none mt-2 position-absolute w-100 start-0" style="bottom: -1rem;" />
+</div>
+}

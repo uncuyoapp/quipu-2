@@ -1,0 +1,20 @@
+/** 
+ * Layout base de la aplicación.
+ * Garantiza que el footer permanezca al final de la página cuando hay poco contenido.
+ */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.main-layout {
+  min-height: 100%;
+
+  &__content {
+    flex-grow: 1;
+  }
+
+  &.has-edit-bar {
+    padding-bottom: 40px; // Altura exacta de la barra
+  }
+}

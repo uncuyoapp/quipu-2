@@ -1,0 +1,30 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.visualizations-list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .visualization-container {
+    background-color: var(--q-surface-variant);
+    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 0;
+    min-height: 500px;
+
+    .visualization-count {
+      font-size: var(--q-fs-sm);
+      color: var(--q-text-secondary);
+    }
+  }
+
+  .sentinel {
+    height: 100px;
+    width: 100%;
+    background-color: var(--q-surface-variant);
+  }
+}

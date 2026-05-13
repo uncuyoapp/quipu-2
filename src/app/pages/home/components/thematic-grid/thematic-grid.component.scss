@@ -1,0 +1,19 @@
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: var(--q-radius-lg);
+  box-shadow: var(--q-shadow-drag);
+  opacity: 0.8;
+  margin: 0 !important;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.05;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.row.cdk-drop-list-dragging .col-12:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

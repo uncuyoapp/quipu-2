@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.radio-group {
+  display: flex;
+  font-family: var(--q-font-family);
+}
+
+.radio-group--horizontal {
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.radio-group--vertical {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-option {
+  transition: opacity 200ms ease;
+}
+
+.radio-option__label {
+  font-size: var(--q-fs-sm);
+  color: var(--q-text-primary);
+  user-select: none;
+  transition: color 200ms ease;
+}
+
+

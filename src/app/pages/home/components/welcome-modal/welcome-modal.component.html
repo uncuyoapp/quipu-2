@@ -1,0 +1,56 @@
+<div class="welcome-modal">
+  <header class="welcome-header">
+    <h2 class="welcome-title">¡Hola! Te damos la bienvenida a QUIPU</h2>
+    <app-button variant="icon-only" [icon]="icons.actions.close" (btnClick)="close()" class="close-btn">
+    </app-button>
+  </header>
+
+  <div class="welcome-content">
+    <section class="abstract-section">
+      <p class="abstract-text">
+        <strong>QUIPU</strong> es una plataforma tecnológica diseñada para facilitar la visualización y exploración de
+        información estratégica para la gestión universitaria.
+      </p>
+      <app-button label="Conocer más sobre QUIPU" variant="secondary" palette="blue" (btnClick)="goToAbout()">
+      </app-button>
+    </section>
+
+    <section class="explore-section">
+      <div class="section-icon">
+        <ng-icon [name]="icons.actions.search" size="24"></ng-icon>
+      </div>
+      <div class="section-body">
+        <h3 class="section-title">Explora las capacidades</h3>
+        <p class="section-text">
+          Te invitamos a explorar las distintas funcionalidades y herramientas que el sistema ofrece para la gestión y
+          visualización de la información.
+        </p>
+      </div>
+    </section>
+
+    <section class="considerations-section">
+      <h3 class="section-title">Consideraciones importantes</h3>
+      <div class="consideration-item">
+        <ng-icon [name]="icons.status.info" size="20" class="q-text-primary"></ng-icon>
+        <p>Los datos presentados en esta versión son <strong>ficticios</strong> y tienen fines exclusivamente
+          demostrativos.</p>
+      </div>
+      <div class="consideration-item">
+        <ng-icon [name]="icons.status.info" size="20" class="q-text-primary"></ng-icon>
+        <p>Al utilizar el proveedor de datos de prueba, cualquier modificación que realices permanecerá guardada
+          <strong>localmente</strong> en tu navegador.
+        </p>
+      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+        <app-button label="Saber más sobre los datos" variant="secondary" palette="gray" size="small"
+          (btnClick)="goToRepoProviders()">
+        </app-button>
+      </div>
+    </section>
+  </div>
+
+  <footer class="welcome-footer">
+    <img [src]="logos.universityArea" alt="UNCUYO APP" class="university-area-logo" />
+  </footer>
+</div>

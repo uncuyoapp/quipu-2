@@ -1,0 +1,34 @@
+<div class="visualization-multi-chart v-box">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-4 p-5 text-center">
+      <img [src]="graphics.multiChartEmpty" alt="Ilustración de gráficos por dimensión" height="140" />
+    </div>
+    <div class="col-8">
+      <h3>Gráficos por dimensión</h3>
+      <div class="dimensions">
+        @for (dimension of dataset().dimensions; track dimension.id) {
+        <app-tag [label]="dimension.nameView" variant="pill" appearance="filled" palette="blue"
+          [selected]="isDimensionSelected(dimension)" (tagClick)="toggleSplitDimension(dimension)" />
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (splitedDimensions().length > 0) {
+  @for (dimension of splitedDimensions(); track dimension.id) {
+  <div class="row my-2">
+    <div class="col-12">
+      <app-dimension-select [dimension]="dimension" (dimensionChange)="onDimensionChange($event)" [showDropdown]="true"
+        [showCheckbox]="false" [dropdownType]="'modal'"></app-dimension-select>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-12">
+      <libMultipleChart [dataset]="dataset()" [options]="chartOptions()" [splitDimension]="dimension">
+      </libMultipleChart>
+    </div>
+  </div>
+  }
+  }
+
+</div>
