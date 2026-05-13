@@ -8,12 +8,12 @@
 
 [![Angular](https://img.shields.io/badge/Angular-18+-DD0031?style=flat-square&logo=angular)](https://angular.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/Licencia-GPL--3.0-blue?style=flat-square)](./LICENSE)
+[![License](https://img.shields.io/badge/Licencia-GPL--3.0--only-blue?style=flat-square)](./LICENSE)
 [![Estado](https://img.shields.io/badge/Estado-Beta-yellow?style=flat-square)]()
 [![Demo](https://img.shields.io/badge/🌐_Demo-GitHub_Pages-2ea44f?style=flat-square)](https://uncuyoapp.github.io/quipu-2/)
 [![Contributor Covenant](https://img.shields.io/badge/Código_de_Conducta-2.1-4baaaa?style=flat-square)](./CODE_OF_CONDUCT.md)
 
-[🌐 Demo en vivo](#-demo-en-vivo) · [📖 Sobre QUIPU](#-sobre-quipu) · [🚀 Inicio rápido](#-inicio-rápido) · [📚 Documentación](#-documentación) · [🤝 Contribuciones](./CONTRIBUTING.md)
+[🌐 Demo en línea](#-demo-en-línea) · [📖 Sobre QUIPU](#-sobre-quipu) · [🚀 Inicio rápido](#-inicio-rápido) · [📚 Documentación](#-documentación) · [🤝 Contribuciones](./CONTRIBUTING.md)
 
 </div>
 
@@ -95,7 +95,7 @@ Una versión de demostración de QUIPU está disponible en **GitHub Pages** con 
 > [!IMPORTANT]
 > La demo utiliza **datos ficticios** generados exclusivamente para fines demostrativos. **Ningún dato presentado en la demo corresponde a información real** de la Universidad Nacional de Cuyo ni de ninguna otra institución. Los nombres de temáticas, visualizaciones, indicadores y valores numéricos fueron completamente inventados para ilustrar las capacidades del sistema.
 
-La demo funciona de manera **completamente autónoma**, sin conexión a ningún servidor backend. Esto es posible gracias al sistema de proveedores de datos intercambiables de la aplicación (ver [Arquitectura](#arquitectura-técnica)).
+La demo funciona de manera **completamente autónoma**, sin conexión a ningún servidor backend. Esto es posible gracias al sistema de proveedores de datos intercambiables de la aplicación (ver [Arquitectura](#️-arquitectura-técnica)).
 
 #### Credenciales de prueba
 
@@ -235,7 +235,7 @@ QUIPU es un proyecto open-source y acepta contribuciones de la comunidad. Antes 
 
 ## 📄 Licencia
 
-Este proyecto está distribuido bajo la **GNU General Public License v3.0 (GPL-3.0)**.
+Este proyecto está distribuido bajo la **GNU General Public License v3.0 (GPL-3.0-only)**.
 
 Esto significa que podés usar, estudiar, modificar y distribuir este software libremente, siempre y cuando cualquier obra derivada se distribuya bajo la misma licencia.
 
