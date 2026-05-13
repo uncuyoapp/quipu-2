@@ -67,7 +67,7 @@ src/app/
 │   │   ├── providers/
 │   │   │   ├── quipu-api.provider.ts   # Implementación real (HTTP)
 │   │   │   └── mock-data.provider.ts   # Implementación mock (desarrollo)
-│   │   └── mock/             # Datos estáticos para desarrollo
+│   │   └── mock/             # Datos estáticos para desarrollo (en src/assets/mock)
 │   │
 │   ├── services/             # Servicios organizados por capa
 │   │   ├── infrastructure/   # Capa 0: Fachadas de acceso a datos
@@ -252,7 +252,7 @@ app.config.ts
 | Clase | Entorno | Descripción |
 |-------|---------|-------------|
 | `QuipuApiProvider` | Producción | Realiza llamadas HTTP reales al backend de Quipu. Hereda de `BaseApiService` para gestión de caché y autenticación. |
-| `MockDataProvider` | Desarrollo | Lee datos estáticos desde archivos JSON en `core/data/mock/`. Simula latencia y errores. En `updateVisualization()` descarga el JSON modificado en vez de llamar a la API. |
+| `MockDataProvider` | Desarrollo | Lee datos estáticos desde archivos JSON en `src/assets/mock/`. Simula latencia y errores. En `updateVisualization()` descarga el JSON modificado en vez de llamar a la API. |
 
 ### Flujo de lectura
 
@@ -499,13 +499,15 @@ this.gridEditService.onActionSuccess
 ### 11.1 Path Aliases (tsconfig.json)
 
 ```
-@core/*        → src/app/core/*
-@services/*    → src/app/core/services/*
-@models/*      → src/app/core/models/*
-@components/*  → src/app/components/*
-@pages/*       → src/app/pages/*
-@shared/*      → src/app/shared/*
-@environments/* → src/environments/*
+@core/*         → src/app/core/*
+@services       → src/app/core/services/index.ts
+@services/*     → src/app/core/services/*
+@models/*       → src/app/core/models/*
+@components/*   → src/app/components/*
+@pages/*        → src/app/pages/*
+@shared/*       → src/app/shared/*
+@environments/*  → src/environments/*
+@assets/*       → src/assets/*
 ```
 
 ### 11.2 Barrel raíz de servicios (`@services`)
