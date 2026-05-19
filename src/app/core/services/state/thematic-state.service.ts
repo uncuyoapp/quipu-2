@@ -1,4 +1,4 @@
-import { Injectable, effect, inject, signal } from '@angular/core';
+import { Injectable, effect, inject, signal, untracked } from '@angular/core';
 import { ThematicFactory } from '@core/factories/thematic.factory';
 import { Thematic } from '@models/domain/thematic.model';
 import { Observable, finalize, tap } from 'rxjs';
@@ -29,7 +29,7 @@ export class ThematicStateService {
   readonly thematics = this._thematics.asReadonly();
 
   /** Signal privado que indica si se están cargando las temáticas */
-  private readonly _loading = signal<boolean>(false);
+  private readonly _loading = signal<boolean>(true);
   /** Signal público de solo lectura para el estado de carga */
   readonly loading = this._loading.asReadonly();
 
@@ -67,10 +67,28 @@ export class ThematicStateService {
      */
     effect(() => {
       const currentIU = this.sessionState.currentInformationUnit();
+      const allUnits = this.sessionState.allInformationUnits();
+      const isAuthenticated = this.sessionState.isAuthenticated();
 
-      if (currentIU && currentIU.id !== this.lastLoadedIUId) {
-        this.lastLoadedIUId = currentIU.id;
-        this.loadAll().subscribe();
+      if (currentIU) {
+        if (currentIU.id !== this.lastLoadedIUId) {
+          untracked(() => {
+            this.lastLoadedIUId = currentIU.id;
+            this.loadAll().subscribe();
+          });
+        }
+      } else {
+        // Sesión cerrada o sin unidad activa
+        untracked(() => {
+          this.lastLoadedIUId = null;
+          this._patchTree(() => []);
+
+          // Solo dejamos de cargar si no estamos autenticados (no habrá unidad)
+          // o si ya se cargaron las unidades y ninguna es la actual.
+          if (!isAuthenticated || allUnits.length > 0) {
+            this._loading.set(false);
+          }
+        });
       }
     }, { allowSignalWrites: true });
   }
@@ -80,7 +98,10 @@ export class ThematicStateService {
    * @returns Un observable con el listado cargado.
    */
   loadAll(): Observable<Thematic[]> {
-    this._loading.set(true);
+    untracked(() => {
+      this._loading.set(true);
+      this._patchTree(() => []); // Limpiar datos previos inmediatamente
+    });
     return this.dataRead.getThematics().pipe(
       tap((thematics) => {
         this.updateLocalTree(() => thematics);

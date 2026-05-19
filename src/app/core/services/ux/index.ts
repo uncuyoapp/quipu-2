@@ -5,3 +5,4 @@ export * from './information-unit.service';
 export * from './pwa-install.service';
 export * from './pwa-update.service';
 export * from './screen-orientation.service';
+export * from './fullscreen.service';

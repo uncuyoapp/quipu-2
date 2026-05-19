@@ -1,4 +1,4 @@
-<div class="visualization-container" [class.is-fullscreen]="isFullscreen">
+<div class="visualization-container" [class.is-fullscreen]="isFullscreen()">
   <div class="visualization-table v-box">
     <div class="table-header">
       <div class="header-left">
@@ -14,7 +14,7 @@
         <app-button variant="icon-only" palette="blue" size="small" [icon]="icons.viz.document"
           (btnClick)="downloadExcel()" title="Descargar como Excel"></app-button>
         <app-button variant="icon-only" palette="blue" size="small"
-          [icon]="isFullscreen ? icons.ui.contract : icons.ui.expand" (btnClick)="toggleFullscreen()"
+          [icon]="isFullscreen() ? icons.ui.contract : icons.ui.expand" (btnClick)="toggleFullscreen()"
           title="Pantalla completa"></app-button>
       </div>
     </div>

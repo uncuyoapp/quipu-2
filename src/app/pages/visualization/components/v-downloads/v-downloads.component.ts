@@ -3,8 +3,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { APP_ICONS } from '@core/config/icons.config';
 import { SECTION_GRAPHICS } from '@core/config/illustrations.config';
 import { DownloadAvailability, DownloadOptions } from '@models/common/download.model';
-import { NgIconComponent } from '@ng-icons/core';
 import { Dimension } from '@uncuyoapp/ngx-data-visualizer';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { VDownloadsModalComponent } from './v-downloads-modal/v-downloads-modal.component';
 
 /**
@@ -17,7 +17,7 @@ import { VDownloadsModalComponent } from './v-downloads-modal/v-downloads-modal.
 @Component({
   selector: 'app-v-downloads',
   standalone: true,
-  imports: [NgIconComponent, MatDialogModule],
+  imports: [MatDialogModule, ButtonComponent],
   templateUrl: './v-downloads.component.html',
   styleUrls: ['./v-downloads.component.scss'],
 })

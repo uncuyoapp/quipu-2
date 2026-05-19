@@ -4,7 +4,7 @@ import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
 import { Visualization } from '@models/domain/visualization.model';
-import { LoadingService } from '@services';
+import { AppNotificationService, LoadingService } from '@services';
 import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
 import { Observable, concatMap, delay, map, of, throwError } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -32,6 +32,7 @@ export class MockDataProvider extends IDataProvider {
   private selectedInformationUnit: number = 1;
 
   private readonly loading = inject(LoadingService);
+  private readonly notification = inject(AppNotificationService);
 
   constructor() {
     super();
@@ -300,10 +301,19 @@ export class MockDataProvider extends IDataProvider {
     const newId = `${visualization.datasetId}-${uniqueId}`;
     const now = new Date().toISOString();
 
+    // Obtener nombre de la unidad actual para asegurar visibilidad en el mock filtrado
+    const unit = MOCK_INFORMATION_UNITS.find(u => u.id === this.selectedInformationUnit);
+    const unitName = unit ? (unit.shortName || unit.name) : 'S/D';
+
     // Preparar el objeto con fecha y ID único
     const newVis: Visualization = {
       ...this._deepClone(visualization),
       id: newId,
+      // Si no viene con unidad (o viene el default S/D de la factory), asignamos la actual
+      informationUnitName: (visualization.informationUnitName === 'S/D' || !visualization.informationUnitName)
+        ? unitName
+        : visualization.informationUnitName,
+      informationUnitId: visualization.informationUnitId || this.selectedInformationUnit,
       technicalSheet: {
         ...visualization.technicalSheet,
         lastUpdate: now
@@ -428,21 +438,7 @@ export class MockDataProvider extends IDataProvider {
   }
 
   public download(visualization: Visualization, options: DownloadOptions): void {
-    // Para el entorno de Mock, siempre descargamos el JSON completo de la visualización
-    const data = JSON.stringify(visualization, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-
-    link.href = url;
-    link.download = `visualization_${visualization.id || 'export'}.json`;
-    link.click();
-
-    // Limpieza
-    setTimeout(() => {
-      window.URL.revokeObjectURL(url);
-      link.remove();
-    }, 100);
+    this.notification.info('La descarga del reporte PDF no se encuentra implementada en la versión de pruebas.');
   }
 
   // Dataset methods

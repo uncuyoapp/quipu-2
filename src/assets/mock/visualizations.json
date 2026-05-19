@@ -8,11 +8,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Condición académica",
-        "Espacio curricular",
-        "Año"
-      ],
+      "dimensions": ["Condición académica", "Espacio curricular", "Año"],
       "datasetId": "FCS_A_01",
       "thematics": [
         {
@@ -64,13 +60,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [1],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -82,10 +73,7 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-07T13:41:49.484Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
@@ -107,10 +95,7 @@
       "measureUnit": "Porcentaje",
       "periodicity": "Anual",
       "timeRange": "2020-2025",
-      "dimensions": [
-        "Espacio curricular",
-        "Año"
-      ],
+      "dimensions": ["Espacio curricular", "Año"],
       "datasetId": "FCS_A_02",
       "thematics": [
         {
@@ -139,7 +124,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 1,
-              "suffix": "%"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -160,12 +145,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              1
-            ],
+            "cols": [2],
+            "rows": [1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -196,12 +177,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Carrera",
-        "Departamento de procedencia",
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Carrera", "Departamento de procedencia", "Género", "Año"],
       "datasetId": "FCS_A_03",
       "thematics": [
         {
@@ -251,14 +227,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1,
-              3
-            ],
-            "rows": [
-              4,
-              2
-            ],
+            "cols": [1, 3],
+            "rows": [4, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -272,10 +242,7 @@
         "registrationMode": "Importación SIU",
         "dataResponsible": "García Márquez, Gabriela",
         "loadResponsible": "Allende, Isabel",
-        "responsible": [
-          "Allende",
-          "Isabel"
-        ]
+        "responsible": ["Allende", "Isabel"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -293,12 +260,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Carrera",
-        "Departamento de procedencia",
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Carrera", "Departamento de procedencia", "Género", "Año"],
       "datasetId": "FCS_A_04",
       "thematics": [
         {
@@ -349,14 +311,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1,
-              3
-            ],
-            "rows": [
-              4,
-              2
-            ],
+            "cols": [1, 3],
+            "rows": [4, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -368,10 +324,7 @@
         "producerArea": "Departamento de Ingreso",
         "lastUpdate": "2026-05-07T15:24:36.846Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "García Márquez",
-          "Gabriela"
-        ],
+        "responsible": ["García Márquez", "Gabriela"],
         "dataResponsible": "Allende, Isabel"
       },
       "dataConfig": {
@@ -393,11 +346,7 @@
       "measureUnit": "Cantidad de estudiantes",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Llamado de Examen",
-        "Resultado Examen",
-        "Año"
-      ],
+      "dimensions": ["Llamado de Examen", "Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -449,13 +398,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              4
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [4],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -467,23 +411,16 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-06T14:12:38.606Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": [
             {
               "name": 1,
-              "items": [
-                "Introducción a la Psicología"
-              ]
+              "items": ["Introducción a la Psicología"]
             }
           ]
         }
@@ -501,10 +438,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Resultado Examen",
-        "Año"
-      ],
+      "dimensions": ["Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -555,12 +489,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": true,
-            "cols": [
-              4
-            ],
-            "rows": [
-              3
-            ],
+            "cols": [4],
+            "rows": [3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -578,10 +508,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1,
-            2
-          ],
+          "rollUp": [1, 2],
           "filter": []
         }
       },
@@ -595,11 +522,7 @@
       "measureUnit": "Cantidad de estudiantes",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Llamado de Examen",
-        "Resultado Examen",
-        "Año"
-      ],
+      "dimensions": ["Llamado de Examen", "Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -651,13 +574,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              4
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [4],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -669,23 +587,16 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-06T14:19:42.934Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": [
             {
               "name": 1,
-              "items": [
-                "Psicología Educativa"
-              ]
+              "items": ["Psicología Educativa"]
             }
           ]
         }
@@ -703,11 +614,7 @@
       "measureUnit": "Cantidad de estudiantes",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Llamado de Examen",
-        "Resultado Examen",
-        "Año"
-      ],
+      "dimensions": ["Llamado de Examen", "Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -759,13 +666,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              4
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [4],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -777,23 +679,16 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-06T14:26:21.552Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": [
             {
               "name": 1,
-              "items": [
-                "Neuropsicología"
-              ]
+              "items": ["Neuropsicología"]
             }
           ]
         }
@@ -810,12 +705,8 @@
       "informationUnitName": "FCS",
       "measureUnit": "Cantidad de estudiantes",
       "periodicity": "Anual",
-      "timeRange": "S/D",
-      "dimensions": [
-        "Llamado de Examen",
-        "Resultado Examen",
-        "Año"
-      ],
+      "timeRange": "2015-2025",
+      "dimensions": ["Llamado de Examen", "Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -867,13 +758,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              4
-            ],
-            "rows": [
-              2,
-              3
-            ],
+            "cols": [4],
+            "rows": [2, 3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -885,23 +771,16 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-05T16:12:46.174Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": [
             {
               "name": 1,
-              "items": [
-                "Psicología del Desarrollo"
-              ]
+              "items": ["Psicología del Desarrollo"]
             }
           ]
         }
@@ -913,17 +792,13 @@
     },
     {
       "id": "FCS_A_05-s63jsk8",
-      "published": false,
+      "published": true,
       "title": "Resultados de examen - Lic. en Psicología",
       "informationUnitName": "FCS",
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
-      "timeRange": "S/D",
-      "dimensions": [
-        "Llamado de Examen",
-        "Resultado Examen",
-        "Año"
-      ],
+      "timeRange": "2015-2025",
+      "dimensions": ["Llamado de Examen", "Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -975,13 +850,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              4
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [4],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -993,17 +863,12 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-05T14:19:05.499Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": []
         }
       },
@@ -1020,11 +885,7 @@
       "measureUnit": "Cantidad de estudiantes",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Llamado de Examen",
-        "Resultado Examen",
-        "Año"
-      ],
+      "dimensions": ["Llamado de Examen", "Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -1076,13 +937,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              4
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [4],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1094,23 +950,16 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-06T14:23:03.354Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": [
             {
               "name": 1,
-              "items": [
-                "Psicología Social"
-              ]
+              "items": ["Psicología Social"]
             }
           ]
         }
@@ -1128,11 +977,7 @@
       "measureUnit": "Cantidad de estudiantes",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Llamado de Examen",
-        "Resultado Examen",
-        "Año"
-      ],
+      "dimensions": ["Llamado de Examen", "Resultado Examen", "Año"],
       "datasetId": "FCS_A_05",
       "thematics": [
         {
@@ -1184,13 +1029,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              4
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [4],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1202,23 +1042,16 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-06T14:17:00.017Z",
         "registrationMode": "Importación SIU",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": [
             {
               "name": 1,
-              "items": [
-                "Psicología Cognitiva"
-              ]
+              "items": ["Psicología Cognitiva"]
             }
           ]
         }
@@ -1236,11 +1069,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Carrera",
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Carrera", "Género", "Año"],
       "datasetId": "FCS_A_06",
       "thematics": [
         {
@@ -1270,7 +1099,7 @@
               "shared": true,
               "decimals": 0,
               "suffix": null,
-              "showTotal": true
+              "showTotal": false
             },
             "legends": {
               "enabled": true
@@ -1291,13 +1120,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": true,
-            "cols": [
-              3
-            ],
-            "rows": [
-              1,
-              2
-            ],
+            "cols": [3],
+            "rows": [1, 2],
             "suffix": "",
             "valueDisplay": "percentage"
           }
@@ -1311,10 +1135,7 @@
         "registrationMode": "Importación SIU",
         "dataResponsible": "Rosas, Pedro Pablo",
         "loadResponsible": "Rosas, Pedro Pablo",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ]
+        "responsible": ["Belgrano", "Manuel"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -1332,10 +1153,7 @@
       "measureUnit": "Índice",
       "periodicity": "Anual",
       "timeRange": "2016-2025",
-      "dimensions": [
-        "Carrera",
-        "Año"
-      ],
+      "dimensions": ["Carrera", "Año"],
       "datasetId": "FCS_A_07",
       "thematics": [
         {
@@ -1387,12 +1205,8 @@
             "digitsAfterDecimal": 1,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              1
-            ],
+            "cols": [2],
+            "rows": [1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1404,10 +1218,7 @@
         "producerArea": "Departamento de Estudiantes",
         "lastUpdate": "2026-05-07T13:32:59.367Z",
         "registrationMode": "Manual",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Rosas, Pedro Pablo"
       },
       "dataConfig": {
@@ -1444,11 +1255,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Carrera",
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Carrera", "Género", "Año"],
       "datasetId": "FCS_A_08",
       "thematics": [
         {
@@ -1499,13 +1306,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": true,
-            "cols": [
-              3
-            ],
-            "rows": [
-              1,
-              2
-            ],
+            "cols": [3],
+            "rows": [1, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1536,10 +1338,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2015-2025",
-      "dimensions": [
-        "Espacio curricular",
-        "Año"
-      ],
+      "dimensions": ["Espacio curricular", "Año"],
       "datasetId": "FCS_A_09",
       "thematics": [
         {
@@ -1589,12 +1388,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              1
-            ],
+            "cols": [2],
+            "rows": [1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1608,10 +1403,7 @@
         "registrationMode": "Importación SIU",
         "dataResponsible": "Rosas, Pedro Pablo",
         "loadResponsible": "Rosas, Pedro Pablo",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ]
+        "responsible": ["Belgrano", "Manuel"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -1629,10 +1421,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Año"],
       "datasetId": "FCS_E_11",
       "thematics": [
         {
@@ -1661,7 +1450,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -1683,10 +1472,7 @@
             "totalRow": false,
             "totalCol": false,
             "cols": [],
-            "rows": [
-              2,
-              1
-            ],
+            "rows": [2, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1700,10 +1486,7 @@
         "registrationMode": "Importación SIU Pilagá",
         "dataResponsible": "Belgrano, Manuel",
         "loadResponsible": "Belgrano, Manuel",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ]
+        "responsible": ["Grierson", "Cecilia"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -1721,10 +1504,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Año"],
       "datasetId": "FCS_E_12",
       "thematics": [
         {
@@ -1753,7 +1533,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -1775,10 +1555,7 @@
             "totalRow": false,
             "totalCol": false,
             "cols": [],
-            "rows": [
-              3,
-              1
-            ],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1795,9 +1572,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            2
-          ],
+          "rollUp": [2],
           "filter": []
         }
       },
@@ -1811,11 +1586,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Inciso del gasto",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Inciso del gasto", "Año"],
       "datasetId": "FCS_E_12",
       "thematics": [
         {
@@ -1843,7 +1614,7 @@
             "tooltip": {
               "shared": true,
               "decimals": null,
-              "suffix": "$",
+              "suffix": null,
               "showTotal": true
             },
             "legends": {
@@ -1867,13 +1638,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -1885,10 +1651,7 @@
         "producerArea": "Dirección de Presupuesto",
         "lastUpdate": "2026-05-06T13:01:24.736Z",
         "registrationMode": "Importación SIU Pilagá",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ],
+        "responsible": ["Grierson", "Cecilia"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -1910,11 +1673,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Tipo de fuente",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Tipo de fuente", "Año"],
       "datasetId": "FCS_E_13",
       "thematics": [
         {
@@ -1943,7 +1702,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 2,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -1964,13 +1723,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2001,10 +1755,7 @@
       "measureUnit": "Porcentaje",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Año"],
       "datasetId": "FCS_E_14",
       "thematics": [
         {
@@ -2032,7 +1783,7 @@
             "tooltip": {
               "shared": false,
               "decimals": null,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": false
@@ -2056,10 +1807,7 @@
             "totalRow": false,
             "totalCol": false,
             "cols": [],
-            "rows": [
-              2,
-              1
-            ],
+            "rows": [2, 1],
             "suffix": "%",
             "valueDisplay": "nominal"
           }
@@ -2071,10 +1819,7 @@
         "producerArea": "Dirección de Presupuesto",
         "lastUpdate": "2026-05-06T13:09:38.783Z",
         "registrationMode": "Importación SIU Pilagá",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ],
+        "responsible": ["Grierson", "Cecilia"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -2096,11 +1841,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2023-2025",
-      "dimensions": [
-        "Mes",
-        "Grandes rubros",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Grandes rubros", "Año"],
       "datasetId": "FCS_E_17",
       "thematics": [
         {
@@ -2129,7 +1870,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "pesos"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -2150,13 +1891,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2187,10 +1923,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Tipo de becas",
-        "Año"
-      ],
+      "dimensions": ["Tipo de becas", "Año"],
       "datasetId": "FCS_E_2",
       "thematics": [
         {
@@ -2219,7 +1952,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "becas"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -2230,8 +1963,8 @@
               "end": null
             },
             "filterLastYear": false,
-            "showYearsLegend": false,
-            "toPercent": true,
+            "showYearsLegend": true,
+            "toPercent": false,
             "measureUnit": "Cantidad",
             "isPreview": false,
             "disableAutoUpdate": false
@@ -2240,14 +1973,10 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1
-            ],
-            "rows": [
-              3
-            ],
+            "cols": [1],
+            "rows": [3],
             "suffix": "",
-            "valueDisplay": "percentage"
+            "valueDisplay": "nominal"
           }
         }
       ],
@@ -2262,9 +1991,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            2
-          ],
+          "rollUp": [2],
           "filter": []
         }
       },
@@ -2278,10 +2005,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Género", "Año"],
       "datasetId": "FCS_E_2",
       "thematics": [
         {
@@ -2310,7 +2034,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -2331,12 +2055,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3
-            ],
+            "cols": [2],
+            "rows": [3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2353,9 +2073,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": []
         }
       },
@@ -2369,9 +2087,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Año"
-      ],
+      "dimensions": ["Año"],
       "datasetId": "FCS_E_2",
       "thematics": [
         {
@@ -2400,7 +2116,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "becas"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -2422,9 +2138,7 @@
             "totalRow": false,
             "totalCol": false,
             "cols": [],
-            "rows": [
-              3
-            ],
+            "rows": [3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2441,10 +2155,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1,
-            2
-          ],
+          "rollUp": [1, 2],
           "filter": []
         }
       },
@@ -2458,11 +2169,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Tipo de becas",
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Tipo de becas", "Género", "Año"],
       "datasetId": "FCS_E_2",
       "thematics": [
         {
@@ -2513,13 +2220,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1,
-              2
-            ],
-            "rows": [
-              3
-            ],
+            "cols": [1, 2],
+            "rows": [3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2531,10 +2233,7 @@
         "producerArea": "Dirección de Estadísticas",
         "lastUpdate": "2026-05-07T16:27:48.808Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Carrillo",
-          "Ramón"
-        ],
+        "responsible": ["Carrillo", "Ramón"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -2550,17 +2249,13 @@
     },
     {
       "id": "FCS_E_6-wctq0xn",
-      "published": false,
+      "published": true,
       "title": "Erogaciones",
       "informationUnitName": "FCS",
       "measureUnit": "Pesos corrientes",
       "periodicity": "Anual",
-      "timeRange": "S/D",
-      "dimensions": [
-        "Trimestre",
-        "Tipo de servicio",
-        "Año"
-      ],
+      "timeRange": "2023-2025",
+      "dimensions": ["Trimestre", "Tipo de servicio", "Año"],
       "datasetId": "FCS_E_6",
       "thematics": [
         {
@@ -2588,7 +2283,7 @@
             "tooltip": {
               "shared": false,
               "decimals": null,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -2611,13 +2306,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2629,10 +2319,7 @@
         "producerArea": "Dirección de Contabilidad",
         "lastUpdate": "2026-05-05T15:49:53.658Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Azurduy",
-          "Juana"
-        ],
+        "responsible": ["Azurduy", "Juana"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -2654,11 +2341,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Crédito y Ejecución",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Crédito y Ejecución", "Año"],
       "datasetId": "FCS_E_8",
       "thematics": [
         {
@@ -2687,7 +2370,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -2708,13 +2391,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2745,11 +2423,7 @@
       "measureUnit": "Módulos",
       "periodicity": "Anual",
       "timeRange": "2025",
-      "dimensions": [
-        "Tipo de dotación docente",
-        "Espacio curricular",
-        "Año"
-      ],
+      "dimensions": ["Tipo de dotación docente", "Espacio curricular", "Año"],
       "datasetId": "FCS_P_1",
       "thematics": [
         {
@@ -2800,13 +2474,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              3,
-              1
-            ],
-            "rows": [
-              2
-            ],
+            "cols": [3, 1],
+            "rows": [2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2820,10 +2489,7 @@
         "registrationMode": "Importación WICHI",
         "dataResponsible": "Belgrano, Manuel",
         "loadResponsible": "Belgrano, Manuel",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ]
+        "responsible": ["Grierson", "Cecilia"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -2840,7 +2506,7 @@
       "informationUnitName": "FCS",
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
-      "timeRange": "S/D",
+      "timeRange": "2025",
       "dimensions": [
         "Tipo de cargo",
         "Dedicación",
@@ -2897,14 +2563,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1,
-              2
-            ],
-            "rows": [
-              3,
-              5
-            ],
+            "cols": [1, 2],
+            "rows": [3, 5],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -2916,17 +2576,12 @@
         "producerArea": "Dirección de Personal",
         "lastUpdate": "2026-05-04T16:41:34.148Z",
         "registrationMode": "Importación WICHI",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ],
+        "responsible": ["Grierson", "Cecilia"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            4
-          ],
+          "rollUp": [4],
           "filter": []
         }
       },
@@ -2999,14 +2654,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": true,
-            "cols": [
-              2
-            ],
-            "rows": [
-              4,
-              1,
-              3
-            ],
+            "cols": [2],
+            "rows": [4, 1, 3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3018,10 +2667,7 @@
         "producerArea": "Dirección de Personal",
         "lastUpdate": "2026-05-06T13:00:02.920Z",
         "registrationMode": "Importación WICHI",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ],
+        "responsible": ["Grierson", "Cecilia"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -3043,11 +2689,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Semestral",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Tipo de capacitación docente",
-        "Semestre",
-        "Año"
-      ],
+      "dimensions": ["Tipo de capacitación docente", "Semestre", "Año"],
       "datasetId": "FCS_P_4",
       "thematics": [
         {
@@ -3097,13 +2739,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1,
-              2
-            ],
-            "rows": [
-              3
-            ],
+            "cols": [1, 2],
+            "rows": [3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3134,10 +2771,7 @@
       "measureUnit": "Porcentaje",
       "periodicity": "Anual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Máx nivel educativo alcanzado",
-        "Año"
-      ],
+      "dimensions": ["Máx nivel educativo alcanzado", "Año"],
       "datasetId": "FCS_P_5",
       "thematics": [
         {
@@ -3165,7 +2799,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 2,
-              "suffix": "%"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -3188,12 +2822,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1
-            ],
-            "rows": [
-              2
-            ],
+            "cols": [1],
+            "rows": [2],
             "suffix": "%",
             "valueDisplay": "nominal"
           }
@@ -3205,10 +2835,7 @@
         "producerArea": "Dirección de Personal",
         "lastUpdate": "2026-05-06T13:11:43.346Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -3230,11 +2857,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2025",
-      "dimensions": [
-        "Dependencia",
-        "Categoría nodocente",
-        "Año"
-      ],
+      "dimensions": ["Dependencia", "Categoría nodocente", "Año"],
       "datasetId": "FCS_P_6",
       "thematics": [
         {
@@ -3285,13 +2908,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": true,
-            "cols": [
-              3,
-              2
-            ],
-            "rows": [
-              1
-            ],
+            "cols": [3, 2],
+            "rows": [1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3303,10 +2921,7 @@
         "producerArea": "Dirección de Personal",
         "lastUpdate": "2026-05-06T13:26:52.627Z",
         "registrationMode": "Importación WICHI",
-        "responsible": [
-          "Moreau de Justo",
-          "Alicia"
-        ],
+        "responsible": ["Moreau de Justo", "Alicia"],
         "dataResponsible": "Walsh, María Elena"
       },
       "dataConfig": {
@@ -3328,11 +2943,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Concepto",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Concepto", "Año"],
       "datasetId": "SGE_E_10",
       "thematics": [
         {
@@ -3361,7 +2972,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -3382,13 +2993,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3402,10 +3008,7 @@
         "registrationMode": "Importación SIU Pilagá",
         "dataResponsible": "Belgrano, Manuel",
         "loadResponsible": "Belgrano, Manuel",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ]
+        "responsible": ["Grierson", "Cecilia"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -3422,11 +3025,8 @@
       "informationUnitName": "SPF",
       "measureUnit": "Pesos corrientes",
       "periodicity": "Anual",
-      "timeRange": "S/D",
-      "dimensions": [
-        "Mes",
-        "Año"
-      ],
+      "timeRange": "2024-2025",
+      "dimensions": ["Mes", "Año"],
       "datasetId": "SGE_E_11",
       "thematics": [
         {
@@ -3454,7 +3054,7 @@
             "tooltip": {
               "shared": false,
               "decimals": null,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -3477,12 +3077,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              1
-            ],
+            "cols": [3],
+            "rows": [1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3494,17 +3090,12 @@
         "producerArea": "Dirección de Presupuesto",
         "lastUpdate": "2026-05-05T14:22:10.593Z",
         "registrationMode": "Importación SIU Pilagá",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ],
+        "responsible": ["Grierson", "Cecilia"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            2
-          ],
+          "rollUp": [2],
           "filter": []
         }
       },
@@ -3521,11 +3112,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Dependencia",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Dependencia", "Año"],
       "datasetId": "SGE_E_11",
       "thematics": [
         {
@@ -3554,7 +3141,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -3575,13 +3162,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3612,11 +3194,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Inciso del gasto",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Inciso del gasto", "Año"],
       "datasetId": "SGE_E_12",
       "thematics": [
         {
@@ -3645,7 +3223,7 @@
             "tooltip": {
               "shared": true,
               "decimals": 0,
-              "suffix": "$",
+              "suffix": null,
               "showTotal": true
             },
             "legends": {
@@ -3667,13 +3245,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              4,
-              1
-            ],
+            "cols": [3],
+            "rows": [4, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3690,9 +3263,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            2
-          ],
+          "rollUp": [2],
           "filter": []
         }
       },
@@ -3706,9 +3277,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Anual",
       "timeRange": "2020-2025",
-      "dimensions": [
-        "Año"
-      ],
+      "dimensions": ["Año"],
       "datasetId": "SGE_E_1",
       "thematics": [
         {
@@ -3737,7 +3306,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -3759,9 +3328,7 @@
             "totalRow": false,
             "totalCol": false,
             "cols": [],
-            "rows": [
-              2
-            ],
+            "rows": [2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3778,9 +3345,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": []
         }
       },
@@ -3794,12 +3359,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Dependencia",
-        "Inciso del gasto",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Dependencia", "Inciso del gasto", "Año"],
       "datasetId": "SGE_E_12",
       "thematics": [
         {
@@ -3828,7 +3388,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -3849,14 +3409,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              4,
-              1,
-              2
-            ],
+            "cols": [3],
+            "rows": [4, 1, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3886,13 +3440,8 @@
       "informationUnitName": "SPF",
       "measureUnit": "Pesos corrientes",
       "periodicity": "Anual",
-      "timeRange": "S/D",
-      "dimensions": [
-        "Mes",
-        "Dependencia",
-        "Tipo de fuente",
-        "Año"
-      ],
+      "timeRange": "2024-2025",
+      "dimensions": ["Mes", "Dependencia", "Tipo de fuente", "Año"],
       "datasetId": "SGE_E_13",
       "thematics": [
         {
@@ -3920,7 +3469,7 @@
             "tooltip": {
               "shared": false,
               "decimals": null,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -3943,14 +3492,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              4,
-              1,
-              2
-            ],
+            "cols": [3],
+            "rows": [4, 1, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -3962,10 +3505,7 @@
         "producerArea": "Dirección de Presupuesto",
         "lastUpdate": "2026-05-05T14:59:49.027Z",
         "registrationMode": "Importación SIU Pilagá",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ],
+        "responsible": ["Grierson", "Cecilia"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -3987,11 +3527,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Tipo de fuente",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Tipo de fuente", "Año"],
       "datasetId": "SGE_E_13",
       "thematics": [
         {
@@ -4020,7 +3556,7 @@
             "tooltip": {
               "shared": true,
               "decimals": 0,
-              "suffix": "$",
+              "suffix": null,
               "showTotal": false
             },
             "legends": {
@@ -4042,13 +3578,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              4,
-              1
-            ],
+            "cols": [3],
+            "rows": [4, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4065,102 +3596,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            2
-          ],
-          "filter": []
-        }
-      },
-      "published": true
-    },
-    {
-      "id": "SGE_E_13",
-      "title": "Ejecución presupuestaria",
-      "summary": "",
-      "informationUnitName": "SPF",
-      "measureUnit": "Pesos corrientes",
-      "periodicity": "Mensual",
-      "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Dependencia",
-        "Tipo de fuente",
-        "Año"
-      ],
-      "datasetId": "SGE_E_13",
-      "thematics": [
-        {
-          "id": 104,
-          "name": "Becas para estudiantes"
-        }
-      ],
-      "visualBlocks": [
-        {
-          "id": "block-1",
-          "title": "Vista Principal",
-          "chartOptions": {
-            "title": "Ejecución presupuestaria",
-            "type": "column",
-            "stacked": 2,
-            "xAxis": {
-              "title": "Año / Mes",
-              "firstLevel": 4,
-              "secondLevel": 1,
-              "rotateLabels": 0
-            },
-            "yAxis": {
-              "title": "Pesos corrientes",
-              "max": null
-            },
-            "tooltip": {
-              "shared": false,
-              "decimals": 0,
-              "suffix": "$"
-            },
-            "legends": {
-              "enabled": true
-            },
-            "navigator": {
-              "show": true,
-              "start": null,
-              "end": null
-            },
-            "filterLastYear": false,
-            "showYearsLegend": false,
-            "toPercent": true,
-            "measureUnit": "Pesos corrientes",
-            "isPreview": false,
-            "disableAutoUpdate": false
-          },
-          "tableOptions": {
-            "digitsAfterDecimal": 2,
-            "totalRow": true,
-            "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              4,
-              1,
-              2
-            ],
-            "suffix": "",
-            "valueDisplay": "nominal"
-          }
-        }
-      ],
-      "technicalSheet": {
-        "description": "Este conjunto de datos muestra la ejecución presupuestaria de cada dependencia por el tipo de fuente que utiliza.",
-        "formula": "Es la sumatoria de la ejecución presupuestaria de las dependencias por tipo de fuente utilizada",
-        "producerArea": "Dirección de Presupuesto",
-        "lastUpdate": "2026-02-05",
-        "registrationMode": "Importación SIU Pilagá",
-        "dataResponsible": "Grierson, Cecilia",
-        "loadResponsible": "Belgrano, Manuel"
-      },
-      "dataConfig": {
-        "baseFilters": {
-          "rollUp": [],
+          "rollUp": [2],
           "filter": []
         }
       },
@@ -4174,11 +3610,7 @@
       "measureUnit": "Porcentaje",
       "periodicity": "Mensual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Mes",
-        "Dependencia",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Dependencia", "Año"],
       "datasetId": "SGE_E_14",
       "thematics": [
         {
@@ -4207,7 +3639,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -4228,13 +3660,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4248,10 +3675,7 @@
         "registrationMode": "Importación SIU Pilagá",
         "dataResponsible": "Belgrano, Manuela",
         "loadResponsible": "Belgrano, Manuel",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ]
+        "responsible": ["Grierson", "Cecilia"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -4269,11 +3693,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Mensual",
       "timeRange": "2023-2025",
-      "dimensions": [
-        "Mes",
-        "Grandes rubros",
-        "Año"
-      ],
+      "dimensions": ["Mes", "Grandes rubros", "Año"],
       "datasetId": "SGE_E_17",
       "thematics": [
         {
@@ -4301,7 +3721,7 @@
             "tooltip": {
               "shared": false,
               "decimals": null,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -4324,13 +3744,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4342,10 +3757,7 @@
         "producerArea": "Dirección de Tesorería",
         "lastUpdate": "2026-05-07T16:13:04.655Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Sarmiento",
-          "Domingo"
-        ],
+        "responsible": ["Sarmiento", "Domingo"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -4367,10 +3779,7 @@
       "measureUnit": "Pesos corrientes",
       "periodicity": "Anual",
       "timeRange": "2020-2025",
-      "dimensions": [
-        "Tipo de becas",
-        "Año"
-      ],
+      "dimensions": ["Tipo de becas", "Año"],
       "datasetId": "SGE_E_1",
       "thematics": [
         {
@@ -4399,7 +3808,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -4421,12 +3830,8 @@
             "sorters": [],
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1
-            ],
-            "rows": [
-              2
-            ],
+            "cols": [1],
+            "rows": [2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4457,10 +3862,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Tipo de becas",
-        "Año"
-      ],
+      "dimensions": ["Tipo de becas", "Año"],
       "datasetId": "SGE_E_2",
       "thematics": [
         {
@@ -4489,7 +3891,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -4510,12 +3912,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1
-            ],
-            "rows": [
-              4
-            ],
+            "cols": [1],
+            "rows": [4],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4532,10 +3930,7 @@
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            2,
-            3
-          ],
+          "rollUp": [2, 3],
           "filter": []
         }
       },
@@ -4549,10 +3944,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Género", "Año"],
       "datasetId": "SGE_E_2",
       "thematics": [
         {
@@ -4581,7 +3973,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": ""
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -4602,12 +3994,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              4
-            ],
+            "cols": [3],
+            "rows": [4],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4621,17 +4009,11 @@
         "registrationMode": "Carga manual",
         "dataResponsible": "Carrillo, Ramón",
         "loadResponsible": "Belgrano, Manuel",
-        "responsible": [
-          "Sarmiento",
-          "Faustino"
-        ]
+        "responsible": ["Sarmiento", "Faustino"]
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1,
-            2
-          ],
+          "rollUp": [1, 2],
           "filter": []
         }
       },
@@ -4645,11 +4027,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Unidad Académica",
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Unidad Académica", "Género", "Año"],
       "datasetId": "SGE_E_2",
       "thematics": [
         {
@@ -4700,13 +4078,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2,
-              3
-            ],
-            "rows": [
-              4
-            ],
+            "cols": [2, 3],
+            "rows": [4],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4718,17 +4091,12 @@
         "producerArea": "Dirección de Estadísticas",
         "lastUpdate": "2026-05-06T14:26:53.193Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Carrillo",
-          "Ramón"
-        ],
+        "responsible": ["Carrillo", "Ramón"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
         "baseFilters": {
-          "rollUp": [
-            1
-          ],
+          "rollUp": [1],
           "filter": []
         }
       },
@@ -4745,12 +4113,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2019-2025",
-      "dimensions": [
-        "Tipo de becas",
-        "Unidad Académica",
-        "Género",
-        "Año"
-      ],
+      "dimensions": ["Tipo de becas", "Unidad Académica", "Género", "Año"],
       "datasetId": "SGE_E_2",
       "thematics": [
         {
@@ -4801,14 +4164,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              1,
-              3
-            ],
-            "rows": [
-              4,
-              2
-            ],
+            "cols": [1, 3],
+            "rows": [4, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4820,10 +4177,7 @@
         "producerArea": "Dirección de Estadísticas",
         "lastUpdate": "2026-05-06T14:11:10.757Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Carrillo",
-          "Ramón"
-        ],
+        "responsible": ["Carrillo", "Ramón"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -4879,7 +4233,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 0,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -4900,14 +4254,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              3
-            ],
-            "rows": [
-              4,
-              1,
-              2
-            ],
+            "cols": [3],
+            "rows": [4, 1, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -4937,12 +4285,8 @@
       "informationUnitName": "SPF",
       "measureUnit": "Pesos corrientes",
       "periodicity": "Anual",
-      "timeRange": "S/D",
-      "dimensions": [
-        "Mes",
-        "Crédito y Ejecución",
-        "Año"
-      ],
+      "timeRange": "2024-2025",
+      "dimensions": ["Mes", "Crédito y Ejecución", "Año"],
       "datasetId": "SGE_E_8",
       "thematics": [
         {
@@ -4970,7 +4314,7 @@
             "tooltip": {
               "shared": false,
               "decimals": null,
-              "suffix": "$"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -4993,13 +4337,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -5011,10 +4350,7 @@
         "producerArea": "Dirección de Presupuesto",
         "lastUpdate": "2026-05-05T13:58:39.252Z",
         "registrationMode": "Importación SIU Pilagá",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ],
+        "responsible": ["Grierson", "Cecilia"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -5036,12 +4372,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2025",
-      "dimensions": [
-        "Facultad",
-        "Cargo docente",
-        "Dedicación docente",
-        "Año"
-      ],
+      "dimensions": ["Facultad", "Cargo docente", "Dedicación docente", "Año"],
       "datasetId": "SGE_P_1",
       "thematics": [
         {
@@ -5092,14 +4423,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": true,
-            "cols": [
-              4,
-              1
-            ],
-            "rows": [
-              2,
-              3
-            ],
+            "cols": [4, 1],
+            "rows": [2, 3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -5111,10 +4436,7 @@
         "producerArea": "Dirección de Personal",
         "lastUpdate": "2026-05-06T13:36:35.422Z",
         "registrationMode": "Importación WICHI",
-        "responsible": [
-          "Moreau de Justo",
-          "Alicia"
-        ],
+        "responsible": ["Moreau de Justo", "Alicia"],
         "dataResponsible": "Walsh, María Elena"
       },
       "dataConfig": {
@@ -5192,14 +4514,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": true,
-            "cols": [
-              2
-            ],
-            "rows": [
-              1,
-              4,
-              3
-            ],
+            "cols": [2],
+            "rows": [1, 4, 3],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -5211,10 +4527,7 @@
         "producerArea": "Dirección de Personal",
         "lastUpdate": "2026-05-07T15:23:19.474Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Belgrano, Manuel"
       },
       "dataConfig": {
@@ -5236,11 +4549,7 @@
       "measureUnit": "Porcentaje",
       "periodicity": "Anual",
       "timeRange": "2024-2025",
-      "dimensions": [
-        "Facultad",
-        "Máx nivel educativo alcanzado",
-        "Año"
-      ],
+      "dimensions": ["Facultad", "Máx nivel educativo alcanzado", "Año"],
       "datasetId": "SGE_P_3",
       "thematics": [
         {
@@ -5268,7 +4577,7 @@
             "tooltip": {
               "shared": false,
               "decimals": 2,
-              "suffix": "%"
+              "suffix": null
             },
             "legends": {
               "enabled": true
@@ -5291,13 +4600,8 @@
             "digitsAfterDecimal": 2,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              1,
-              3
-            ],
+            "cols": [2],
+            "rows": [1, 3],
             "suffix": "%",
             "valueDisplay": "nominal"
           }
@@ -5309,10 +4613,7 @@
         "producerArea": "Dirección de Personal",
         "lastUpdate": "2026-05-07T15:30:19.391Z",
         "registrationMode": "Carga manual",
-        "responsible": [
-          "Belgrano",
-          "Manuel"
-        ],
+        "responsible": ["Belgrano", "Manuel"],
         "dataResponsible": "Walsh, María Elena"
       },
       "dataConfig": {
@@ -5334,11 +4635,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2025",
-      "dimensions": [
-        "Facultad",
-        "Categoría nodocente",
-        "Año"
-      ],
+      "dimensions": ["Facultad", "Categoría nodocente", "Año"],
       "datasetId": "SGE_P_4",
       "thematics": [
         {
@@ -5388,13 +4685,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": true,
             "totalCol": false,
-            "cols": [
-              2
-            ],
-            "rows": [
-              3,
-              1
-            ],
+            "cols": [2],
+            "rows": [3, 1],
             "suffix": "",
             "valueDisplay": "nominal"
           }
@@ -5408,10 +4700,7 @@
         "registrationMode": "Importación WICHI",
         "dataResponsible": "Belgrano, Manuel",
         "loadResponsible": "Belgrano, Manuel",
-        "responsible": [
-          "Grierson",
-          "Cecilia"
-        ]
+        "responsible": ["Grierson", "Cecilia"]
       },
       "dataConfig": {
         "baseFilters": {
@@ -5429,11 +4718,7 @@
       "measureUnit": "Cantidad",
       "periodicity": "Anual",
       "timeRange": "2025",
-      "dimensions": [
-        "Facultad",
-        "Titulación",
-        "Año"
-      ],
+      "dimensions": ["Facultad", "Titulación", "Año"],
       "datasetId": "SGE_P_5",
       "thematics": [
         {
@@ -5483,13 +4768,8 @@
             "digitsAfterDecimal": 0,
             "totalRow": false,
             "totalCol": true,
-            "cols": [
-              1
-            ],
-            "rows": [
-              3,
-              2
-            ],
+            "cols": [1],
+            "rows": [3, 2],
             "suffix": "",
             "valueDisplay": "nominal"
           }

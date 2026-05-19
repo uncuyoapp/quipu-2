@@ -1,11 +1,25 @@
-<mat-sidenav-container class="visualization-sidenav-container" [class.is-wizard]="isWizard()">
-  <mat-sidenav #actionsSidenav mode="over" position="end" class="actions-sidenav">
+<mat-sidenav-container
+  class="visualization-sidenav-container"
+  [class.is-wizard]="isWizard()"
+>
+  <mat-sidenav
+    #actionsSidenav
+    mode="over"
+    position="end"
+    class="actions-sidenav"
+  >
     @if (dataset()) {
-    <app-v-actions [(series)]="series" [(dimensions)]="dimensions" [splitedDimensions]="splitedDimensions()"
-      [visualizationId]="visualization()?.id || 'unknown'" [showPercentageView]="canShowPercentageView()"
-      [showMultiChart]="canShowMultiChart()" (seriesToggle)="onSeriesToggle($event)"
-      (multipleGraphsChange)="onMultipleGraphsChange($event)"
-      (percentageViewChange)="onPercentageViewChange($event)"></app-v-actions>
+      <app-v-actions
+        [(series)]="series"
+        [(dimensions)]="dimensions"
+        [splitedDimensions]="splitedDimensions()"
+        [visualizationId]="visualization()?.id || 'unknown'"
+        [showPercentageView]="canShowPercentageView()"
+        [showMultiChart]="canShowMultiChart()"
+        (seriesToggle)="onSeriesToggle($event)"
+        (multipleGraphsChange)="onMultipleGraphsChange($event)"
+        (percentageViewChange)="onPercentageViewChange($event)"
+      ></app-v-actions>
     }
   </mat-sidenav>
 
@@ -13,19 +27,31 @@
     <app-orientation-warning></app-orientation-warning>
 
     @if (showControls()) {
-    <div class="floating-top-right-buttons">
-      @if (showCloseButton()) {
-      <app-button (btnClick)="closeDialog()" variant="icon-circle" palette="white" [icon]="icons.actions.close"
-        class="close-button" label="Cerrar"></app-button>
-      }
-    </div>
+      <div class="floating-top-right-buttons">
+        @if (showCloseButton()) {
+          <app-button
+            (btnClick)="closeDialog()"
+            variant="icon-circle"
+            palette="white"
+            [icon]="icons.actions.close"
+            class="close-button"
+            label="Cerrar"
+          ></app-button>
+        }
+      </div>
     }
 
     <!-- Content when loaded -->
-    <div class="visualization-container container-fluid" [class.hidden]="!dataset()"
-      [style.padding-bottom.px]="paddingBottom()">
-      <app-v-information [visualization]="visualization()!" [expandMetadata]="expandMetadata()"
-        (edited)="onInformationEdited($event)"></app-v-information>
+    <div
+      class="visualization-container container-fluid"
+      [class.hidden]="!dataset()"
+      [style.padding-bottom.px]="paddingBottom()"
+    >
+      <app-v-information
+        [visualization]="visualization()!"
+        [expandMetadata]="expandMetadata()"
+        (edited)="onInformationEdited($event)"
+      ></app-v-information>
       @let currentDs = dataset();
       @let curChartOpts = chartOptions();
       @let curTableOpts = tableOptions();
@@ -33,102 +59,169 @@
       @let multiDs = multiDataset();
 
       @if (currentDs) {
-      @if (curChartOpts) {
-      <app-v-chart #chartWrapper [dataset]="currentDs" [chartOptions]="curChartOpts"
-        [visualizationId]="visualization()?.id || 'unknown'" (chartOptionsChange)="chartOptions.set($event)"
-        [(series)]="series" [editMode]="editMode.canEdit() && editMode.isEditModeEnabled()"
-        (onRemove)="toggleChart()"></app-v-chart>
-      } @else if (editMode.canEdit() && editMode.isEditModeEnabled()) {
-      <div class="add-content-block v-box" (click)="editService.toggleChart()">
-        <div class="chart-header">
-          <div class="header-left">
-            <ng-icon [name]="icons.viz.chart" class="chart-logo" size="24"></ng-icon>
-            <span class="header-label">Gráfico</span>
+        @if (curChartOpts) {
+          <app-v-chart
+            #chartWrapper
+            [dataset]="currentDs"
+            [chartOptions]="curChartOpts"
+            [visualizationId]="visualization()?.id || 'unknown'"
+            [visualizationName]="visualization()?.title || 'grafico'"
+            (chartOptionsChange)="chartOptions.set($event)"
+            [(series)]="series"
+            [editMode]="editMode.canEdit() && editMode.isEditModeEnabled()"
+            (onRemove)="toggleChart()"
+          ></app-v-chart>
+        } @else if (editMode.canEdit() && editMode.isEditModeEnabled()) {
+          <div
+            class="add-content-block v-box"
+            (click)="editService.toggleChart()"
+          >
+            <div class="chart-header">
+              <div class="header-left">
+                <ng-icon
+                  [name]="icons.viz.chart"
+                  class="chart-logo"
+                  size="24"
+                ></ng-icon>
+                <span class="header-label">Gráfico</span>
+              </div>
+              <div class="header-right">
+                <app-button
+                  variant="text"
+                  palette="blue"
+                  [icon]="icons.actions.add"
+                  label="Añadir"
+                ></app-button>
+              </div>
+            </div>
           </div>
-          <div class="header-right">
-            <app-button variant="text" palette="blue" [icon]="icons.actions.add" label="Añadir"></app-button>
-          </div>
-        </div>
-      </div>
-      }
+        }
 
-      @if (curTableOpts) {
-      @defer (on idle) {
-      <app-v-table [dataset]="currentDs" [tableOptions]="curTableOpts" (tableOptionsChange)="tableOptions.set($event)"
-        [visualizationId]="visualization()?.id || 'unknown'"
-        [editMode]="editMode.canEdit() && editMode.isEditModeEnabled()" (onRemove)="toggleTable()"></app-v-table>
-      } @placeholder {
-      <div class="table-placeholder">Cargando vista tabular...</div>
-      }
-      } @else if (editMode.canEdit() && editMode.isEditModeEnabled()) {
-      <div class="add-content-block v-box" (click)="editService.toggleTable()">
-        <div class="table-header">
-          <div class="header-left">
-            <ng-icon [name]="icons.viz.grid" class="table-logo" size="24"></ng-icon>
-            <span class="header-label">Tabla</span>
+        @if (curTableOpts) {
+          @defer (on idle) {
+            <app-v-table
+              [dataset]="currentDs"
+              [tableOptions]="curTableOpts"
+              (tableOptionsChange)="tableOptions.set($event)"
+              [visualizationId]="visualization()?.id || 'unknown'"
+              [editMode]="editMode.canEdit() && editMode.isEditModeEnabled()"
+              (onRemove)="toggleTable()"
+            ></app-v-table>
+          } @placeholder {
+            <div class="table-placeholder">Cargando vista tabular...</div>
+          }
+        } @else if (editMode.canEdit() && editMode.isEditModeEnabled()) {
+          <div
+            class="add-content-block v-box"
+            (click)="editService.toggleTable()"
+          >
+            <div class="table-header">
+              <div class="header-left">
+                <ng-icon
+                  [name]="icons.viz.grid"
+                  class="table-logo"
+                  size="24"
+                ></ng-icon>
+                <span class="header-label">Tabla</span>
+              </div>
+              <div class="header-right">
+                <app-button
+                  variant="text"
+                  palette="blue"
+                  [icon]="icons.actions.add"
+                  label="Añadir"
+                ></app-button>
+              </div>
+            </div>
           </div>
-          <div class="header-right">
-            <app-button variant="text" palette="blue" [icon]="icons.actions.add" label="Añadir"></app-button>
-          </div>
-        </div>
-      </div>
-      }
-      @if (curChartOpts && multiOpts && multiDs) {
-      @defer (on idle) {
-      <app-v-multi-chart #multiChartWrapper [dataset]="multiDs" [chartOptions]="multiOpts"
-        [visualizationId]="visualization()?.id || 'unknown'"
-        [(splitedDimensions)]="splitedDimensions"></app-v-multi-chart>
-      } @placeholder {
-      <div class="multi-chart-placeholder">
-        Cargando gráficos múltiples...
-      </div>
-      }
-      }
-      <app-v-downloads [dimensions]="currentDs.dimensions" [availability]="downloadAvailability()"
-        (download)="onDownload($event)"></app-v-downloads>
+        }
+        @if (curChartOpts && multiOpts && multiDs) {
+          @defer (on idle) {
+            <app-v-multi-chart
+              #multiChartWrapper
+              [dataset]="multiDs"
+              [chartOptions]="multiOpts"
+              [visualizationId]="visualization()?.id || 'unknown'"
+              [(splitedDimensions)]="splitedDimensions"
+            ></app-v-multi-chart>
+          } @placeholder {
+            <div class="multi-chart-placeholder">
+              Cargando gráficos múltiples...
+            </div>
+          }
+        }
+        <app-v-downloads
+          [dimensions]="currentDs.dimensions"
+          [availability]="downloadAvailability()"
+          (download)="onDownload($event)"
+        ></app-v-downloads>
       }
       @if (showControls()) {
-      <div class="floating-bottom-right-buttons" [style.bottom.px]="bottomOffset()">
-        @if (hasVisualContent()) {
-        <app-button class="actions-button" variant="icon-circle" ariaLabel="Acciones" [icon]="icons.viz.apps"
-          (btnClick)="toggleActionsSidenav()"></app-button>
-        }
-      </div>
+        <div
+          class="floating-bottom-right-buttons"
+          [style.bottom.px]="bottomOffset()"
+        >
+          @if (hasVisualContent()) {
+            <app-button
+              class="actions-button"
+              variant="icon-circle"
+              ariaLabel="Acciones"
+              [icon]="icons.viz.apps"
+              (btnClick)="toggleActionsSidenav()"
+            ></app-button>
+          }
+        </div>
       }
     </div>
 
     @if (editMode.canEdit() && editMode.isEditModeEnabled()) {
-    <div class="edit-mode-bar">
-      <div class="bar-section left">
-        <app-switch #publicationSwitch [checked]="visualization()?.published || false" (valueChange)="togglePublished()"
-          [label]="visualization()?.published ? 'Publicada' : 'Borrador'"
-          [class.switch-published]="visualization()?.published" [class.switch-draft]="!visualization()?.published">
-        </app-switch>
-        <ng-icon [name]="visualization()?.published ? icons.actions.publish : icons.actions.draft" class="publish-icon"
-          [class.is-published]="visualization()?.published" [class.is-draft]="!visualization()?.published"></ng-icon>
-      </div>
-
-      <div class="bar-section center">
-        @if (hasUnsavedChanges()) {
-        <div class="info-tag unsaved">
-          <ng-icon [name]="icons.status.info"></ng-icon>
-          <span>Hay cambios sin guardar</span>
+      <div class="edit-mode-bar">
+        <div class="bar-section left">
+          <app-switch
+            #publicationSwitch
+            [checked]="visualization()?.published || false"
+            (valueChange)="togglePublished()"
+            [label]="visualization()?.published ? 'Publicada' : 'Borrador'"
+            [class.switch-published]="visualization()?.published"
+            [class.switch-draft]="!visualization()?.published"
+          ></app-switch>
+          <ng-icon
+            [name]="
+              visualization()?.published
+                ? icons.actions.publish
+                : icons.actions.draft
+            "
+            class="publish-icon"
+            [class.is-published]="visualization()?.published"
+            [class.is-draft]="!visualization()?.published"
+          ></ng-icon>
         </div>
-        } @else if (lastUpdate()) {
-        <div class="info-tag updated">
-          <ng-icon [name]="icons.ui.time"></ng-icon>
-          <span>Última actualización: {{ lastUpdate() }}</span>
-        </div>
-        }
-      </div>
 
-      <div class="bar-section right">
-        @if (showSaveButton()) {
-        <app-button label="Guardar" palette="blue" (btnClick)="saveChanges()"
-          [disabled]="!hasUnsavedChanges()"></app-button>
-        }
+        <div class="bar-section center">
+          @if (hasUnsavedChanges()) {
+            <div class="info-tag unsaved">
+              <ng-icon [name]="icons.status.info"></ng-icon>
+              <span>Hay cambios sin guardar</span>
+            </div>
+          } @else if (lastUpdate()) {
+            <div class="info-tag updated">
+              <ng-icon [name]="icons.ui.time"></ng-icon>
+              <span>Última actualización: {{ lastUpdate() }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="bar-section right">
+          @if (showSaveButton()) {
+            <app-button
+              label="Guardar"
+              palette="blue"
+              (btnClick)="saveChanges()"
+              [disabled]="!hasUnsavedChanges()"
+            ></app-button>
+          }
+        </div>
       </div>
-    </div>
     }
   </mat-sidenav-content>
 </mat-sidenav-container>

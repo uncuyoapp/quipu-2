@@ -1,13 +1,121 @@
 .visualization-container {
-  &.is-fullscreen {
-    background-color: var(--q-surface);
-    overflow: auto;
+  .chart-body {
+    min-height: 400px;
+    height: auto;
     width: 100%;
-    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    libChart {
+      display: none;
+    }
+
+    ::ng-deep {
+      ng-component {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 0;
+
+        lib-app-echarts {
+          height: 400px;
+          min-height: 400px !important;
+          display: block;
+          width: 100%;
+        }
+
+        lib-legend {
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+  &.is-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: var(--q-surface);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
 
     .visualization-chart {
       margin: 0px;
       border: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      .chart-header {
+        flex-shrink: 0;
+      }
+
+      .chart-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow-y: auto !important;
+
+        ::ng-deep ng-component {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          width: 100%;
+          min-height: min-content;
+
+          lib-app-echarts {
+            height: 100%;
+            flex: 1;
+            min-height: 400px !important;
+
+            .chart {
+              height: 100% !important;
+            }
+          }
+
+          lib-legend {
+            flex-shrink: 0;
+            min-height: 150px !important;
+          }
+        }
+      }
+    }
+
+    :host-context(.is-mobile) & {
+      padding: 0.5rem;
+
+      .visualization-chart.v-box {
+        padding: 0.5rem;
+      }
+
+      .chart-header {
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.25rem;
+
+        .header-left {
+          gap: 6px;
+
+          .header-label {
+            font-size: 0.85rem;
+          }
+        }
+      }
+
+      .visualization-chart {
+        .chart-body {
+          ::ng-deep ng-component lib-app-echarts {
+            min-height: 280px !important;
+          }
+        }
+      }
     }
   }
 }
