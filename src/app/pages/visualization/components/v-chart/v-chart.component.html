@@ -1,27 +1,54 @@
-<div class="visualization-container" [class.is-fullscreen]="isFullscreen">
+<div class="visualization-container" [class.is-fullscreen]="isFullscreen()">
   <div class="visualization-chart v-box">
     <div class="chart-header">
       <div class="header-left">
-        <ng-icon [name]="icons.viz.chart" class="chart-logo" size="24"></ng-icon>
+        <ng-icon
+          [name]="icons.viz.chart"
+          class="chart-logo"
+          size="24"
+        ></ng-icon>
         <span class="header-label">Gráfico</span>
       </div>
       <div class="header-right">
         @if (editMode()) {
-        <app-button variant="text" palette="red" [icon]="icons.actions.delete" label="Eliminar gráfico"
-          (btnClick)="onRemove.emit()"></app-button>
-        <div class="separator-vertical"></div>
+          <app-button
+            variant="text"
+            palette="red"
+            [icon]="icons.actions.delete"
+            label="Eliminar gráfico"
+            (btnClick)="onRemove.emit()"
+          ></app-button>
+          <div class="separator-vertical"></div>
         }
-        <app-button variant="icon-only" palette="blue" size="small" [icon]="icons.viz.image" (btnClick)="downloadPNG()"
-          title="Descargar como JPG"></app-button>
-        <app-button variant="icon-only" palette="blue" size="small"
-          [icon]="isFullscreen ? icons.ui.contract : icons.ui.expand" (btnClick)="toggleFullscreen()"
-          title="Pantalla completa"></app-button>
+        <app-button
+          variant="icon-only"
+          palette="blue"
+          size="small"
+          [icon]="icons.viz.image"
+          (btnClick)="downloadPNG()"
+          title="Descargar como JPG"
+        ></app-button>
+        <app-button
+          variant="icon-only"
+          palette="blue"
+          size="small"
+          [icon]="isFullscreen() ? icons.ui.contract : icons.ui.expand"
+          (btnClick)="toggleFullscreen()"
+          title="Pantalla completa"
+        ></app-button>
       </div>
     </div>
     <div class="chart-body">
-      <libChart #chartRendered="libChart" (seriesChange)="onSeriesChange($event)" [dataset]="dataset()"
-        [chartOptions]="chartOptions()" [enableEditor]="editMode()" (optionsChange)="chartOptionsChange.emit($event)">
-      </libChart>
+      @if (isChartVisible()) {
+        <libChart
+          #chartRendered="libChart"
+          (seriesChange)="onSeriesChange($event)"
+          [dataset]="dataset()"
+          [chartOptions]="chartOptions()"
+          [enableEditor]="editMode()"
+          (optionsChange)="chartOptionsChange.emit($event)"
+        ></libChart>
+      }
     </div>
   </div>
 </div>

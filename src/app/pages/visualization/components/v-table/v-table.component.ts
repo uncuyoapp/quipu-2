@@ -1,16 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, input, output, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, output, viewChild } from '@angular/core';
 import { APP_ICONS } from '@core/config/icons.config';
 import { AppEventType } from '@core/models/events/app-event.types';
 import { NgIconComponent } from '@ng-icons/core';
-import { AppEventBusService } from '@services';
-import {
-  Dataset,
-  TableDirective,
-  TableOptions
-} from '@uncuyoapp/ngx-data-visualizer';
-
+import { AppEventBusService, FullscreenService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { Dataset, TableDirective, TableOptions } from '@uncuyoapp/ngx-data-visualizer';
 
 /**
  * @class VTableComponent
@@ -49,6 +44,8 @@ export class VTableComponent {
   visualizationId = input<string | number>('unknown');
 
   private readonly eventBus = inject(AppEventBusService);
+  private readonly fullscreenService = inject(FullscreenService);
+  private readonly elementRef = inject(ElementRef);
 
   /** Configuración de iconos centralizada */
   protected readonly icons = APP_ICONS;
@@ -56,9 +53,11 @@ export class VTableComponent {
   /** Referencia hacia la directiva hija subyacente de tabla para invocar métodos públicos directos */
   tableRendered = viewChild.required(TableDirective);
 
-  /** Bandera interna de reflejo para saber si el visor se encuentra en fullscreen dom */
-  isFullscreen = false;
-  private readonly elementRef = inject(ElementRef);
+  /** Determina si el componente está actualmente en modo pantalla completa */
+  protected isFullscreen = computed(() => {
+    const container = this.elementRef.nativeElement.querySelector('.visualization-container');
+    return this.fullscreenService.isActive(container)();
+  });
 
   /**
    * Genera el llamado local a la directiva para exportar la cuadrícula a Microsoft Excel.
@@ -72,30 +71,23 @@ export class VTableComponent {
   }
 
   /**
-   * Interactúa nativamente con la API Screen de JS para llevar este wrapper
-   * y su contenido hijo al 100% interactivo.
+   * Alterna el estado de pantalla completa delegando la lógica al servicio centralizado.
    */
   async toggleFullscreen(): Promise<void> {
-    const element = this.elementRef.nativeElement.querySelector('.visualization-container');
-    const willEnable = !document.fullscreenElement;
+    const container = this.elementRef.nativeElement.querySelector('.visualization-container');
+    const willEnable = !this.isFullscreen();
 
     this.eventBus.emit({
       type: AppEventType.VISUALIZATION_TABLE_FULLSCREEN_TOGGLED,
       payload: { id: this.visualizationId(), enabled: willEnable }
     });
 
-    if (willEnable) {
-      await element.requestFullscreen();
-    } else {
-      await document.exitFullscreen();
-    }
-  }
+    await this.fullscreenService.toggle(container);
 
-  /**
-   * Listener global de Windows Events para persistir el estado entre escapes de teclado o botones.
-   */
-  @HostListener('document:fullscreenchange')
-  onFullscreenChange(): void {
-    this.isFullscreen = !!document.fullscreenElement;
+    // Forzamos un evento de resize global tras el cambio de estado de la UI
+    // para que la librería recalcule sus dimensiones si fuera necesario.
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 200);
   }
 }

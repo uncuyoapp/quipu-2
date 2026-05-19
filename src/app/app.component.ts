@@ -1,7 +1,7 @@
 import { Component, DestroyRef, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EasterEggOverlayComponent } from '@components/easter-egg-overlay/easter-egg-overlay.component';
-import { PwaInstallService, PwaUpdateService, SessionStateService, ThematicStateService } from '@services';
+import { PwaInstallService, PwaUpdateService, ScreenOrientationService, SessionStateService, ThematicStateService } from '@services';
 import { EasterEggService } from './core/services/easter-egg/easter-egg.service';
 
 /**
@@ -27,6 +27,7 @@ export class AppComponent {
   private readonly thematicState = inject(ThematicStateService);
   private readonly sessionState = inject(SessionStateService);
   private readonly easterEggService = inject(EasterEggService);
+  private readonly screenService = inject(ScreenOrientationService);
   private readonly destroyRef = inject(DestroyRef);
 
   /** Indica si la gamificación está habilitada */
@@ -55,5 +56,14 @@ export class AppComponent {
       },
       { allowSignalWrites: true }
     );
+
+    // Sincronizar el estado móvil global con una clase en el body para CSS
+    effect(() => {
+      if (this.screenService.isMobile()) {
+        document.body.classList.add('is-mobile');
+      } else {
+        document.body.classList.remove('is-mobile');
+      }
+    });
   }
 }

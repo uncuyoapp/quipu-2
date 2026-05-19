@@ -228,7 +228,7 @@
 }
 
 // Adaptación móvil
-@media (max-width: 768px) {
+:host-context(.is-mobile) {
   .edit-mode-bar {
     height: auto;
     min-height: 72px;

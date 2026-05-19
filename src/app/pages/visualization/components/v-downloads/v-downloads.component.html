@@ -11,10 +11,12 @@
             Seleccioná diferentes elementos para generar un reporte a medida.
           </p>
         </div>
-        <button class="btn btn-primary px-5" (click)="onClickDownload()">
-          Descargar
-          <ng-icon [name]="icons.actions.download"></ng-icon>
-        </button>
+        <app-button
+          label="Descargar"
+          [icon]="icons.actions.download"
+          iconPosition="right"
+          (btnClick)="onClickDownload()"
+        />
       </div>
     </div>
   </div>

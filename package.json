@@ -1,6 +1,6 @@
 {
   "name": "quipu",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "version": "node scripts/sync-version.js && git add src/environments/",
-    "pwa:icons": "npx pwa-asset-generator public/logo-base.png public/icons --icon-only --favicon --opaque false --type png --manifest public/manifest.webmanifest --index src/index.html --path \"icons\""
+    "pwa:icons": "npx pwa-asset-generator public/logo-base.png public/icons --icon-only --favicon --opaque false --type png --manifest public/manifest.webmanifest --index src/index.html --path \"icons\" && node scripts/fix-pwa-paths.js"
   },
   "license": "GPL-3.0-only",
   "dependencies": {

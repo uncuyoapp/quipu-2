@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, input, model, output, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, model, OnInit, output, signal, viewChild } from '@angular/core';
 import { APP_ICONS } from '@core/config/icons.config';
 import { AppEventType } from '@core/models/events/app-event.types';
 import { NgIconComponent } from '@ng-icons/core';
-import { AppEventBusService } from '@services';
+import { AppEventBusService, FullscreenService } from '@services';
 import {
   ChartDirective,
   ChartOptions,
@@ -27,7 +27,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
   templateUrl: './v-chart.component.html',
   styleUrl: './v-chart.component.scss',
 })
-export class VChartComponent {
+export class VChartComponent implements OnInit {
   /** Dataset inyectado desde el componente padre con los datos computados */
   dataset = input.required<Dataset>();
 
@@ -52,7 +52,12 @@ export class VChartComponent {
   /** ID de la visualización para los eventos */
   visualizationId = input<string | number>('unknown');
 
+  /** Título o nombre de la visualización para usar como fallback en el nombre de archivo descargado */
+  visualizationName = input<string>('grafico');
+
   private readonly eventBus = inject(AppEventBusService);
+  private readonly fullscreenService = inject(FullscreenService);
+  private readonly elementRef = inject(ElementRef);
 
   /** Configuración de iconos centralizada */
   protected readonly icons = APP_ICONS;
@@ -61,11 +66,23 @@ export class VChartComponent {
    * Referencia reactiva a la instancia interna de la directiva ChartDirective
    * para poder ejecutar acciones directas sobre ella mediante la API de visualización.
    */
-  chartRendered = viewChild.required(ChartDirective);
+  chartRendered = viewChild(ChartDirective);
 
-  /** Estado interno que rige la visualización condicional de UI en pantalla completa */
-  isFullscreen = false;
-  private readonly elementRef = inject(ElementRef);
+  /** Señal de control para retrasar el renderizado del gráfico y evitar desajustes de tamaño en el DOM */
+  protected isChartVisible = signal<boolean>(false);
+
+  ngOnInit(): void {
+    // Retrasamos el primer renderizado para que la caja contenedora en el DOM termine de estructurarse
+    setTimeout(() => {
+      this.isChartVisible.set(true);
+    }, 150);
+  }
+
+  /** Determina si el componente está actualmente en modo pantalla completa */
+  protected isFullscreen = computed(() => {
+    const container = this.elementRef.nativeElement.querySelector('.visualization-container');
+    return this.fullscreenService.isActive(container)();
+  });
 
   /**
    * Captura el evento de mutación en la selección local de series 
@@ -84,7 +101,10 @@ export class VChartComponent {
    * @param serie La serie de datos que se desea alternar.
    */
   toggleSerie(serie: Series): void {
-    this.chartRendered().chartComponent.onSelectSeries(serie);
+    const chart = this.chartRendered();
+    if (chart) {
+      chart.chartComponent.onSelectSeries(serie);
+    }
   }
 
   /**
@@ -92,54 +112,123 @@ export class VChartComponent {
    * para computarla al 100% de la base.
    */
   toPercentage(): void {
-    this.chartRendered().toPercentage();
+    const chart = this.chartRendered();
+    if (chart) {
+      chart.toPercentage();
+    }
   }
 
   /**
-   * Exporta e inicia la descarga local de la imagen rastrerizada del gráfico.
+   * Exporta e inicia la descarga local de la imagen rasterizada del gráfico en formato PNG.
+   * Obtiene la estructura vectorial SVG del gráfico, la convierte en un mapa de bits y gatilla la descarga.
    */
   downloadPNG(): void {
     this.eventBus.emit({
       type: AppEventType.VISUALIZATION_CHART_DOWNLOADED,
       payload: { id: this.visualizationId() }
     });
-    this.chartRendered().export('jpg');
+
+    const chart = this.chartRendered();
+    if (!chart) {
+      console.warn('El gráfico no está disponible para exportar.');
+      return;
+    }
+
+    const svgResult = chart.export('svg');
+    if (typeof svgResult === 'string' && svgResult.trim() !== '') {
+      // Priorizamos el título configurado en el gráfico, si no existe o está vacío usamos el nombre de la visualización
+      const chartTitle = this.chartOptions()?.title;
+      const baseName = (chartTitle && chartTitle.trim() !== '')
+        ? chartTitle
+        : this.visualizationName();
+
+      // Sanitizamos el nombre del archivo para remover caracteres especiales no válidos o problemáticos en sistemas operativos
+      const sanitizedName = baseName.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s-_]/g, '').trim() || 'grafico';
+      this.convertSVGToPNGAndDownload(svgResult, `${sanitizedName}.png`);
+    } else {
+      console.warn('La exportación falló debido a que la instancia del gráfico aún no está lista o retornó un contenido vacío.');
+    }
   }
 
   /**
-   * Solicita asincrónicamente al navegador elevar el contexto de esta vista a pantalla completa,
-   * o bien, salir de pantalla completa si ya se encontrara activa.
+   * Convierte una cadena de texto XML que representa un SVG a una imagen en formato PNG
+   * y desencadena la descarga local del archivo resultante en el navegador del usuario.
+   * 
+   * @param svgString Cadena con el contenido XML del SVG generado por el gráfico.
+   * @param fileName Nombre por defecto con el que se guardará el archivo PNG.
+   */
+  private convertSVGToPNGAndDownload(svgString: string, fileName: string): void {
+    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      if (!ctx) {
+        console.error('No se pudo inicializar el contexto 2D del Canvas para la exportación.');
+        URL.revokeObjectURL(url);
+        return;
+      }
+
+      // Definimos un tamaño de alta resolución por defecto para que la imagen no pierda calidad.
+      const width = img.naturalWidth || 1280;
+      const height = img.naturalHeight || 720;
+      canvas.width = width;
+      canvas.height = height;
+
+      // Coloreamos un fondo blanco sólido para que el gráfico no sea transparente y se lea correctamente.
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, width, height);
+
+      // Renderizamos la estructura vectorial del SVG sobre el canvas de píxeles.
+      ctx.drawImage(img, 0, 0, width, height);
+
+      try {
+        const pngDataUrl = canvas.toDataURL('image/png');
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = pngDataUrl;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      } catch (error) {
+        console.error('Ocurrió un error al intentar codificar el Canvas a formato PNG:', error);
+      } finally {
+        // Revocamos la URL temporal para prevenir pérdidas de memoria (memory leaks).
+        URL.revokeObjectURL(url);
+      }
+    };
+
+    img.onerror = (error) => {
+      console.error('Ocurrió un error al intentar cargar el recurso SVG en el elemento de imagen temporal:', error);
+      URL.revokeObjectURL(url);
+    };
+
+    img.src = url;
+  }
+
+  /**
+   * Alterna el estado de pantalla completa delegando la lógica al servicio centralizado.
    */
   async toggleFullscreen(): Promise<void> {
-    const element = this.elementRef.nativeElement.querySelector('.visualization-container');
-    const willEnable = !document.fullscreenElement;
+    const container = this.elementRef.nativeElement.querySelector('.visualization-container');
+    const willEnable = !this.isFullscreen();
 
     this.eventBus.emit({
       type: AppEventType.VISUALIZATION_CHART_FULLSCREEN_TOGGLED,
       payload: { id: this.visualizationId(), enabled: willEnable }
     });
 
-    if (willEnable) {
-      await element.requestFullscreen();
-    } else {
-      await document.exitFullscreen();
-    }
-  }
+    // Ocultamos temporalmente el gráfico para evitar redibujados con dimensiones intermedias durante la animación
+    this.isChartVisible.set(false);
 
-  /**
-   * Listener global de ventana para sincronizar nuestro estado local `isFullscreen` 
-   * cuando el usuario entra o sale de este modo, inclusive si pulsa (ESC).
-   */
-  @HostListener('document:fullscreenchange')
-  onFullscreenChange(): void {
-    this.isFullscreen = !!document.fullscreenElement;
+    await this.fullscreenService.toggle(container);
 
-    // Disparar un evento de redimensionamiento global para que ECharts se ajuste
-    // Se usa un pequeño delay para asegurar que el DOM ya aplicó los nuevos estilos
-    if (this.isFullscreen) {
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
-      }, 100);
-    }
+    // Forzamos un resize y volvemos a renderizar el gráfico una vez que la animación y estilos se asienten
+    setTimeout(() => {
+      //window.dispatchEvent(new Event('resize'));
+      this.isChartVisible.set(true);
+    }, 300);
   }
 }

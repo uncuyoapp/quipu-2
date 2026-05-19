@@ -5,7 +5,7 @@ import { DatasetInfo } from '@core/data/data.provider';
 import { AppEventType } from '@core/models/events/app-event.types';
 import { Visualization } from '@models/domain/visualization.model';
 import { VisualizationFactory } from '@pages/visualization/visualization.factory';
-import { AppDialogService, AppEventBusService, EditModeService, VisualizationPersistenceService, VisualizationStateService } from '@services';
+import { AppDialogService, AppEventBusService, EditModeService, SessionStateService, VisualizationPersistenceService, VisualizationStateService } from '@services';
 import { OrientationWarningComponent } from '@shared/components/orientation-warning/orientation-warning.component';
 import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
 import { ButtonComponent } from '../../shared/components/button/button.component';
@@ -44,6 +44,7 @@ export class VisualizationCreateModalComponent implements OnInit, OnDestroy {
     private readonly dialogs = inject(AppDialogService);
     private readonly editModeService = inject(EditModeService);
     private readonly eventBus = inject(AppEventBusService);
+    private readonly sessionState = inject(SessionStateService);
 
     protected readonly icons = APP_ICONS;
 
@@ -177,6 +178,14 @@ export class VisualizationCreateModalComponent implements OnInit, OnDestroy {
         const processSave = (saveWithFilters: boolean) => {
             const finalViz = editService.getUpdatedVisualization(saveWithFilters ? filters : undefined);
             finalViz.published = published;
+
+            // Asignar unidad de información activa
+            const currentIU = this.sessionState.currentInformationUnit();
+            if (currentIU) {
+                finalViz.informationUnitName = currentIU.shortName || currentIU.name;
+                finalViz.informationUnitId = currentIU.id;
+            }
+
             this.performCreate(finalViz);
         };
 
