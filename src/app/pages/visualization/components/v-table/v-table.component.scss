@@ -133,3 +133,24 @@
     }
   }
 }
+
+.value-display-select {
+  height: 32px;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: var(--q-fw-medium, 500);
+  color: var(--q-text-primary, #374151);
+  background-color: var(--q-surface, #ffffff);
+  border: 1px solid var(--q-border-color, #e5e7eb);
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    border-color: var(--q-primary, #2563eb);
+  }
+  &:focus {
+    border-color: var(--q-primary, #2563eb);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+}

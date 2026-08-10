@@ -7,20 +7,60 @@
       </div>
       <div class="header-right">
         @if (editMode()) {
-        <app-button variant="text" palette="red" [icon]="icons.actions.delete" label="Eliminar tabla"
-          (btnClick)="onRemove.emit()"></app-button>
-        <div class="separator-vertical"></div>
+          <app-button
+            variant="text"
+            palette="blue"
+            [icon]="icons.actions.edit"
+            label="Configurar tabla"
+            (btnClick)="toggleEditor()"
+          ></app-button>
+          <app-button
+            variant="text"
+            palette="red"
+            [icon]="icons.actions.delete"
+            label="Eliminar tabla"
+            (btnClick)="onRemove.emit()"
+          ></app-button>
+          <div class="separator-vertical"></div>
         }
-        <app-button variant="icon-only" palette="blue" size="small" [icon]="icons.viz.document"
-          (btnClick)="downloadExcel()" title="Descargar como Excel"></app-button>
-        <app-button variant="icon-only" palette="blue" size="small"
-          [icon]="isFullscreen() ? icons.ui.contract : icons.ui.expand" (btnClick)="toggleFullscreen()"
-          title="Pantalla completa"></app-button>
+        @if (!dataset().isPercent && !tableOptions().disableSetValueDisplay) {
+          <select
+            class="value-display-select"
+            [value]="tableOptions().valueDisplay || 'nominal'"
+            (change)="onValueDisplayChange($event)"
+            title="Modo de visualización"
+          >
+            <option value="nominal">Nominal</option>
+            <option value="percentOfTotal">% del Total</option>
+            <option value="percentOfRow">% de Fila</option>
+            <option value="percentOfColumn">% de Columna</option>
+          </select>
+        }
+        <app-button
+          variant="icon-only"
+          palette="blue"
+          size="small"
+          [icon]="icons.viz.document"
+          (btnClick)="downloadExcel()"
+          title="Descargar como Excel"
+        ></app-button>
+        <app-button
+          variant="icon-only"
+          palette="blue"
+          size="small"
+          [icon]="isFullscreen() ? icons.ui.contract : icons.ui.expand"
+          (btnClick)="toggleFullscreen()"
+          title="Pantalla completa"
+        ></app-button>
       </div>
     </div>
     <div class="table-body">
-      <libTable [dataset]="dataset()" [tableOptions]="tableOptions()" [enableEditor]="editMode()"
-        (optionsChange)="tableOptionsChange.emit($event)"></libTable>
+      <libTable
+        [dataset]="dataset()"
+        [tableOptions]="tableOptions()"
+        [showEditor]="editMode()"
+        (tableOptionsChange)="tableOptionsChange.emit($event)"
+      ></libTable>
     </div>
   </div>
 </div>

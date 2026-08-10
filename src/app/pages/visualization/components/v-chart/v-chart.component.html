@@ -13,12 +13,29 @@
         @if (editMode()) {
           <app-button
             variant="text"
+            palette="blue"
+            [icon]="icons.actions.edit"
+            label="Configurar gráfico"
+            (btnClick)="toggleEditor()"
+          ></app-button>
+          <app-button
+            variant="text"
             palette="red"
             [icon]="icons.actions.delete"
             label="Eliminar gráfico"
             (btnClick)="onRemove.emit()"
           ></app-button>
           <div class="separator-vertical"></div>
+        }
+        @if (!dataset().isPercent) {
+          <app-button
+            variant="icon-only"
+            palette="blue"
+            size="small"
+            [icon]="icons.ui.toggle"
+            (btnClick)="toPercentage()"
+            title="Alternar entre modo porcentual y nominal"
+          ></app-button>
         }
         <app-button
           variant="icon-only"
@@ -45,8 +62,8 @@
           (seriesChange)="onSeriesChange($event)"
           [dataset]="dataset()"
           [chartOptions]="chartOptions()"
-          [enableEditor]="editMode()"
-          (optionsChange)="chartOptionsChange.emit($event)"
+          [showEditor]="editMode()"
+          (chartOptionsChange)="chartOptionsChange.emit($event)"
         ></libChart>
       }
     </div>

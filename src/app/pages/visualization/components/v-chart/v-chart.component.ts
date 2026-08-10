@@ -95,19 +95,6 @@ export class VChartComponent implements OnInit {
   }
 
   /**
-   * Ordena a la directiva interna de gráfico alternar visualmente 
-   * la línea o barra correspondiente a una serie específica (usado desde v-actions).
-   * 
-   * @param serie La serie de datos que se desea alternar.
-   */
-  toggleSerie(serie: Series): void {
-    const chart = this.chartRendered();
-    if (chart) {
-      chart.chartComponent.onSelectSeries(serie);
-    }
-  }
-
-  /**
    * Alterna programáticamente la proyección apilada del gráfico 
    * para computarla al 100% de la base.
    */
@@ -119,93 +106,25 @@ export class VChartComponent implements OnInit {
   }
 
   /**
-   * Exporta e inicia la descarga local de la imagen rasterizada del gráfico en formato PNG.
-   * Obtiene la estructura vectorial SVG del gráfico, la convierte en un mapa de bits y gatilla la descarga.
+   * Abre o cierra el panel de edición de configuración del gráfico
+   * invocando la función expuesta por el motor de la librería.
    */
-  downloadPNG(): void {
-    this.eventBus.emit({
-      type: AppEventType.VISUALIZATION_CHART_DOWNLOADED,
-      payload: { id: this.visualizationId() }
-    });
-
+  toggleEditor(): void {
     const chart = this.chartRendered();
-    if (!chart) {
-      console.warn('El gráfico no está disponible para exportar.');
-      return;
-    }
-
-    const svgResult = chart.export('svg');
-    if (typeof svgResult === 'string' && svgResult.trim() !== '') {
-      // Priorizamos el título configurado en el gráfico, si no existe o está vacío usamos el nombre de la visualización
-      const chartTitle = this.chartOptions()?.title;
-      const baseName = (chartTitle && chartTitle.trim() !== '')
-        ? chartTitle
-        : this.visualizationName();
-
-      // Sanitizamos el nombre del archivo para remover caracteres especiales no válidos o problemáticos en sistemas operativos
-      const sanitizedName = baseName.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s-_]/g, '').trim() || 'grafico';
-      this.convertSVGToPNGAndDownload(svgResult, `${sanitizedName}.png`);
-    } else {
-      console.warn('La exportación falló debido a que la instancia del gráfico aún no está lista o retornó un contenido vacío.');
+    if (chart) {
+      chart.toggleEditor();
     }
   }
 
   /**
-   * Convierte una cadena de texto XML que representa un SVG a una imagen en formato PNG
-   * y desencadena la descarga local del archivo resultante en el navegador del usuario.
-   * 
-   * @param svgString Cadena con el contenido XML del SVG generado por el gráfico.
-   * @param fileName Nombre por defecto con el que se guardará el archivo PNG.
+   * Exporta e inicia la descarga local de la imagen del gráfico en formato PNG.
    */
-  private convertSVGToPNGAndDownload(svgString: string, fileName: string): void {
-    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const img = new Image();
-
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      if (!ctx) {
-        console.error('No se pudo inicializar el contexto 2D del Canvas para la exportación.');
-        URL.revokeObjectURL(url);
-        return;
-      }
-
-      // Definimos un tamaño de alta resolución por defecto para que la imagen no pierda calidad.
-      const width = img.naturalWidth || 1280;
-      const height = img.naturalHeight || 720;
-      canvas.width = width;
-      canvas.height = height;
-
-      // Coloreamos un fondo blanco sólido para que el gráfico no sea transparente y se lea correctamente.
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, width, height);
-
-      // Renderizamos la estructura vectorial del SVG sobre el canvas de píxeles.
-      ctx.drawImage(img, 0, 0, width, height);
-
-      try {
-        const pngDataUrl = canvas.toDataURL('image/png');
-
-        const downloadLink = document.createElement('a');
-        downloadLink.href = pngDataUrl;
-        downloadLink.download = fileName;
-        downloadLink.click();
-      } catch (error) {
-        console.error('Ocurrió un error al intentar codificar el Canvas a formato PNG:', error);
-      } finally {
-        // Revocamos la URL temporal para prevenir pérdidas de memoria (memory leaks).
-        URL.revokeObjectURL(url);
-      }
-    };
-
-    img.onerror = (error) => {
-      console.error('Ocurrió un error al intentar cargar el recurso SVG en el elemento de imagen temporal:', error);
-      URL.revokeObjectURL(url);
-    };
-
-    img.src = url;
+  downloadPNG(): void {
+    const chart = this.chartRendered();
+    if (!chart) {
+      return;
+    }
+    chart.export('png');
   }
 
   /**

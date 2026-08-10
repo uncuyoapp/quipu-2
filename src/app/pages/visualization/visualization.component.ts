@@ -340,11 +340,6 @@ export class VisualizationComponent implements OnInit {
     this.chartWrapper()?.toPercentage();
   }
 
-  /** Indica al wrapper interactuar e ignorar visibilidad de cierta línea. */
-  onSeriesToggle(serie: Series): void {
-    this.chartWrapper()?.toggleSerie(serie);
-  }
-
   /** Calculo reactivo para las descargas base dependiente de las presencias globales. */
   downloadAvailability = computed<DownloadAvailability>(() => ({
     chart: this.chartOptions() !== null,

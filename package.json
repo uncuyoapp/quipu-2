@@ -27,7 +27,7 @@
     "@angular/service-worker": "^18.2.14",
     "@ng-icons/core": "^27.5.2",
     "@ng-icons/ionicons": "^27.5.2",
-    "@uncuyoapp/ngx-data-visualizer": "^0.1.0-alpha.5",
+    "@uncuyoapp/ngx-data-visualizer": "^0.1.0-beta.0",
     "bootstrap": "^5.3.3",
     "echarts": "^6.0.0",
     "jquery": "^3.7.1",

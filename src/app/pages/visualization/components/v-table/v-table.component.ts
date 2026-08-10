@@ -5,7 +5,7 @@ import { AppEventType } from '@core/models/events/app-event.types';
 import { NgIconComponent } from '@ng-icons/core';
 import { AppEventBusService, FullscreenService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { Dataset, TableDirective, TableOptions } from '@uncuyoapp/ngx-data-visualizer';
+import { Dataset, TableDirective, TableOptions, ThemeService } from '@uncuyoapp/ngx-data-visualizer';
 
 /**
  * @class VTableComponent
@@ -46,18 +46,43 @@ export class VTableComponent {
   private readonly eventBus = inject(AppEventBusService);
   private readonly fullscreenService = inject(FullscreenService);
   private readonly elementRef = inject(ElementRef);
+  private readonly tableTheme = inject(ThemeService);
 
   /** Configuración de iconos centralizada */
   protected readonly icons = APP_ICONS;
 
   /** Referencia hacia la directiva hija subyacente de tabla para invocar métodos públicos directos */
-  tableRendered = viewChild.required(TableDirective);
+  tableRendered = viewChild(TableDirective);
 
   /** Determina si el componente está actualmente en modo pantalla completa */
   protected isFullscreen = computed(() => {
     const container = this.elementRef.nativeElement.querySelector('.visualization-container');
     return this.fullscreenService.isActive(container)();
   });
+
+  /**
+   * Cambia el modo de visualización de los valores de la tabla invocando la API del motor de tablas de la librería.
+   *
+   * @param event Evento de cambio generado por el select desplegable.
+   */
+  onValueDisplayChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value as 'nominal' | 'percentOfTotal' | 'percentOfRow' | 'percentOfColumn';
+    const table = this.tableRendered();
+    if (table) {
+      table.setValueDisplay(value);
+    }
+  }
+
+  /**
+   * Abre o cierra el panel de edición de configuración de la tabla
+   * invocando la función expuesta por el motor de la librería.
+   */
+  toggleEditor(): void {
+    const table = this.tableRendered();
+    if (table) {
+      table.toggleEditor();
+    }
+  }
 
   /**
    * Genera el llamado local a la directiva para exportar la cuadrícula a Microsoft Excel.
@@ -67,7 +92,7 @@ export class VTableComponent {
       type: AppEventType.VISUALIZATION_TABLE_DOWNLOADED,
       payload: { id: this.visualizationId() }
     });
-    this.tableRendered().export('xlsx');
+    this.tableRendered()?.export('xlsx');
   }
 
   /**

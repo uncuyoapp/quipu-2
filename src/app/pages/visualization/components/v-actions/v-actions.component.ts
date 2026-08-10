@@ -144,15 +144,6 @@ export class VActionsComponent {
   }
 
   /**
-   * Emite la selección o deselección de una serie para ser reflejada en el gráfico.
-   *
-   * @param toggledSerie La serie afectada.
-   */
-  onSeriesToggle(toggledSerie: Series): void {
-    this.seriesToggle.emit(toggledSerie);
-  }
-
-  /**
    * Determina si una dimensión dada se encuentra actualmente seleccionada
    * en la configuración de "Múltiples gráficos".
    *

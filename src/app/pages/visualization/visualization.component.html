@@ -16,7 +16,6 @@
         [visualizationId]="visualization()?.id || 'unknown'"
         [showPercentageView]="canShowPercentageView()"
         [showMultiChart]="canShowMultiChart()"
-        (seriesToggle)="onSeriesToggle($event)"
         (multipleGraphsChange)="onMultipleGraphsChange($event)"
         (percentageViewChange)="onPercentageViewChange($event)"
       ></app-v-actions>

@@ -6,31 +6,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-
-    libChart {
-      display: none;
-    }
-
-    ::ng-deep {
-      ng-component {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        min-height: 0;
-
-        lib-app-echarts {
-          height: 400px;
-          min-height: 400px !important;
-          display: block;
-          width: 100%;
-        }
-
-        lib-legend {
-          flex-shrink: 0;
-        }
-      }
-    }
   }
 
   &.is-fullscreen {
@@ -63,29 +38,6 @@
         flex-direction: column;
         min-height: 0;
         overflow-y: auto !important;
-
-        ::ng-deep ng-component {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          width: 100%;
-          min-height: min-content;
-
-          lib-app-echarts {
-            height: 100%;
-            flex: 1;
-            min-height: 400px !important;
-
-            .chart {
-              height: 100% !important;
-            }
-          }
-
-          lib-legend {
-            flex-shrink: 0;
-            min-height: 150px !important;
-          }
-        }
       }
     }
 
@@ -105,14 +57,6 @@
 
           .header-label {
             font-size: 0.85rem;
-          }
-        }
-      }
-
-      .visualization-chart {
-        .chart-body {
-          ::ng-deep ng-component lib-app-echarts {
-            min-height: 280px !important;
           }
         }
       }
