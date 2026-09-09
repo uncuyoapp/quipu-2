@@ -2,7 +2,7 @@ import { HttpClient, HttpContext, HttpHeaders, HttpParams } from '@angular/commo
 import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment';
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { SILENT_HTTP } from '../../http/tokens';
 import { CacheService } from './cache.service';
 import { ApiRequestOptions, ApiParams } from '@models/infrastructure/api.model';
@@ -33,20 +33,18 @@ export abstract class BaseApiService {
   }
 
   /**
-   * Realiza una petición HTTP GET al endpoint especificado.
+   * Realiza una petición HTTP GET cruda al endpoint especificado (retorna el envelope completo de la API).
    * 
    * @param endpoint El endpoint de la API a solicitar.
    * @param params Parámetros de consulta opcionales.
-   * @param options Opciones adicionales para la petición (ej. caché, modo silencioso).
-   * @returns Un observable con los datos de la respuesta.
+   * @param options Opciones adicionales para la petición.
+   * @returns Un observable con la respuesta completa del backend.
    */
-  protected get<T>(endpoint: string, params?: ApiParams, options?: ApiRequestOptions): Observable<T> {
+  protected getRaw<T>(endpoint: string, params?: ApiParams, options?: ApiRequestOptions): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
     const httpParams = params ? new HttpParams({ fromObject: params }) : undefined;
-
     const context = new HttpContext().set(SILENT_HTTP, !!options?.silent);
 
-    // Si se solicita usar caché, intentar obtener el valor de la caché
     if (options?.useCache) {
       const cacheKey = this.generateCacheKey(url, httpParams);
       const cachedData = this.cacheService.get<T>(cacheKey);
@@ -55,11 +53,9 @@ export abstract class BaseApiService {
         return of(cachedData);
       }
 
-      // Si no hay datos en caché, realizar la petición y guardar en caché
       return this.http.get<T>(url, {
         headers: this.headers,
         params: httpParams,
-        withCredentials: true,
         context
       }).pipe(
         tap(response => {
@@ -68,13 +64,25 @@ export abstract class BaseApiService {
       );
     }
 
-    // Si no se solicita usar caché, realizar la petición normalmente
     return this.http.get<T>(url, {
       headers: this.headers,
       params: httpParams,
-      withCredentials: true,
       context
     });
+  }
+
+  /**
+   * Realiza una petición HTTP GET al endpoint especificado, extrayendo el payload `data`.
+   * 
+   * @param endpoint El endpoint de la API a solicitar.
+   * @param params Parámetros de consulta opcionales.
+   * @param options Opciones adicionales para la petición (ej. caché, modo silencioso).
+   * @returns Un observable con los datos desempaquetados.
+   */
+  protected get<T>(endpoint: string, params?: ApiParams, options?: ApiRequestOptions): Observable<T> {
+    return this.getRaw<any>(endpoint, params, options).pipe(
+      map((res: any) => (res && typeof res === 'object' && 'data' in res) ? res.data : res)
+    );
   }
 
   /**
@@ -82,14 +90,15 @@ export abstract class BaseApiService {
    * 
    * @param endpoint El endpoint de la API a solicitar.
    * @param body Los datos a enviar en el cuerpo de la petición.
-   * @returns Un observable con los datos de la respuesta.
+   * @returns Un observable con los datos de la respuesta desempaquetados.
    */
   protected post<T>(endpoint: string, body: unknown): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
-    return this.http.post<T>(url, body, {
+    return this.http.post<any>(url, body, {
       headers: this.headers,
-      withCredentials: true,
-    });
+    }).pipe(
+      map((res: any) => (res && typeof res === 'object' && 'data' in res) ? res.data : res)
+    );
   }
 
   /**
@@ -97,28 +106,32 @@ export abstract class BaseApiService {
    * 
    * @param endpoint El endpoint de la API a solicitar.
    * @param body Los datos a enviar en el cuerpo de la petición.
-   * @returns Un observable con los datos de la respuesta.
+   * @returns Un observable con los datos de la respuesta desempaquetados.
    */
   protected put<T>(endpoint: string, body: unknown): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
-    return this.http.put<T>(url, body, {
+    return this.http.put<any>(url, body, {
       headers: this.headers,
-      withCredentials: true,
-    });
+    }).pipe(
+      map((res: any) => (res && typeof res === 'object' && 'data' in res) ? res.data : res)
+    );
   }
 
   /**
    * Realiza una petición HTTP DELETE al endpoint especificado.
    * 
    * @param endpoint El endpoint de la API a solicitar.
-   * @returns Un observable con los datos de la respuesta.
+   * @param body Cuerpo opcional para eliminaciones masivas.
+   * @returns Un observable con los datos de la respuesta desempaquetados.
    */
-  protected delete<T>(endpoint: string): Observable<T> {
+  protected delete<T>(endpoint: string, body?: unknown): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
-    return this.http.delete<T>(url, {
+    return this.http.delete<any>(url, {
       headers: this.headers,
-      withCredentials: true,
-    });
+      body,
+    }).pipe(
+      map((res: any) => (res && typeof res === 'object' && 'data' in res) ? res.data : res)
+    );
   }
 
   /**
@@ -134,7 +147,6 @@ export abstract class BaseApiService {
       headers: this.headers,
       params,
       responseType: 'blob',
-      withCredentials: true,
     });
   }
 
@@ -152,6 +164,19 @@ export abstract class BaseApiService {
    */
   public removeAuthorizationToken(): void {
     this.headers = this.headers.delete('Authorization');
+  }
+
+  /**
+   * Establece o elimina el identificador de la Unidad de Información activa (tenant) en los encabezados.
+   * 
+   * @param unitId ID de la Unidad de Información o null para limpiar.
+   */
+  public setInformationUnitId(unitId: number | string | null): void {
+    if (unitId !== null && unitId !== undefined && unitId !== '') {
+      this.headers = this.headers.set('X-Information-Unit-Id', unitId.toString());
+    } else {
+      this.headers = this.headers.delete('X-Information-Unit-Id');
+    }
   }
 
   /**

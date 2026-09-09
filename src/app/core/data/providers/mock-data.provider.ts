@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { DownloadOptions } from '@models/common/download.model';
+import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
-import { Visualization } from '@models/domain/visualization.model';
+import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { AppNotificationService, LoadingService } from '@services';
-import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
 import { Observable, concatMap, delay, map, of, throwError } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { DatasetInfo, IDataProvider, VisualizationPage } from '../data.provider';
+import { IDataProvider } from '../data.provider';
 import {
   CURRENT_MOCK_USER,
   MOCK_DATASETS,
@@ -444,7 +444,7 @@ export class MockDataProvider extends IDataProvider {
   // Dataset methods
   public getDataset(datasetId: number | string): Observable<Dataset> {
     return this._simulateDelay().pipe(concatMap(() => {
-      const ds = MOCK_DATASETS.find(d => d.id == datasetId);
+      const ds = MOCK_DATASETS.find((d, idx) => d.id == datasetId || d.code == datasetId || (idx + 1) === datasetId);
       if (!ds) return throwError(() => new Error('Not found'));
       return of(new Dataset(ds as any));
     }));
@@ -452,13 +452,14 @@ export class MockDataProvider extends IDataProvider {
 
   public getDatasets(): Observable<DatasetInfo[]> {
     return this._simulateDelay().pipe(concatMap(() => {
-      return of(MOCK_DATASETS.map((ds: MockDatasetRaw) => ({
-        id: ds.id!,
-        name: ds.name || `Dataset ${ds.id}`,
+      return of(MOCK_DATASETS.map((ds: MockDatasetRaw, index: number) => ({
+        id: typeof ds.id === 'number' ? ds.id : (index + 1),
+        code: ds.code || (typeof ds.id === 'string' ? ds.id : `DS_${ds.id}`),
+        name: ds.name || `Dataset ${ds.code || ds.id}`,
         description: ds.description,
         dimensions: ds.dimensions.map((d) => d.nameView),
         isPercentage: ds.isPercentage || false,
-        allowsAddingData: ds.allowsAddingData !== undefined ? ds.allowsAddingData : true,
+        enableRollUp: ds.enableRollUp !== undefined ? ds.enableRollUp : (ds.allowsAddingData !== undefined ? ds.allowsAddingData : true),
         unit: ds.unit,
         periodicity: ds.periodicity,
         temporal: ds.temporal,

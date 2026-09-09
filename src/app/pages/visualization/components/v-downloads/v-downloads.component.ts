@@ -3,7 +3,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { APP_ICONS } from '@core/config/icons.config';
 import { SECTION_GRAPHICS } from '@core/config/illustrations.config';
 import { DownloadAvailability, DownloadOptions } from '@models/common/download.model';
-import { Dimension } from '@uncuyoapp/ngx-data-visualizer';
+import { Dimension } from '@models/domain/dataset.model';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { VDownloadsModalComponent } from './v-downloads-modal/v-downloads-modal.component';
 

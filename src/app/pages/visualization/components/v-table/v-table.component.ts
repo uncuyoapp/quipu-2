@@ -5,7 +5,9 @@ import { AppEventType } from '@core/models/events/app-event.types';
 import { NgIconComponent } from '@ng-icons/core';
 import { AppEventBusService, FullscreenService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { Dataset, TableDirective, TableOptions, ThemeService } from '@uncuyoapp/ngx-data-visualizer';
+import { Dataset } from '@models/domain/dataset.model';
+import { TableOptions } from '@models/domain/visualization.model';
+import { TableDirective, ThemeService } from '@uncuyoapp/ngx-data-visualizer';
 
 /**
  * @class VTableComponent

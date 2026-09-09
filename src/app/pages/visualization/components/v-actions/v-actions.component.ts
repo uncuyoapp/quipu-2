@@ -3,7 +3,8 @@ import { DimensionSelectComponent } from '@components/dimension-select/dimension
 import { AppEventType } from '@core/models/events/app-event.types';
 import { AppEventBusService, VisualizationStateService } from '@services';
 import { SwitchComponent } from '@shared/components/switch/switch.component';
-import { Dimension, Series } from '@uncuyoapp/ngx-data-visualizer';
+import { Dimension } from '@models/domain/dataset.model';
+import { Series } from '@models/domain/visualization.model';
 
 /**
  * @class VActionsComponent

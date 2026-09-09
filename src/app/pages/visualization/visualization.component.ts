@@ -15,17 +15,17 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { APP_ICONS } from '@core/config/icons.config';
 import { AppEventType } from '@core/models/events/app-event.types';
 import { DownloadAvailability, DownloadOptions } from '@models/common/download.model';
-import { InformationEditEvent, Visualization } from '@models/domain/visualization.model';
+import { Dataset, Dimension } from '@models/domain/dataset.model';
+import {
+  FiltersConfig,
+  InformationEditEvent,
+  Series,
+  Visualization
+} from '@models/domain/visualization.model';
 import { NgIconComponent } from '@ng-icons/core';
 import { AppEventBusService, EditModeService, VisualizationStateService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { SwitchComponent } from '@shared/components/switch/switch.component';
-import {
-  Dataset,
-  Dimension,
-  FiltersConfig,
-  Series
-} from '@uncuyoapp/ngx-data-visualizer';
 import { VActionsComponent } from './components/v-actions/v-actions.component';
 import { VChartComponent } from './components/v-chart/v-chart.component';
 import { VDownloadsComponent } from './components/v-downloads/v-downloads.component';

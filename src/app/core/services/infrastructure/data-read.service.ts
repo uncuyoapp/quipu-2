@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { DownloadOptions } from '@models/common/download.model';
+import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
-import { Visualization } from '@models/domain/visualization.model';
-import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
+import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { Observable } from 'rxjs';
-import { DatasetInfo, IDataProvider, VisualizationPage } from '../../data/data.provider';
+import { IDataProvider } from '../../data/data.provider';
 
 /**
  * Servicio de infraestructura para operaciones de LECTURA de datos.

@@ -1,8 +1,8 @@
 import { Component, computed, inject, input, output, viewChild } from '@angular/core';
+import { Dataset } from '@models/domain/dataset.model';
 import { Visualization } from '@models/domain/visualization.model';
 import { VisualizationComponent } from '@pages/visualization/visualization.component';
 import { EditModeService } from '@services';
-import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
 
 @Component({
     selector: 'app-visualization-config-step',

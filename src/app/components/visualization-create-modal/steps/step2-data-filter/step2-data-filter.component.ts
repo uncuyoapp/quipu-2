@@ -1,14 +1,10 @@
 import { Component, OnInit, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
 import { DimensionSelectComponent } from '@components/dimension-select/dimension-select.component';
-import { DatasetInfo } from '@core/data/data.provider';
 import { AppEventType } from '@core/models/events/app-event.types';
+import { Dataset, DatasetInfo, Dimension } from '@models/domain/dataset.model';
+import { FiltersConfig } from '@models/domain/visualization.model';
 import { VisualizationFactory } from '@pages/visualization/visualization.factory';
 import { AppEventBusService, VisualizationStateService } from '@services';
-import {
-    Dataset,
-    Dimension,
-    FiltersConfig
-} from '@uncuyoapp/ngx-data-visualizer';
 
 export interface DataConfigResult {
     dataset: Dataset;

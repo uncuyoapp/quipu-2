@@ -1,13 +1,12 @@
 import { Component, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { APP_ICONS } from '@core/config/icons.config';
-import { DatasetInfo } from '@core/data/data.provider';
 import { AppEventType } from '@core/models/events/app-event.types';
+import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { Visualization } from '@models/domain/visualization.model';
 import { VisualizationFactory } from '@pages/visualization/visualization.factory';
 import { AppDialogService, AppEventBusService, EditModeService, SessionStateService, VisualizationPersistenceService, VisualizationStateService } from '@services';
 import { OrientationWarningComponent } from '@shared/components/orientation-warning/orientation-warning.component';
-import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { TagComponent } from '../../shared/components/tag/tag.component';
 import { Step1DatasetSelectionComponent } from './steps/step1-dataset-selection/step1-dataset-selection.component';

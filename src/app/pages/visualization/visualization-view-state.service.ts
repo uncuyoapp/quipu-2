@@ -1,13 +1,12 @@
 import { Injectable, computed, inject, model, signal } from '@angular/core';
+import { Dataset, Dimension } from '@models/domain/dataset.model';
 import {
   ChartOptions,
-  Dataset,
-  Dimension,
   FiltersConfig,
   Series,
   TableOptions,
-} from '@uncuyoapp/ngx-data-visualizer';
-import { Visualization } from '@models/domain/visualization.model';
+  Visualization
+} from '@models/domain/visualization.model';
 import { VisualizationStateService } from '@services';
 import { VisualizationFactory } from './visualization.factory';
 

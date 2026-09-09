@@ -101,9 +101,7 @@ export class ThematicEditService {
 
     const payload: Partial<Thematic> = {
       name: trimmedName,
-      color,
       parentId,
-      order
     };
 
     return this.persistence.create(payload).pipe(

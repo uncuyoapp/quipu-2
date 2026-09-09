@@ -41,7 +41,7 @@
   <div class="dimension-select__items">
     @for (item of filteredItems(); track item.id) {
     <div class="dimension-select__item">
-      <app-checkbox [size]="'small'" [label]="item.name" [checked]="item.selected"
+      <app-checkbox [size]="'small'" [label]="item.name" [checked]="item.selected ?? true"
         (valueChange)="onItemCheckboxChange(item.id, $event)" />
     </div>
     } @empty {
@@ -81,7 +81,7 @@
     <div class="dimension-select__items">
       @for (item of filteredItems(); track item.id) {
       <div class="dimension-select__item">
-        <app-checkbox [label]="item.name" [checked]="item.selected"
+        <app-checkbox [label]="item.name" [checked]="item.selected ?? true"
           (valueChange)="onItemCheckboxChange(item.id, $event)" />
       </div>
       } @empty {

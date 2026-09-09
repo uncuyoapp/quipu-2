@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { VisualizationPage } from '@core/data/data.provider';
 import { DownloadOptions } from '@models/common/download.model';
-import { Visualization } from '@models/domain/visualization.model';
+import { Dataset, Dimension } from '@models/domain/dataset.model';
+import { FiltersConfig, Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { VisualizationFactory } from '@pages/visualization/visualization.factory';
-import { Dataset, Dimension, FiltersConfig } from '@uncuyoapp/ngx-data-visualizer';
 import { Observable, map, tap } from 'rxjs';
 import { AppEventType } from '../../models/events/app-event.types';
 import { AppEventBusService } from '../events/app-event-bus.service';

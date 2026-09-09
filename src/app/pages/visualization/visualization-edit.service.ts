@@ -1,10 +1,16 @@
 import { computed, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AppEventType } from '@core/models/events/app-event.types';
-import { InformationEditEvent, Visualization } from '@models/domain/visualization.model';
+import { Dataset, Dimension } from '@models/domain/dataset.model';
+import {
+  ChartOptions,
+  FiltersConfig,
+  InformationEditEvent,
+  TableOptions,
+  Visualization
+} from '@models/domain/visualization.model';
 import { SaveResult } from '@models/common/save-result.model';
 import { AppDialogService, AppEventBusService, EditModeService, VisualizationPersistenceService, VisualizationStateService } from '@services';
-import { ChartOptions, Dataset, Dimension, FiltersConfig, TableOptions } from '@uncuyoapp/ngx-data-visualizer';
 import { map, Observable } from 'rxjs';
 import type { VisualizationComponent } from './visualization.component';
 import { VisualizationFactory } from './visualization.factory';

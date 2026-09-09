@@ -11,7 +11,7 @@ import { APP_ICONS } from '@core/config/icons.config';
 import { DownloadAvailability, DownloadOptions } from '@models/common/download.model';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { CheckboxComponent } from '@shared/components/checkbox/checkbox.component';
-import { Dimension } from '@uncuyoapp/ngx-data-visualizer';
+import { Dimension } from '@models/domain/dataset.model';
 
 /**
  * @class VDownloadsModalComponent

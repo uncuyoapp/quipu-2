@@ -4,12 +4,9 @@ import { APP_ICONS } from '@core/config/icons.config';
 import { AppEventType } from '@core/models/events/app-event.types';
 import { NgIconComponent } from '@ng-icons/core';
 import { AppEventBusService, FullscreenService } from '@services';
-import {
-  ChartDirective,
-  ChartOptions,
-  Dataset,
-  Series,
-} from '@uncuyoapp/ngx-data-visualizer';
+import { Dataset } from '@models/domain/dataset.model';
+import { ChartOptions, Series } from '@models/domain/visualization.model';
+import { ChartDirective } from '@uncuyoapp/ngx-data-visualizer';
 
 import { ButtonComponent } from '@shared/components/button/button.component';
 
@@ -95,6 +92,25 @@ export class VChartComponent implements OnInit {
   }
 
   /**
+   * Ordena a la directiva interna de gráfico alternar visualmente 
+   * la línea o barra correspondiente a una serie específica (usado desde v-actions).
+   * 
+   * @param serie La serie de datos que se desea alternar.
+   */
+  toggleSerie(serie: Series): void {
+    const chart = this.chartRendered();
+    if (chart) {
+      const echartInstance = (chart.mainChart?.instance ?? (chart as any).echart?.()?.mainChart?.instance) as any;
+      if (echartInstance && typeof echartInstance.dispatchAction === 'function') {
+        echartInstance.dispatchAction({
+          type: 'legendToggleSelect',
+          name: serie.name,
+        });
+      }
+    }
+  }
+
+  /**
    * Alterna programáticamente la proyección apilada del gráfico 
    * para computarla al 100% de la base.
    */
@@ -117,13 +133,21 @@ export class VChartComponent implements OnInit {
   }
 
   /**
-   * Exporta e inicia la descarga local de la imagen del gráfico en formato PNG.
+   * Exporta e inicia la descarga local de la imagen rasterizada del gráfico en formato PNG.
+   * Delega la exportación a la librería ngx-data-visualizer.
    */
   downloadPNG(): void {
+    this.eventBus.emit({
+      type: AppEventType.VISUALIZATION_CHART_DOWNLOADED,
+      payload: { id: this.visualizationId() }
+    });
+
     const chart = this.chartRendered();
     if (!chart) {
+      console.warn('El gráfico no está disponible para exportar.');
       return;
     }
+
     chart.export('png');
   }
 

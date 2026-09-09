@@ -1,8 +1,8 @@
 import { Component, OnInit, computed, inject, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { APP_ICONS } from '@core/config/icons.config';
-import { DatasetInfo } from '@core/data/data.provider';
 import { AppEventType } from '@core/models/events/app-event.types';
+import { DatasetInfo } from '@models/domain/dataset.model';
 import { NgIconComponent } from '@ng-icons/core';
 import { AppEventBusService, DataReadService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
@@ -10,7 +10,7 @@ import { TagComponent } from '@shared/components/tag/tag.component';
 
 /** Interfaz para los filtros de las columnas de datasets */
 interface DatasetColumnFilters {
-    id: string;
+    code: string;
     name: string;
     isPercentage: 'all' | 'true' | 'false';
     unit: string;
@@ -47,7 +47,7 @@ export class Step1DatasetSelectionComponent implements OnInit {
 
     /** Estado de los filtros aplicados a cada columna de la tabla. */
     columnFilters = signal<DatasetColumnFilters>({
-        id: '',
+        code: '',
         name: '',
         isPercentage: 'all',
         unit: '',

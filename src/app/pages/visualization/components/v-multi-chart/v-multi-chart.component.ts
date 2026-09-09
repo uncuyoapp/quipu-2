@@ -5,7 +5,9 @@ import { SECTION_GRAPHICS } from '@core/config/illustrations.config';
 import { AppEventType } from '@core/models/events/app-event.types';
 import { AppEventBusService } from '@services';
 import { TagComponent } from '@shared/components/tag/tag.component';
-import { ChartOptions, Dataset, Dimension, MultipleChartDirective } from '@uncuyoapp/ngx-data-visualizer';
+import { Dataset, Dimension } from '@models/domain/dataset.model';
+import { ChartOptions } from '@models/domain/visualization.model';
+import { MultipleChartDirective } from '@uncuyoapp/ngx-data-visualizer';
 
 /**
  * @class VMultiChartComponent

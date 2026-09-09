@@ -5,7 +5,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { CheckboxComponent } from '@shared/components/checkbox/checkbox.component';
 import { TagComponent } from '@shared/components/tag/tag.component';
 import { TextInputComponent } from '@shared/components/text-input/text-input.component';
-import { Dimension } from '@uncuyoapp/ngx-data-visualizer';
+import { Dimension } from '@models/domain/dataset.model';
 
 export type DropDownType = 'block' | 'modal';
 
@@ -68,12 +68,12 @@ export class DimensionSelectComponent {
 
   allSelected = computed(() => {
     const items = this.dimension().items || [];
-    return items.length > 0 && items.every((item) => item.selected);
+    return items.length > 0 && items.every((item) => item.selected ?? true);
   });
 
   someSelected = computed(() => {
     const items = this.dimension().items || [];
-    const selectedCount = items.filter((item) => item.selected).length;
+    const selectedCount = items.filter((item) => item.selected ?? true).length;
     return selectedCount > 0 && selectedCount < items.length;
   });
 

@@ -19,6 +19,7 @@ interface MockDimensionRaw {
 /** Estructura de un dataset en los archivos JSON de mock */
 export interface MockDatasetRaw {
   id: number | string;
+  code?: string;
   name?: string;
   description?: string;
   dimensions: MockDimensionRaw[];

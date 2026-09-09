@@ -1,7 +1,6 @@
 import { VISUALIZATION_TYPES_ICONS } from '@core/config/illustrations.config';
-import { Visualization } from '@models/domain/visualization.model';
-import { DatasetInfo } from '@core/data/data.provider';
-import { ChartOptions, Dataset, Dimension, FiltersConfig, TableOptions } from '@uncuyoapp/ngx-data-visualizer';
+import { Dataset, DatasetInfo, Dimension } from '@models/domain/dataset.model';
+import { ChartOptions, FiltersConfig, TableOptions, Visualization } from '@models/domain/visualization.model';
 
 /**
  * @class VisualizationFactory

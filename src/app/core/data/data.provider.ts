@@ -1,36 +1,10 @@
 import { DownloadOptions } from '@models/common/download.model';
+import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
-import { Visualization } from '@models/domain/visualization.model';
-import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
+import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { Observable } from 'rxjs';
-
-/**
- * Representa una respuesta paginada de visualizaciones.
- */
-export interface VisualizationPage {
-  items: Visualization[];
-  totalItems: number;
-  page: number;
-  pageSize: number;
-}
-
-/**
- * Representa información básica y metadatos de un dataset.
- */
-export interface DatasetInfo {
-  id: number | string;
-  name: string;
-  description?: string;
-  dimensions: string[];
-  isPercentage: boolean;
-  allowsAddingData: boolean;
-  unit?: string;
-  periodicity: string;
-  temporal: string;
-  lastModified?: string;
-}
 
 /**
  * Clase abstracta que define el contrato para los proveedores de datos.

@@ -1,31 +1,30 @@
 import { Injectable, inject } from '@angular/core';
 import { DownloadOptions } from '@models/common/download.model';
+import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
-import { Visualization } from '@models/domain/visualization.model';
+import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { BaseApiService, CacheService } from '@services';
-import { Dataset } from '@uncuyoapp/ngx-data-visualizer';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DatasetInfo, IDataProvider, VisualizationPage } from '../data.provider';
+import { IDataProvider } from '../data.provider';
 
 @Injectable()
 export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   protected override cacheService = inject(CacheService);
 
   private readonly endpoints = {
-    thematics: 'get-categories',
-    thematicCreate: 'create-category',
-    thematicUpdate: 'update-category',
-    thematicDelete: 'delete-category',
-    thematicsReorder: 'reorder-categories',
-    visualization: 'get-visualization',
-    visualizationsByThematic: 'get-visualizations-by-thematic',
-    visualizationsByText: 'get-visualizations-by-text',
-    visualizationsPage: 'get-visualizations-page',
-    visualizationsBookmarked: 'get-visualizations-bookmarked',
-    dataset: 'get-dataset',
+    thematics: 'thematics',
+    thematicsReorder: 'thematics/reorder',
+    visualizations: 'visualizations',
+    visualizationsByThematic: 'thematics',
+    searchVisualizations: 'search/visualizations',
+    searchSuggestions: 'search/suggestions',
+    visualizationsPublish: 'visualizations/publish',
+    visualizationsUnpublish: 'visualizations/unpublish',
+    visualizationsBookmarked: 'visualizations/bookmarked',
+    datasets: 'datasets',
     login: 'auth/login',
     currentUser: 'auth/me',
     logout: 'auth/logout',
@@ -38,10 +37,6 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     updateEmail: 'auth/update-email',
     updateName: 'auth/update-name',
     updateWorkArea: 'auth/update-work-area',
-    visualizationsPublish: 'publish-visualizations',
-    visualizationsUnpublish: 'unpublish-visualizations',
-    visualizationsDelete: 'delete-visualizations',
-    datasets: 'get-datasets',
   };
 
   getThematics(): Observable<Thematic[]> {
@@ -49,15 +44,15 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   createThematic(thematic: Partial<Thematic>): Observable<Thematic> {
-    return this.post<Thematic>(this.endpoints.thematicCreate, thematic);
+    return this.post<Thematic>(this.endpoints.thematics, thematic);
   }
 
   updateThematic(id: number, thematic: Partial<Thematic>): Observable<Thematic> {
-    return this.put<Thematic>(`${this.endpoints.thematicUpdate}/${id}`, thematic);
+    return this.put<Thematic>(`${this.endpoints.thematics}/${id}`, thematic);
   }
 
   deleteThematic(id: number): Observable<boolean> {
-    return this.delete<any>(`${this.endpoints.thematicDelete}/${id}`).pipe(map(() => true));
+    return this.delete<any>(`${this.endpoints.thematics}/${id}`).pipe(map(() => true));
   }
 
   reorderThematics(thematicIds: number[]): Observable<boolean> {
@@ -65,15 +60,15 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   getVisualization(id: number | string): Observable<Visualization> {
-    return this.get<Visualization>(`${this.endpoints.visualization}/${id}`);
+    return this.get<Visualization>(`${this.endpoints.visualizations}/${id}`);
   }
 
   updateVisualization(id: number | string, visualization: Visualization): Observable<boolean> {
-    return this.put<any>(`update-visualization/${id}`, visualization).pipe(map(() => true));
+    return this.put<any>(`${this.endpoints.visualizations}/${id}`, visualization).pipe(map(() => true));
   }
 
   createVisualization(visualization: Visualization): Observable<Visualization> {
-    return this.post<Visualization>('create-visualization', visualization);
+    return this.post<Visualization>(this.endpoints.visualizations, visualization);
   }
 
   publishVisualizations(ids: (number | string)[]): Observable<boolean> {
@@ -85,27 +80,36 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   deleteVisualizations(ids: (number | string)[]): Observable<boolean> {
-    return this.post<any>(this.endpoints.visualizationsDelete, { ids }).pipe(map(() => true));
+    return this.delete<any>(this.endpoints.visualizations, { ids }).pipe(map(() => true));
   }
 
   getVisualizationsByThematic(thematicId: number): Observable<Visualization[]> {
-    return this.get<Visualization[]>(this.endpoints.visualizationsByThematic, { thematicId });
+    return this.get<Visualization[]>(`${this.endpoints.visualizationsByThematic}/${thematicId}/visualizations`);
   }
 
   getVisualizationsByText(searchText: string): Observable<Visualization[]> {
-    return this.get<Visualization[]>(this.endpoints.visualizationsByText, { q: searchText });
+    return this.get<Visualization[]>(this.endpoints.searchVisualizations, { q: searchText });
   }
 
   getVisualizationsPage(page: number, pageSize: number): Observable<VisualizationPage> {
-    return this.get<VisualizationPage>(this.endpoints.visualizationsPage, { page, pageSize });
+    return this.getRaw<any>(this.endpoints.visualizations, { page, pageSize }).pipe(
+      map(res => ({
+        items: res?.data ?? [],
+        totalItems: res?.pagination?.totalElements ?? (res?.data?.length ?? 0),
+        page: res?.pagination?.page ?? page,
+        pageSize: res?.pagination?.pageSize ?? pageSize
+      }))
+    );
   }
 
   getVisualizationsBookmarked(userId: number): Observable<Visualization[]> {
-    return this.get<Visualization[]>(this.endpoints.visualizationsBookmarked, { userId });
+    return this.get<Visualization[]>(`${this.endpoints.visualizationsBookmarked}/${userId}`);
   }
 
   getSearchSuggestions(searchText: string): Observable<string[]> {
-    return of([]);
+    return this.get<any[]>(this.endpoints.searchSuggestions, { q: searchText }).pipe(
+      map(items => (items || []).map(item => (typeof item === 'string' ? item : item.text)))
+    );
   }
 
   download(visualization: Visualization, options: DownloadOptions): void {
@@ -114,7 +118,7 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   getDataset(datasetId: number | string): Observable<Dataset> {
-    return this.get<any>(`${this.endpoints.dataset}/${datasetId}`).pipe(map(res => new Dataset(res)));
+    return this.get<any>(`${this.endpoints.datasets}/${datasetId}`).pipe(map(res => new Dataset(res)));
   }
 
   getDatasets(): Observable<DatasetInfo[]> {
@@ -125,7 +129,8 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     return this.get<User>(this.endpoints.currentUser).pipe(
       map(user => ({
         ...user,
-        informationUnits: user.informationUnits.map((u: any) => typeof u === 'object' ? u.id : u)
+        token: this.getAuthToken() || user.token,
+        informationUnits: (user.informationUnits || []).map((u: any) => typeof u === 'object' ? u.id : u)
       }))
     );
   }
@@ -134,16 +139,24 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     return this.post<any>(this.endpoints.login, { username, password }).pipe(map(res => {
       this.setAuthorizationToken(res.token);
       const user = res.user;
+      if (user?.selectedIU) {
+        this.setInformationUnitId(user.selectedIU);
+      }
       return {
         ...user,
         token: res.token,
-        informationUnits: user.informationUnits.map((u: any) => typeof u === 'object' ? u.id : u)
+        informationUnits: (user.informationUnits || []).map((u: any) => typeof u === 'object' ? u.id : u)
       };
     }));
   }
 
   logout(): Observable<void> {
-    return this.post<void>(this.endpoints.logout, {});
+    return this.post<void>(this.endpoints.logout, {}).pipe(
+      map(() => {
+        this.removeAuthToken();
+        this.setInformationUnitId(null);
+      })
+    );
   }
 
   getInformationUnits(): Observable<InformationUnit[]> {
@@ -151,7 +164,12 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   selectInformationUnit(unitId: number): Observable<boolean> {
-    return this.post<any>(this.endpoints.selectInformationUnit, { unitId }).pipe(map(() => true));
+    return this.post<any>(this.endpoints.selectInformationUnit, { unitId }).pipe(
+      map(() => {
+        this.setInformationUnitId(unitId);
+        return true;
+      })
+    );
   }
 
   isAuthenticated(): boolean {
@@ -189,12 +207,15 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   public clearDataCache(datasetId: number | string): void {
-    this.clearCache(`${this.endpoints.dataset}/${datasetId}`);
+    this.clearCache(`${this.endpoints.datasets}/${datasetId}`);
   }
 
   public initializeFromStoredData(userData: { token?: string; selectedIU?: number }): void {
     if (userData.token) {
       this.setAuthToken(userData.token);
+    }
+    if (userData.selectedIU) {
+      this.setInformationUnitId(userData.selectedIU);
     }
   }
 }

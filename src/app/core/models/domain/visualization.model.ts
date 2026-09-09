@@ -3,6 +3,14 @@ import {
   FiltersConfig,
   TableOptions
 } from '@uncuyoapp/ngx-data-visualizer';
+
+/** Re-exportación de contratos de ngx-data-visualizer vinculados al dominio de visualización */
+export {
+  ChartOptions,
+  FiltersConfig,
+  Series,
+  TableOptions
+} from '@uncuyoapp/ngx-data-visualizer';
 import { ThematicRef } from './thematic.model';
 
 /**
@@ -162,9 +170,12 @@ export interface InformationEditEvent {
  */
 export interface VisualizationPage {
   /** Lista de visualizaciones de la página actual */
-  content: Visualization[];
+  items: Visualization[];
   /** Total de elementos en el servidor */
-  totalElements: number;
-  /** Total de páginas disponibles */
-  totalPages: number;
+  totalItems: number;
+  /** Número de página actual */
+  page: number;
+  /** Tamaño de página solicitado */
+  pageSize: number;
 }
+

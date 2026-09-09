@@ -13,8 +13,8 @@
         </tr>
         <tr class="filter-row">
           <td>
-            <input type="text" placeholder="Filtrar..." [ngModel]="columnFilters()['id']"
-              (ngModelChange)="onFilterChange('id', $event)">
+            <input type="text" placeholder="Filtrar..." [ngModel]="columnFilters()['code']"
+              (ngModelChange)="onFilterChange('code', $event)">
           </td>
           <td>
             <input type="text" placeholder="Filtrar..." [ngModel]="columnFilters()['name']"
@@ -75,7 +75,7 @@
       <tbody>
         @for (ds of paginatedDatasets(); track ds.id) {
         <tr (click)="select(ds)" class="dataset-row" [class.selected]="selectedDataset()?.id === ds.id">
-          <td class="id-cell">{{ ds.id }}</td>
+          <td class="id-cell">{{ ds.code }}</td>
           <td class="name-cell">
             <div class="dataset-name">{{ ds.name }}</div>
             @if (ds.description) {

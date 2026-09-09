@@ -25,6 +25,12 @@
     ],
     "baseUrl": "./",
     "paths": {
+      "@uncuyoapp/ngx-data-visualizer": [
+        "../ngx-data-visualizer/dist/ngx-data-visualizer"
+      ],
+      "@uncuyoapp/ngx-data-visualizer/*": [
+        "../ngx-data-visualizer/dist/ngx-data-visualizer/*"
+      ],
       "@components/*": [
         "src/app/components/*"
       ],
