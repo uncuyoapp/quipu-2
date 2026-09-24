@@ -12,6 +12,10 @@ export interface ApiRequestOptions {
   cacheOptions?: CacheOptions;
   /** Si es true, omite la notificación global de carga o errores en la UI */
   silent?: boolean;
+  /** Si es true, envía cookies de sesión y credenciales cross-origin */
+  withCredentials?: boolean;
+  /** Si es true, omite la notificación SnackBar global de error en el interceptor */
+  skipGlobalError?: boolean;
 }
 
 /** 

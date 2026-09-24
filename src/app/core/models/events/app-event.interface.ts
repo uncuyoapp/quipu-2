@@ -147,7 +147,7 @@ export type AppEvent =
   | { type: AppEventType.DOWNLOAD_USED; payload: { id: string | number; options: any } }
 
   /** Emitido tras un inicio de sesión exitoso */
-  | { type: AppEventType.LOGIN_SUCCESS; payload: { userId: number; username: string; role: 'admin' | 'viewer' } }
+  | { type: AppEventType.LOGIN_SUCCESS; payload: { userId: number; username: string; role: 'admin' | 'editor' | 'viewer' } }
 
   /** Emitido al cerrar sesión */
   | { type: AppEventType.LOGOUT; payload?: undefined }

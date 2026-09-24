@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '@environments/environment';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { SILENT_HTTP } from '../../http/tokens';
+import { SILENT_HTTP, SKIP_GLOBAL_ERROR_SNACK } from '../../http/tokens';
 import { CacheService } from './cache.service';
 import { ApiRequestOptions, ApiParams } from '@models/infrastructure/api.model';
 
@@ -33,6 +33,15 @@ export abstract class BaseApiService {
   }
 
   /**
+   * Crea un HttpContext configurado según las opciones provistas.
+   */
+  private createContext(options?: ApiRequestOptions): HttpContext {
+    return new HttpContext()
+      .set(SILENT_HTTP, !!options?.silent)
+      .set(SKIP_GLOBAL_ERROR_SNACK, !!options?.skipGlobalError || !!options?.silent);
+  }
+
+  /**
    * Realiza una petición HTTP GET cruda al endpoint especificado (retorna el envelope completo de la API).
    * 
    * @param endpoint El endpoint de la API a solicitar.
@@ -43,7 +52,7 @@ export abstract class BaseApiService {
   protected getRaw<T>(endpoint: string, params?: ApiParams, options?: ApiRequestOptions): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
     const httpParams = params ? new HttpParams({ fromObject: params }) : undefined;
-    const context = new HttpContext().set(SILENT_HTTP, !!options?.silent);
+    const context = this.createContext(options);
 
     if (options?.useCache) {
       const cacheKey = this.generateCacheKey(url, httpParams);
@@ -56,7 +65,8 @@ export abstract class BaseApiService {
       return this.http.get<T>(url, {
         headers: this.headers,
         params: httpParams,
-        context
+        context,
+        withCredentials: options?.withCredentials ?? false
       }).pipe(
         tap(response => {
           this.cacheService.set(cacheKey, response, options.cacheOptions);
@@ -67,7 +77,8 @@ export abstract class BaseApiService {
     return this.http.get<T>(url, {
       headers: this.headers,
       params: httpParams,
-      context
+      context,
+      withCredentials: options?.withCredentials ?? false
     });
   }
 
@@ -90,12 +101,17 @@ export abstract class BaseApiService {
    * 
    * @param endpoint El endpoint de la API a solicitar.
    * @param body Los datos a enviar en el cuerpo de la petición.
+   * @param options Opciones adicionales como withCredentials o skipGlobalError.
    * @returns Un observable con los datos de la respuesta desempaquetados.
    */
-  protected post<T>(endpoint: string, body: unknown): Observable<T> {
+  protected post<T>(endpoint: string, body: unknown, options?: ApiRequestOptions): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
+    const context = this.createContext(options);
+
     return this.http.post<any>(url, body, {
       headers: this.headers,
+      context,
+      withCredentials: options?.withCredentials ?? false
     }).pipe(
       map((res: any) => (res && typeof res === 'object' && 'data' in res) ? res.data : res)
     );
@@ -106,12 +122,17 @@ export abstract class BaseApiService {
    * 
    * @param endpoint El endpoint de la API a solicitar.
    * @param body Los datos a enviar en el cuerpo de la petición.
+   * @param options Opciones adicionales como withCredentials o skipGlobalError.
    * @returns Un observable con los datos de la respuesta desempaquetados.
    */
-  protected put<T>(endpoint: string, body: unknown): Observable<T> {
+  protected put<T>(endpoint: string, body: unknown, options?: ApiRequestOptions): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
+    const context = this.createContext(options);
+
     return this.http.put<any>(url, body, {
       headers: this.headers,
+      context,
+      withCredentials: options?.withCredentials ?? false
     }).pipe(
       map((res: any) => (res && typeof res === 'object' && 'data' in res) ? res.data : res)
     );
@@ -122,13 +143,18 @@ export abstract class BaseApiService {
    * 
    * @param endpoint El endpoint de la API a solicitar.
    * @param body Cuerpo opcional para eliminaciones masivas.
+   * @param options Opciones adicionales como withCredentials o skipGlobalError.
    * @returns Un observable con los datos de la respuesta desempaquetados.
    */
-  protected delete<T>(endpoint: string, body?: unknown): Observable<T> {
+  protected delete<T>(endpoint: string, body?: unknown, options?: ApiRequestOptions): Observable<T> {
     const url = `${this.baseUrl}/${endpoint}`;
+    const context = this.createContext(options);
+
     return this.http.delete<any>(url, {
       headers: this.headers,
       body,
+      context,
+      withCredentials: options?.withCredentials ?? false
     }).pipe(
       map((res: any) => (res && typeof res === 'object' && 'data' in res) ? res.data : res)
     );
@@ -139,14 +165,19 @@ export abstract class BaseApiService {
    * 
    * @param endpoint El endpoint de la API a solicitar.
    * @param params Parámetros de consulta opcionales.
+   * @param options Opciones adicionales como withCredentials o skipGlobalError.
    * @returns Un observable que contiene el archivo como un Blob.
    */
-  protected getBlob(endpoint: string, params?: HttpParams): Observable<Blob> {
+  protected getBlob(endpoint: string, params?: HttpParams, options?: ApiRequestOptions): Observable<Blob> {
     const url = `${this.baseUrl}/${endpoint}`;
+    const context = this.createContext(options);
+
     return this.http.get(url, {
       headers: this.headers,
       params,
       responseType: 'blob',
+      context,
+      withCredentials: options?.withCredentials ?? false
     });
   }
 
