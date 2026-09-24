@@ -21,8 +21,8 @@ export interface User {
   informationUnits: number[];
   /** ID de la unidad de información activa actualmente */
   selectedIU: number | null;
-  /** Rol del usuario (determina permisos de edición) */
-  role?: 'admin' | 'viewer';
+  /** Rol del usuario en la unidad activa o global (determina permisos de edición y administración) */
+  role?: 'admin' | 'editor' | 'viewer';
   /** Área de trabajo o unidad de gestión específica */
   workArea?: string;
 }

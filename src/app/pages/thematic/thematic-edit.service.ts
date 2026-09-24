@@ -1,13 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { AppDialogService } from '@services';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
-import { ThematicPersistenceService } from '@services';
-import { ThematicStateService } from '@services';
 import { Thematic } from '@models/domain/thematic.model';
 import { Visualization } from '@models/domain/visualization.model';
-import { VisualizationStateService } from '@services';
-import { Observable, filter, switchMap, tap, map, of } from 'rxjs';
+import { AppDialogService, AppNotificationService, ThematicPersistenceService, ThematicStateService, VisualizationStateService } from '@services';
+import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
+import { Observable, filter, switchMap, tap, map, of, catchError, throwError } from 'rxjs';
 import { EditVisualizationsModalComponent, EditVisualizationsModalData } from './components/edit-visualizations-modal/edit-visualizations-modal.component';
 
 /**
@@ -24,6 +22,7 @@ export class ThematicEditService {
   private readonly visualizationState = inject(VisualizationStateService);
   private readonly dialog = inject(MatDialog);
   private readonly dialogs = inject(AppDialogService);
+  private readonly notification = inject(AppNotificationService);
 
   /** Estado temporal de una temática en creación (borrador) */
   public readonly draft = signal<{ name: string; isCategory: boolean } | undefined>(undefined);
@@ -64,7 +63,14 @@ export class ThematicEditService {
         if (!selectedIds) return of(undefined);
         return this.persistence.update(thematic.id, {
           visualizationIds: selectedIds
-        }).pipe(map(() => void 0));
+        }).pipe(
+          tap(() => this.notification.success('Visualizaciones asociadas con éxito')),
+          catchError(err => {
+            this.notification.error(extractHttpErrorMessage(err, 'Error al asociar las visualizaciones.'));
+            return throwError(() => err);
+          }),
+          map(() => void 0)
+        );
       }),
       // Aseguramos que el flujo complete como void
       map(() => void 0)
@@ -75,7 +81,17 @@ export class ThematicEditService {
    * Reordena un listado de temáticas.
    */
   reorder(thematicIds: number[], parentId?: number): Observable<boolean> {
-    return this.persistence.reorder(thematicIds, parentId);
+    return this.persistence.reorder(thematicIds, parentId).pipe(
+      tap(success => {
+        if (success) {
+          this.notification.success('Orden de temáticas actualizado');
+        }
+      }),
+      catchError(err => {
+        this.notification.error(extractHttpErrorMessage(err, 'Error al reordenar las temáticas.'));
+        return throwError(() => err);
+      })
+    );
   }
 
   /**
@@ -105,7 +121,14 @@ export class ThematicEditService {
     };
 
     return this.persistence.create(payload).pipe(
-      tap(() => this.cancelDraft())
+      tap(() => {
+        this.cancelDraft();
+        this.notification.success('Temática creada exitosamente');
+      }),
+      catchError(err => {
+        this.notification.error(extractHttpErrorMessage(err, 'Error al crear la temática.'));
+        return throwError(() => err);
+      })
     );
   }
 
@@ -165,7 +188,13 @@ export class ThematicEditService {
   updateName(id: number, newName: string): Observable<Thematic> | null {
     const trimmedName = newName.trim();
     if (!trimmedName) return null;
-    return this.persistence.update(id, { name: trimmedName });
+    return this.persistence.update(id, { name: trimmedName }).pipe(
+      tap(() => this.notification.success('Nombre actualizado exitosamente')),
+      catchError(err => {
+        this.notification.error(extractHttpErrorMessage(err, 'Error al actualizar el nombre.'));
+        return throwError(() => err);
+      })
+    );
   }
 
   /**
@@ -181,7 +210,17 @@ export class ThematicEditService {
   delete(id: number, name: string): Observable<boolean> {
     return this.confirmDelete(name).pipe(
       switchMap(confirmed => confirmed
-        ? this.persistence.delete(id)
+        ? this.persistence.delete(id).pipe(
+            tap(success => {
+              if (success) {
+                this.notification.success('Temática eliminada exitosamente');
+              }
+            }),
+            catchError(err => {
+              this.notification.error(extractHttpErrorMessage(err, 'Error al eliminar la temática.'));
+              return throwError(() => err);
+            })
+          )
         : of(false)
       )
     );

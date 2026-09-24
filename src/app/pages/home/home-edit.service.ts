@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AppDialogService } from '@services';
+import { AppDialogService, AppNotificationService, ThematicPersistenceService } from '@services';
 import { ThematicDialogComponent } from './components/thematic-dialog/thematic-dialog.component';
-import { ThematicPersistenceService } from '@services';
 import { Thematic } from '@models/domain/thematic.model';
+import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
 import { filter, switchMap } from 'rxjs';
 
 /**
@@ -18,6 +18,7 @@ export class HomeEditService {
   private readonly persistence = inject(ThematicPersistenceService);
   private readonly dialog = inject(MatDialog);
   private readonly dialogs = inject(AppDialogService);
+  private readonly notification = inject(AppNotificationService);
 
   /**
    * Abre el diálogo para crear una nueva temática raíz.
@@ -30,7 +31,13 @@ export class HomeEditService {
       filter(Boolean),
       switchMap(result => this.persistence.create(result))
     ).subscribe({
-      error: (err) => console.error('Error al crear la temática:', err)
+      next: () => {
+        this.notification.success('Temática creada exitosamente');
+      },
+      error: (err) => {
+        console.error('Error al crear la temática:', err);
+        this.notification.error(extractHttpErrorMessage(err, 'Error al crear la temática.'));
+      }
     });
   }
 
@@ -46,7 +53,13 @@ export class HomeEditService {
       filter(Boolean),
       switchMap(result => this.persistence.update(thematic.id, result))
     ).subscribe({
-      error: (err) => console.error('Error al actualizar la temática:', err)
+      next: () => {
+        this.notification.success('Temática actualizada exitosamente');
+      },
+      error: (err) => {
+        console.error('Error al actualizar la temática:', err);
+        this.notification.error(extractHttpErrorMessage(err, 'Error al actualizar la temática.'));
+      }
     });
   }
 
@@ -64,7 +77,13 @@ export class HomeEditService {
       filter(Boolean),
       switchMap(() => this.persistence.delete(id))
     ).subscribe({
-      error: (err) => console.error('Error al eliminar la temática:', err)
+      next: () => {
+        this.notification.success('Temática eliminada exitosamente');
+      },
+      error: (err) => {
+        console.error('Error al eliminar la temática:', err);
+        this.notification.error(extractHttpErrorMessage(err, 'Error al eliminar la temática.'));
+      }
     });
   }
 
@@ -75,7 +94,13 @@ export class HomeEditService {
   onReorderThematics(reorderedList: Thematic[]): void {
     const ids = reorderedList.map(t => t.id);
     this.persistence.reorder(ids).subscribe({
-      error: (err) => console.error('Error al reordenar las temáticas:', err)
+      next: () => {
+        this.notification.success('Orden de temáticas actualizado');
+      },
+      error: (err) => {
+        console.error('Error al reordenar las temáticas:', err);
+        this.notification.error(extractHttpErrorMessage(err, 'Error al reordenar las temáticas.'));
+      }
     });
   }
 }

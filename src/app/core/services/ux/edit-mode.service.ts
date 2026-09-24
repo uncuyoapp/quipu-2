@@ -73,11 +73,11 @@ export class EditModeService {
 
   /** 
    * Signal computado que verifica si el usuario actual tiene permisos para usar el modo de edición.
-   * Se asume que el rol 'admin' tiene permisos.
+   * Los roles 'admin' y 'editor' cuentan con permisos de edición.
    */
   public canEdit = computed(() => {
     const user = this.sessionState.user();
-    return user?.role === 'admin';
+    return user?.role === 'admin' || user?.role === 'editor';
   });
 
   /**

@@ -38,7 +38,7 @@ export class SessionPersistenceService {
           payload: {
             userId: user.id,
             username: user.username,
-            role: user.role as 'admin' | 'viewer'
+            role: user.role as 'admin' | 'editor' | 'viewer'
           }
         });
       })
@@ -65,6 +65,50 @@ export class SessionPersistenceService {
         })
       )
       .subscribe();
+  }
+
+  /**
+   * Cierra la sesión activa en todos los dispositivos conectados.
+   */
+  logoutAll(): void {
+    this.dataWrite
+      .logoutAll()
+      .pipe(
+        tap(() => {
+          this._removeUserState();
+          this.eventBus.emit({ type: AppEventType.LOGOUT });
+          this.router.navigate(['/login']);
+        }),
+        catchError((error) => {
+          console.error('LogoutAll error:', error);
+          this._removeUserState();
+          this.router.navigate(['/login']);
+          return of(void 0);
+        })
+      )
+      .subscribe();
+  }
+
+  /**
+   * Actualiza el token de acceso en memoria y en localStorage tras una renovación exitosa.
+   */
+  updateAccessToken(newToken: string): void {
+    this.dataWrite.setAuthToken(newToken);
+    const currentUser = this.sessionState.user();
+    if (currentUser) {
+      const updatedUser: User = { ...currentUser, token: newToken };
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+      this.sessionState._patchUser(updatedUser);
+    }
+  }
+
+  /**
+   * Maneja la expiración definitiva de la sesión, limpiando credenciales y redirigiendo al login.
+   */
+  handleSessionExpired(message: string = 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.'): void {
+    this._removeUserState();
+    this.eventBus.emit({ type: AppEventType.LOGOUT });
+    this.router.navigate(['/login']);
   }
 
   /**

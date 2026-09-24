@@ -10,7 +10,8 @@ import {
   Visualization
 } from '@models/domain/visualization.model';
 import { SaveResult } from '@models/common/save-result.model';
-import { AppDialogService, AppEventBusService, EditModeService, VisualizationPersistenceService, VisualizationStateService } from '@services';
+import { AppDialogService, AppEventBusService, AppNotificationService, EditModeService, VisualizationPersistenceService, VisualizationStateService } from '@services';
+import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
 import { map, Observable } from 'rxjs';
 import type { VisualizationComponent } from './visualization.component';
 import { VisualizationFactory } from './visualization.factory';
@@ -37,6 +38,7 @@ export class VisualizationEditService {
   private readonly dialogs = inject(AppDialogService);
   private readonly editMode = inject(EditModeService);
   private readonly eventBus = inject(AppEventBusService);
+  private readonly notification = inject(AppNotificationService);
 
   private state!: VisualizationEditState;
   private readonly stateSnapshot = signal<string>('');
@@ -200,9 +202,15 @@ export class VisualizationEditService {
           this.wasSavedDuringSession.set(true);
           this.state.visualization.update(v => v ? { ...v, published: targetPublished } : null);
           this.takeStateSnapshot();
+          this.notification.success(
+            targetPublished ? 'Visualización publicada exitosamente' : 'Visualización pasada a borrador'
+          );
         }
       },
-      error: (err) => console.error('Error al cambiar estado de publicación:', err)
+      error: (err) => {
+        console.error('Error al cambiar estado de publicación:', err);
+        this.notification.error(extractHttpErrorMessage(err, 'Error al cambiar el estado de publicación.'));
+      }
     });
   }
 
@@ -326,9 +334,13 @@ export class VisualizationEditService {
       next: () => {
         this.wasSavedDuringSession.set(true);
         this.takeStateSnapshot();
+        this.notification.success('Visualización guardada exitosamente');
         if (onSuccess) onSuccess({ saved: true });
       },
-      error: (err: unknown) => console.error('Error al guardar:', err)
+      error: (err: unknown) => {
+        console.error('Error al guardar:', err);
+        this.notification.error(extractHttpErrorMessage(err, 'Error al guardar la visualización.'));
+      }
     });
   }
 
