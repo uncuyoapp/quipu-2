@@ -12,6 +12,7 @@ import { SessionPersistenceService, SessionStateService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { TextInputComponent } from '@shared/components/text-input/text-input.component';
 import { TextInputValidationState } from '@shared/components/text-input/text-input.config';
+import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
 import { finalize } from 'rxjs';
 
 /**
@@ -79,7 +80,7 @@ export class UserNameEditComponent implements OnInit {
         },
         error: (err: unknown) => {
           this.status = 'error';
-          this.errorMessage = (err as any).message || 'Error al actualizar el nombre';
+          this.errorMessage = extractHttpErrorMessage(err, 'Error al actualizar el nombre.');
         }
       });
   }

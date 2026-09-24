@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -15,6 +15,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { TextInputComponent } from '@shared/components/text-input/text-input.component';
 import { TextInputValidationState } from '@shared/components/text-input/text-input.config';
 import { finalize } from 'rxjs';
+import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
 
 /**
  * @class UserPasswordEditComponent
@@ -34,7 +35,7 @@ import { finalize } from 'rxjs';
   templateUrl: './user-password-edit.component.html',
   styleUrl: './user-password-edit.component.scss'
 })
-export class UserPasswordEditComponent {
+export class UserPasswordEditComponent implements OnInit {
   private readonly sessionPersistence = inject(SessionPersistenceService);
   private readonly router = inject(Router);
 
@@ -86,7 +87,7 @@ export class UserPasswordEditComponent {
         },
         error: (err: unknown) => {
           this.status = 'error';
-          this.errorMessage = (err as any).message || 'Error al actualizar la contraseña';
+          this.errorMessage = extractHttpErrorMessage(err, 'Error al actualizar la contraseña.');
         }
       });
   }

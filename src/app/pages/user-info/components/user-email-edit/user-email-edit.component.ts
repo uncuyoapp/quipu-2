@@ -15,6 +15,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { TextInputComponent } from '@shared/components/text-input/text-input.component';
 import { TextInputValidationState } from '@shared/components/text-input/text-input.config';
 import { finalize } from 'rxjs';
+import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
 
 /**
  * Componente para la edición del correo electrónico del usuario.
@@ -85,7 +86,7 @@ export class UserEmailEditComponent implements OnInit {
         },
         error: (err: unknown) => {
           this.status = 'error';
-          this.errorMessage = (err as any).message || 'Error al actualizar el correo electrónico';
+          this.errorMessage = extractHttpErrorMessage(err, 'Error al actualizar el correo electrónico.');
         }
       });
   }

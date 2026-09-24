@@ -5,7 +5,8 @@ import { AppEventType } from '@core/models/events/app-event.types';
 import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { Visualization } from '@models/domain/visualization.model';
 import { VisualizationFactory } from '@pages/visualization/visualization.factory';
-import { AppDialogService, AppEventBusService, EditModeService, SessionStateService, VisualizationPersistenceService, VisualizationStateService } from '@services';
+import { AppDialogService, AppEventBusService, AppNotificationService, EditModeService, SessionStateService, VisualizationPersistenceService, VisualizationStateService } from '@services';
+import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
 import { OrientationWarningComponent } from '@shared/components/orientation-warning/orientation-warning.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { TagComponent } from '../../shared/components/tag/tag.component';
@@ -44,6 +45,7 @@ export class VisualizationCreateModalComponent implements OnInit, OnDestroy {
     private readonly editModeService = inject(EditModeService);
     private readonly eventBus = inject(AppEventBusService);
     private readonly sessionState = inject(SessionStateService);
+    private readonly notification = inject(AppNotificationService);
 
     protected readonly icons = APP_ICONS;
 
@@ -209,9 +211,13 @@ export class VisualizationCreateModalComponent implements OnInit, OnDestroy {
                     type: AppEventType.VISUALIZATION_WIZARD_SAVED,
                     payload: { id: newViz.id }
                 });
+                this.notification.success('Visualización creada exitosamente');
                 this.dialogRef.close(true);
             },
-            error: (err) => console.error('Error al crear visualización:', err)
+            error: (err) => {
+                console.error('Error al crear visualización:', err);
+                this.notification.error(extractHttpErrorMessage(err, 'Error al crear la visualización.'));
+            }
         });
     }
 }
