@@ -54,6 +54,39 @@ export abstract class IDataProvider {
    */
   abstract reorderThematics(thematicIds: number[]): Observable<boolean>;
 
+  // --- Métodos de Relación Temática - Visualizaciones (N:M) ---
+
+  /**
+   * Obtiene la lista de visualizaciones disponibles para vincular a una temática (no asignadas actualmente).
+   * @param thematicId Identificador de la temática.
+   * @returns Un observable con el arreglo de visualizaciones disponibles.
+   */
+  abstract getAvailableVisualizationsForThematic(thematicId: number): Observable<Visualization[]>;
+
+  /**
+   * Asocia una o más visualizaciones a una temática específica.
+   * @param thematicId Identificador de la temática.
+   * @param visualizationIds Arreglo de IDs de visualizaciones a vincular.
+   * @returns Un observable indicando si la operación fue exitosa.
+   */
+  abstract assignVisualizationsToThematic(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean>;
+
+  /**
+   * Desvincula una visualización de una temática.
+   * @param thematicId Identificador de la temática.
+   * @param visualizationId Identificador de la visualización a quitar.
+   * @returns Un observable indicando si la operación fue exitosa.
+   */
+  abstract unassignVisualizationFromThematic(thematicId: number, visualizationId: number | string): Observable<boolean>;
+
+  /**
+   * Reordena la lista de visualizaciones asignadas dentro de una temática.
+   * @param thematicId Identificador de la temática.
+   * @param visualizationIds Arreglo de IDs en el orden deseado.
+   * @returns Un observable indicando si el reordenamiento fue exitoso.
+   */
+  abstract reorderThematicVisualizations(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean>;
+
   // Visualization-related methods
 
   /**
@@ -199,6 +232,17 @@ export abstract class IDataProvider {
    * @returns Un observable que se completa cuando se cierra la sesión.
    */
   abstract logout(): Observable<void>;
+
+  /**
+   * Cierra la sesión activa en todos los dispositivos conectados (Global Logout).
+   */
+  abstract logoutAll(): Observable<void>;
+
+  /**
+   * Solicita la renovación del Access Token utilizando la cookie HttpOnly de Refresh Token.
+   * @returns Un observable que contiene el nuevo token JWT emitido.
+   */
+  abstract refreshToken(): Observable<string>;
 
   /**
    * Inicia el proceso de recuperación de contraseña para un correo electrónico.

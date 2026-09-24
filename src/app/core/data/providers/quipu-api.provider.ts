@@ -23,20 +23,21 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     searchSuggestions: 'search/suggestions',
     visualizationsPublish: 'visualizations/publish',
     visualizationsUnpublish: 'visualizations/unpublish',
-    visualizationsBookmarked: 'visualizations/bookmarked',
     datasets: 'datasets',
     login: 'auth/login',
     currentUser: 'auth/me',
     logout: 'auth/logout',
-    informationUnits: 'information-units',
+    logoutAll: 'auth/logout-all',
+    refresh: 'auth/refresh',
+    informationUnits: 'auth/information-units',
     selectInformationUnit: 'auth/select-information-unit',
     recoveryPass: 'auth/recovery-pass',
     verifyRecoveryToken: 'auth/verify-recovery-token',
     changePassword: 'auth/change-password',
     updatePassword: 'auth/update-password',
-    updateEmail: 'auth/update-email',
-    updateName: 'auth/update-name',
-    updateWorkArea: 'auth/update-work-area',
+    updateEmail: 'profile/email',
+    updateName: 'profile/name',
+    updateWorkArea: 'profile/work-area',
   };
 
   getThematics(): Observable<Thematic[]> {
@@ -44,19 +45,19 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   createThematic(thematic: Partial<Thematic>): Observable<Thematic> {
-    return this.post<Thematic>(this.endpoints.thematics, thematic);
+    return this.post<Thematic>(this.endpoints.thematics, thematic, { skipGlobalError: true });
   }
 
   updateThematic(id: number, thematic: Partial<Thematic>): Observable<Thematic> {
-    return this.put<Thematic>(`${this.endpoints.thematics}/${id}`, thematic);
+    return this.put<Thematic>(`${this.endpoints.thematics}/${id}`, thematic, { skipGlobalError: true });
   }
 
   deleteThematic(id: number): Observable<boolean> {
-    return this.delete<any>(`${this.endpoints.thematics}/${id}`).pipe(map(() => true));
+    return this.delete<any>(`${this.endpoints.thematics}/${id}`, undefined, { skipGlobalError: true }).pipe(map(() => true));
   }
 
   reorderThematics(thematicIds: number[]): Observable<boolean> {
-    return this.post<any>(this.endpoints.thematicsReorder, { order: thematicIds }).pipe(map(() => true));
+    return this.post<any>(this.endpoints.thematicsReorder, { order: thematicIds }, { skipGlobalError: true }).pipe(map(() => true));
   }
 
   getVisualization(id: number | string): Observable<Visualization> {
@@ -64,19 +65,19 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   updateVisualization(id: number | string, visualization: Visualization): Observable<boolean> {
-    return this.put<any>(`${this.endpoints.visualizations}/${id}`, visualization).pipe(map(() => true));
+    return this.put<any>(`${this.endpoints.visualizations}/${id}`, visualization, { skipGlobalError: true }).pipe(map(() => true));
   }
 
   createVisualization(visualization: Visualization): Observable<Visualization> {
-    return this.post<Visualization>(this.endpoints.visualizations, visualization);
+    return this.post<Visualization>(this.endpoints.visualizations, visualization, { skipGlobalError: true });
   }
 
   publishVisualizations(ids: (number | string)[]): Observable<boolean> {
-    return this.post<any>(this.endpoints.visualizationsPublish, { ids }).pipe(map(() => true));
+    return this.post<any>(this.endpoints.visualizationsPublish, { ids }, { skipGlobalError: true }).pipe(map(() => true));
   }
 
   unpublishVisualizations(ids: (number | string)[]): Observable<boolean> {
-    return this.post<any>(this.endpoints.visualizationsUnpublish, { ids }).pipe(map(() => true));
+    return this.post<any>(this.endpoints.visualizationsUnpublish, { ids }, { skipGlobalError: true }).pipe(map(() => true));
   }
 
   deleteVisualizations(ids: (number | string)[]): Observable<boolean> {
@@ -103,7 +104,15 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   getVisualizationsBookmarked(userId: number): Observable<Visualization[]> {
-    return this.get<Visualization[]>(`${this.endpoints.visualizationsBookmarked}/${userId}`);
+    try {
+      const key = `quipu_bookmarks_${userId}`;
+      const stored = localStorage.getItem(key);
+      const items: Visualization[] = stored ? JSON.parse(stored) : [];
+      return of(items);
+    } catch (e) {
+      console.error('Error leyendo favoritos locales:', e);
+      return of([]);
+    }
   }
 
   getSearchSuggestions(searchText: string): Observable<string[]> {
@@ -136,7 +145,7 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   login(username: string, password: string): Observable<User> {
-    return this.post<any>(this.endpoints.login, { username, password }).pipe(map(res => {
+    return this.post<any>(this.endpoints.login, { username, password }, { withCredentials: true }).pipe(map(res => {
       this.setAuthorizationToken(res.token);
       const user = res.user;
       if (user?.selectedIU) {
@@ -151,10 +160,32 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   logout(): Observable<void> {
-    return this.post<void>(this.endpoints.logout, {}).pipe(
+    return this.post<void>(this.endpoints.logout, {}, { withCredentials: true }).pipe(
       map(() => {
         this.removeAuthToken();
         this.setInformationUnitId(null);
+      })
+    );
+  }
+
+  logoutAll(): Observable<void> {
+    return this.post<void>(this.endpoints.logoutAll, {}, { withCredentials: true }).pipe(
+      map(() => {
+        this.removeAuthToken();
+        this.setInformationUnitId(null);
+      })
+    );
+  }
+
+  refreshToken(): Observable<string> {
+    return this.post<{ token: string }>(this.endpoints.refresh, {}, { withCredentials: true }).pipe(
+      map((res: any) => {
+        const newToken = res?.token || res;
+        if (newToken && typeof newToken === 'string') {
+          this.setAuthToken(newToken);
+          return newToken;
+        }
+        throw new Error('Formato de token inválido recibido desde refresh.');
       })
     );
   }
@@ -192,11 +223,33 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
 
   recoveryPass(email: string): Observable<string> { return this.get<string>(this.endpoints.recoveryPass, { email }); }
   verifyRecoveryToken(token: string): Observable<boolean> { return this.get<boolean>(this.endpoints.verifyRecoveryToken, { token }); }
-  changePassword(token: string, newPassword: string): Observable<boolean> { return this.post<boolean>(this.endpoints.changePassword, { token, newPassword }); }
-  updatePassword(oldPassword: string, newPassword: string): Observable<boolean> { return this.post<boolean>(this.endpoints.updatePassword, { oldPassword, newPassword }); }
-  updateEmail(newEmail: string): Observable<boolean> { return this.post<boolean>(this.endpoints.updateEmail, { email: newEmail }); }
-  updateName(newName: string): Observable<boolean> { return this.post<boolean>(this.endpoints.updateName, { name: newName }); }
-  updateWorkArea(newArea: string): Observable<boolean> { return this.post<boolean>(this.endpoints.updateWorkArea, { workArea: newArea }); }
+  changePassword(token: string, newPassword: string): Observable<boolean> { return this.post<boolean>(this.endpoints.changePassword, { token, newPassword }, { skipGlobalError: true }); }
+  updatePassword(oldPassword: string, newPassword: string): Observable<boolean> { return this.post<boolean>(this.endpoints.updatePassword, { oldPassword, newPassword }, { skipGlobalError: true }); }
+  updateEmail(newEmail: string): Observable<boolean> { return this.post<any>(this.endpoints.updateEmail, { email: newEmail }, { skipGlobalError: true }).pipe(map(() => true)); }
+  updateName(newName: string): Observable<boolean> { return this.post<any>(this.endpoints.updateName, { name: newName }, { skipGlobalError: true }).pipe(map(() => true)); }
+  updateWorkArea(newArea: string): Observable<boolean> { return this.post<any>(this.endpoints.updateWorkArea, { workArea: newArea }, { skipGlobalError: true }).pipe(map(() => true)); }
+
+  // --- Métodos de Relación Temática - Visualizaciones (N:M) ---
+
+  getAvailableVisualizationsForThematic(thematicId: number): Observable<Visualization[]> {
+    const url = `${this.endpoints.thematics}/${thematicId}/visualizations/available`;
+    return this.get<Visualization[]>(url);
+  }
+
+  assignVisualizationsToThematic(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean> {
+    const url = `${this.endpoints.thematics}/${thematicId}/visualizations`;
+    return this.post<any>(url, { visualizationIds }).pipe(map(() => true));
+  }
+
+  unassignVisualizationFromThematic(thematicId: number, visualizationId: number | string): Observable<boolean> {
+    const url = `${this.endpoints.thematics}/${thematicId}/visualizations/${visualizationId}`;
+    return this.delete<any>(url).pipe(map(() => true));
+  }
+
+  reorderThematicVisualizations(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean> {
+    const url = `${this.endpoints.thematics}/${thematicId}/visualizations/reorder`;
+    return this.post<any>(url, { visualizationIds }).pipe(map(() => true));
+  }
 
   public override clearCache(pattern?: string): void {
     if (pattern) {

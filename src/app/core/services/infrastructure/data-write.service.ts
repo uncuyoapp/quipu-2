@@ -32,6 +32,18 @@ export class DataWriteService {
     return this.dataProvider.reorderThematics(thematicIds);
   }
 
+  assignVisualizationsToThematic(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean> {
+    return this.dataProvider.assignVisualizationsToThematic(thematicId, visualizationIds);
+  }
+
+  unassignVisualizationFromThematic(thematicId: number, visualizationId: number | string): Observable<boolean> {
+    return this.dataProvider.unassignVisualizationFromThematic(thematicId, visualizationId);
+  }
+
+  reorderThematicVisualizations(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean> {
+    return this.dataProvider.reorderThematicVisualizations(thematicId, visualizationIds);
+  }
+
   // --- Visualizaciones ---
   createVisualization(visualization: Visualization): Observable<Visualization> {
     return this.dataProvider.createVisualization(visualization);
@@ -60,6 +72,14 @@ export class DataWriteService {
 
   logout(): Observable<void> {
     return this.dataProvider.logout();
+  }
+
+  logoutAll(): Observable<void> {
+    return this.dataProvider.logoutAll();
+  }
+
+  refreshToken(): Observable<string> {
+    return this.dataProvider.refreshToken();
   }
 
   recoveryPass(email: string): Observable<string> {

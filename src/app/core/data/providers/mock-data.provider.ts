@@ -226,6 +226,40 @@ export class MockDataProvider extends IDataProvider {
     return of(true);
   }
 
+  // --- Métodos de Relación Temática - Visualizaciones (N:M) ---
+
+  public getAvailableVisualizationsForThematic(thematicId: number): Observable<Visualization[]> {
+    const assigned = this._filteredVisualizations.filter(v => v.thematics.some(t => t.id === thematicId));
+    const assignedIds = new Set(assigned.map(v => v.id));
+    const available = this._filteredVisualizations.filter(v => !assignedIds.has(v.id));
+    return of(this._deepClone(available) as Visualization[]);
+  }
+
+  public assignVisualizationsToThematic(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean> {
+    const thematic = this._findThematicRecursive(this._currentThematics, thematicId);
+    if (!thematic) return throwError(() => new Error('Temática no encontrada'));
+
+    visualizationIds.forEach(id => {
+      const v = MOCK_VISUALIZATIONS.find(viz => viz.id == id);
+      if (v && !v.thematics.some(t => t.id === thematicId)) {
+        v.thematics.push({ id: thematic.id, name: thematic.name });
+      }
+    });
+    return of(true);
+  }
+
+  public unassignVisualizationFromThematic(thematicId: number, visualizationId: number | string): Observable<boolean> {
+    const v = MOCK_VISUALIZATIONS.find(viz => viz.id == visualizationId);
+    if (v) {
+      v.thematics = v.thematics.filter(t => t.id !== thematicId);
+    }
+    return of(true);
+  }
+
+  public reorderThematicVisualizations(thematicId: number, visualizationIds: (number | string)[]): Observable<boolean> {
+    return of(true);
+  }
+
   // Visualization-related methods
   public getVisualization(id: number | string): Observable<Visualization> {
     return this._simulateDelay().pipe(concatMap(() => {
@@ -516,6 +550,21 @@ export class MockDataProvider extends IDataProvider {
         return of(void 0);
       })
     );
+  }
+
+  public logoutAll(): Observable<void> {
+    this.currentUser = null;
+    this.authToken = null;
+    return of(void 0).pipe(delay(200));
+  }
+
+  public refreshToken(): Observable<string> {
+    const mockNewToken = 'mock_jwt_token_refreshed_' + Date.now();
+    this.authToken = mockNewToken;
+    if (this.currentUser) {
+      this.currentUser = { ...this.currentUser, token: mockNewToken };
+    }
+    return of(mockNewToken).pipe(delay(200));
   }
 
   public isAuthenticated(): boolean {

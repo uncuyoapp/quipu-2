@@ -23,6 +23,10 @@ export class DataReadService {
     return this.dataProvider.getThematics();
   }
 
+  getAvailableVisualizationsForThematic(thematicId: number): Observable<Visualization[]> {
+    return this.dataProvider.getAvailableVisualizationsForThematic(thematicId);
+  }
+
   // --- Visualizaciones ---
   getVisualization(id: number | string): Observable<Visualization> {
     return this.dataProvider.getVisualization(id);
