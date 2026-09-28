@@ -110,8 +110,9 @@ src/app/
 │   │   ├── auth.interceptor.ts
 │   │   └── http-loading.interceptor.ts
 │   │
-│   ├── models/               # Interfaces y tipos del dominio
-│   │   ├── domain/           # Entidades de negocio (Visualization, User, etc.)
+│   ├── models/               # Interfaces y tipos del dominio y transferencia
+│   │   ├── domain/           # Entidades de negocio ricas (Visualization, Thematic, User, etc.)
+│   │   ├── dto/              # DTOs de mutación fuertemente tipados (SaveVisualizationDto, SaveThematicDto, etc.)
 │   │   ├── infrastructure/   # Contratos técnicos (API, Cache)
 │   │   ├── common/           # Modelos compartidos genéricos (SaveResult)
 │   │   └── events/           # Definiciones de eventos del sistema
@@ -204,12 +205,12 @@ Estos servicios son `providedIn: 'root'` y actúan como la fuente de verdad glob
 
 ### 4.3 Capa 2 — Persistencia
 
-Servicios `providedIn: 'root'`, accesibles **únicamente desde Edit Services** (Capa 3). Todos sus métodos de mutación están protegidos por el `adminGuard`.
+Servicios `providedIn: 'root'`, accesibles **únicamente desde Edit Services** (Capa 3). Todos sus métodos de mutación están protegidos por el `adminGuard` y reciben exclusivamente **DTOs de mutación fuertemente tipados** (`SaveThematicDto`, `SaveVisualizationDto`, etc.) en lugar de entidades de dominio completas:
 
 | Servicio | Responsabilidad |
 |----------|-----------------|
-| `ThematicPersistenceService` | CRUD de temáticas. Tras cada mutación exitosa sincroniza `ThematicStateService._patchTree()`. Implementa actualización optimista en `reorder()`. |
-| `VisualizationPersistenceService` | Crear, actualizar, publicar, despublicar y eliminar visualizaciones. |
+| `ThematicPersistenceService` | CRUD de temáticas (recibe `SaveThematicDto`). Tras cada mutación exitosa sincroniza `ThematicStateService._patchTree()`. Implementa actualización optimista en `reorder()`. |
+| `VisualizationPersistenceService` | Crear y actualizar (recibe `SaveVisualizationDto`), publicar, despublicar y eliminar visualizaciones. |
 | `SessionPersistenceService` | Login, logout, recuperación de contraseña. Edición de perfil de usuario. Sin restricción de rol. |
 
 ### 4.4 Capa 3 — Edición / UX
@@ -218,10 +219,10 @@ Servicios **locales al componente** (`@Injectable()` sin `providedIn`), registra
 
 | Servicio | Registrado en | Responsabilidad |
 |----------|---------------|-----------------|
-| `HomeEditService` | `HomeComponent` | CRUD de temáticas raíz (diálogos, confirmaciones). |
-| `ThematicEditService` | `ThematicComponent` | Renombrar, eliminar, reordenar categorías/subcategorías, asociar visualizaciones. |
-| `VisualizationEditService` | `VisualizationComponent` | Toggles de gráfico/tabla, guardado, publicación, snapshots, manejo de diálogo de cierre. |
-| `VisualizationGridEditService` | `ThematicComponent` | Selección múltiple, acciones por lote (publicar, despublicar, eliminar). |
+| `HomeEditService` | `HomeComponent` | CRUD de temáticas raíz (diálogos, confirmaciones). Transforma a `SaveThematicDto` via `ThematicFactory.toSaveDto()`. |
+| `ThematicEditService` | `ThematicComponent` | Renombrar, eliminar, reordenar categorías/subcategorías, asociar visualizaciones. Mapea a DTOs de mutación antes de persistir. |
+| `VisualizationEditService` | `VisualizationComponent` | Toggles de gráfico/tabla, guardado, publicación, snapshots, diálogo de cierre. Mapea a `SaveVisualizationDto` via `VisualizationFactory.toSaveDto()`. |
+| `VisualizationGridEditService` | `ThematicComponent` | Selección múltiple, acciones por lote (publicar, despublicar, eliminar) via `BulkActionDto`. |
 
 ### 4.5 Sevicios UX Transversales
 
@@ -233,6 +234,17 @@ Servicios **locales al componente** (`@Injectable()` sin `providedIn`), registra
 | `ScreenOrientationService` | Gestión de orientación de pantalla y detección de dispositivo móvil. |
 | `PwaInstallService` | Captura y exposición del evento `beforeinstallprompt`. |
 | `PwaUpdateService` | Detecta nuevas versiones del Service Worker y ofrece actualizar. |
+
+### 4.6 Patrón de Mutaciones con DTOs y Mappers Puros (`toSaveDto`)
+
+Para desacoplar el estado enriquecido de la interfaz de usuario de los contratos requeridos por el proveedor de datos, se establece el siguiente principio:
+
+1. **Entidades de Dominio en UI**: Los componentes y `Edit Services` manipulan modelos de dominio (`Visualization`, `Thematic`) que contienen propiedades calculadas, estructuras de soporte para visualizadores gráficos y estados transitorios.
+2. **DTOs de Mutación Fuertemente Tipados**: En `src/app/core/models/dto/` residen los contratos de mutación (`SaveVisualizationDto`, `SaveThematicDto`, `ReorderThematicsDto`, `AssignVisualizationsDto`, `BulkActionDto`). Estos DTOs contienen exclusivamente los campos necesarios para persistir la entidad, eliminando propiedades efímeras o de solo lectura.
+3. **Mappers Puros en Factories**: La conversión del modelo de dominio o estado del formulario al DTO de mutación se delega a métodos estáticos puros en las factories:
+   - `VisualizationFactory.toSaveDto(source: Partial<Visualization>): SaveVisualizationDto`
+   - `ThematicFactory.toSaveDto(source: Partial<Thematic>): SaveThematicDto`
+4. **Consumo Estricto en Capas Inferiores**: `PersistenceService` (Capa 2), `DataWriteService` (Capa 0) y el contrato `IDataProvider` consumen exclusivamente estos DTOs, garantizando que ninguna propiedad ajena al contrato de mutación viaje por la infraestructura de datos.
 
 ---
 
@@ -269,9 +281,10 @@ Componente/ViewState
 ```
 Acción del usuario en Componente
     └─→ EditService (Capa 3)
-            └─→ PersistenceService (Capa 2)     ← requireAdmin() verifica rol
+            ├─→ Factory.toSaveDto(entidad)   ← Mapeo puro a DTO de mutación
+            └─→ PersistenceService (Capa 2)  ← consume DTO fuertemente tipado + requireAdmin()
                     ├─→ DataWriteService (Capa 0)
-                    │       └─→ IDataProvider → API REST
+                    │       └─→ IDataProvider (QuipuApiProvider / MockDataProvider)
                     └─→ StateService._patch*()  ← sincronización reactiva
 ```
 
@@ -404,7 +417,7 @@ La seguridad de rol está implementada en dos niveles:
 // ThematicPersistenceService
 private readonly adminGuard = useAdminGuard();
 
-create(thematic: Partial<Thematic>): Observable<Thematic> {
+create(thematic: SaveThematicDto): Observable<Thematic> {
   return this.adminGuard(this.dataWrite.createThematic(thematic).pipe(...));
 }
 ```
@@ -532,10 +545,11 @@ import { ThematicStateService, SessionStateService, EditModeService } from '@ser
 | Desde | Puede importar |
 |-------|----------------|
 | Componentes (lectura) | Capa 1 (`*StateService`), Capa UX |
-| Edit Services (Capa 3) | Capa 2 (`@services/admin` barrel), Capa 1 (lectura), Capa UX |
-| Capa 1 (State) | Capa 0 (`DataReadService`) |
-| Capa 2 (Persistence) | Capa 0 (`DataWriteService`), Capa 1 (para `_patch*`) |
-| Capa 0 (Infrastructure) | Solo `IDataProvider` (inyectado por DI) |
+| Edit Services (Capa 3) | Capa 2 (`@services/admin` barrel), Capa 1 (lectura), Capa UX, `@models/dto`, Factories |
+| Capa 1 (State) | Capa 0 (`DataReadService`), Modelos de Dominio |
+| Capa 2 (Persistence) | Capa 0 (`DataWriteService`), Capa 1 (para `_patch*`), `@models/dto` |
+| Capa 0 (Infrastructure) | Solo `IDataProvider` (inyectado por DI), `@models/dto` |
+| Factories | Modelos de Dominio, `@models/dto` (funciones estáticas puras, sin DI ni efectos secundarios) |
 
 ### 11.5 Nomenclatura de Archivos
 
@@ -545,7 +559,8 @@ thematic-persistence.service.ts  → ServicioPersistencia
 thematic-edit.service.ts         → ServicioEdición (local al componente)
 thematic-view-state.service.ts   → EstadoVista (local al componente)
 thematic.model.ts                → Modelo de dominio (Interfaces/Tipos)
-thematic.factory.ts              → Lógica pura de transformación
+thematic-mutation.dto.ts         → DTOs de mutación (creación/actualización)
+thematic.factory.ts              → Lógica pura de transformación y mapeo toSaveDto
 ```
 
 ---
@@ -610,12 +625,13 @@ effect(() => {
 │  signal()        │         │  Dialogs, borradores │
 │  computed()      │         │  Validaciones        │
 └────────┬─────────┘         └───────────┬─────────┘
-         │                               │
+         │                               │ Factory.toSaveDto()
          │                               ▼
          │                    ┌──────────────────────────────┐
          │                    │   PERSISTENCE SERVICE         │
          │                    │   (Capa 2)                   │
          │                    │   + useAdminGuard()           │
+         │                    │   + DTOs de Mutación          │
          │                    │   + _patch*(sync)  ←──────── │─┐
          │                    └──────────────┬───────────────┘  │
          │                                   │ sync             │
@@ -633,7 +649,6 @@ effect(() => {
             │     IDataProvider     │
             │   QuipuApiProvider    │
             │  (o MockDataProvider) │
-            └───────────────────────┘
             └───────────────────────┘
 ```
 
