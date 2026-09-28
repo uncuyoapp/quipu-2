@@ -1,4 +1,5 @@
-import { Component, OnInit, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, effect, inject, input, output, signal, untracked } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DimensionSelectComponent } from '@components/dimension-select/dimension-select.component';
 import { AppEventType } from '@core/models/events/app-event.types';
 import { Dataset, DatasetInfo, Dimension } from '@models/domain/dataset.model';
@@ -36,6 +37,7 @@ export class DataFilterStepComponent implements OnInit {
 
     private readonly visualizationState = inject(VisualizationStateService);
     private readonly eventBus = inject(AppEventBusService);
+    private readonly destroyRef = inject(DestroyRef);
 
     /** Entidad Dataset cargada y gestionada por la librería ngx-data-visualizer. */
     dataset = signal<Dataset | null>(null);
@@ -43,21 +45,22 @@ export class DataFilterStepComponent implements OnInit {
     /** Lista de dimensiones disponibles para el filtrado. */
     dimensions = signal<Dimension[]>([]);
 
+    /** Señal de versión para sincronizar reactivamente las mutaciones internas del Dataset con Signals. */
+    private readonly dataVersion = signal<number>(0);
 
     /** Datos filtrados actuales del dataset */
     filteredData = computed(() => {
         const ds = this.dataset();
+        this.dataVersion();
         if (!ds) return [];
-        // Forzamos la dependencia de dimensions para que se recalcule al filtrar
-        this.dimensions();
         return ds.getCurrentData();
     });
 
     /** Dimensiones activas (no en roll-up) para las cabeceras de la tabla */
     activeDimensions = computed(() => {
         const ds = this.dataset();
+        this.dataVersion();
         if (!ds) return [];
-        this.dimensions();
         return ds.getActiveDimensions();
     });
 
@@ -80,7 +83,8 @@ export class DataFilterStepComponent implements OnInit {
         this.visualizationState.getDataset(this.datasetInfo().id).subscribe({
             next: (ds) => {
                 this.dataset.set(ds);
-                this.dimensions.set(ds.getAllDimensions());
+                this.dimensions.set(VisualizationFactory.normalizeDimensions(ds.getAllDimensions()));
+                this.listenDatasetUpdates(ds);
             },
             error: (error) => {
                 console.error('Error loading dataset:', error);
@@ -88,19 +92,15 @@ export class DataFilterStepComponent implements OnInit {
         });
     }
 
+    private listenDatasetUpdates(ds: Dataset): void {
+        ds.dataUpdated.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+            this.dataVersion.update(v => v + 1);
+        });
+    }
+
     onDimensionChange(index: number, updatedDimension: Dimension): void {
         this.dimensions.update(dims =>
-            dims.map((d, i) =>
-                i === index
-                    ? {
-                        ...updatedDimension,
-                        items: updatedDimension.items.map((item) => ({ ...item })),
-                    }
-                    : {
-                        ...d,
-                        items: d.items.map((item) => ({ ...item })),
-                    }
-            )
+            dims.map((d, i) => (i === index ? updatedDimension : d))
         );
 
         this.eventBus.emit({
@@ -112,26 +112,23 @@ export class DataFilterStepComponent implements OnInit {
         });
     }
 
+    /**
+     * Resuelve el valor textual de una dimensión en una fila dada,
+     * utilizando la clave mapeada internamente por Dataset con fallbacks resilientes.
+     */
+    getDimensionValue(row: Record<string, any>, dim: Dimension): any {
+        const key = this.dataset()?.getDimensionKey(dim.id) ?? dim.nameView ?? dim.name;
+        return row[key] ?? row[dim.nameView] ?? row[dim.name] ?? '';
+    }
+
     private getCurrentFilters(): FiltersConfig {
-        const dimensions = this.dimensions();
-        return {
-            rollUp: dimensions
-                .filter((dimension) => !dimension.selected)
-                .map((dimension) => dimension.id),
-            filter: dimensions
-                .filter((dimension) => dimension.items.some((item) => !item.selected))
-                .map((dimension) => ({
-                    name: dimension.id,
-                    items: dimension.items
-                        .filter((item) => item.selected)
-                        .map((item) => item.name),
-                })),
-        };
+        return VisualizationFactory.getFiltersFromDimensions(this.dimensions());
     }
 
     private applyFilters() {
         const filters = this.getCurrentFilters();
         this.dataset()?.applyFilters(filters);
+        this.dataVersion.update(v => v + 1);
     }
 
     onNext() {
@@ -148,3 +145,4 @@ export class DataFilterStepComponent implements OnInit {
         }
     }
 }
+

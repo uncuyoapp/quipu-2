@@ -205,7 +205,8 @@ export class VisualizationCreateModalComponent implements OnInit, OnDestroy {
     }
 
     private performCreate(visualization: Visualization) {
-        this.persistence.create(visualization).subscribe({
+        const dto = VisualizationFactory.toSaveDto(visualization);
+        this.persistence.create(dto).subscribe({
             next: (newViz) => {
                 this.eventBus.emit({
                     type: AppEventType.VISUALIZATION_WIZARD_SAVED,

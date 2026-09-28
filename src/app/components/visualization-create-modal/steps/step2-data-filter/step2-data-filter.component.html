@@ -26,9 +26,9 @@
             @for (row of filteredData(); track $index) {
             <tr>
               @for (dim of activeDimensions(); track dim.id) {
-              <td>{{ row[dim.name] }}</td>
+              <td>{{ getDimensionValue(row, dim) }}</td>
               }
-              <td class="text-right font-mono">{{ row['valor'] }}</td>
+              <td class="text-right font-mono">{{ row['valor'] ?? row['Valor'] ?? '' }}</td>
             </tr>
             }
             @if (filteredData().length === 0) {

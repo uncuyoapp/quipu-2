@@ -2,7 +2,7 @@
   <!-- Checkbox Section -->
   @if (showCheckbox()) {
   <div class="dimension-select__checkbox">
-    <app-checkbox [size]="'small'" [checked]="selected() ?? dimension().selected ?? false"
+    <app-checkbox [size]="'small'" [checked]="selected() ?? dimension().selected ?? true"
       (valueChange)="onDimensionCheckboxChange($event)" />
   </div>
   }

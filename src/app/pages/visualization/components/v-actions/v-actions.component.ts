@@ -82,20 +82,23 @@ export class VActionsComponent {
     // --- Emisión de Eventos ---
 
     // Detectar RollUp (Cambio en la selección de la dimensión completa)
-    if ((oldDimension as any).selected !== (updatedDimension as any).selected) {
+    const oldSelected = oldDimension.selected ?? true;
+    const newSelected = updatedDimension.selected ?? true;
+
+    if (oldSelected !== newSelected) {
       this.eventBus.emit({
         type: AppEventType.VISUALIZATION_ROLLUP_CHANGED,
         payload: {
           id: vizId,
           dimension: updatedDimension.name,
-          active: !!(updatedDimension as any).selected
+          active: newSelected
         }
       });
     }
 
     // Detectar Filtrado de ítems (Cambio en la cantidad de ítems seleccionados)
-    const activeItems = updatedDimension.items.filter(i => (i as any).selected).length;
-    const oldActiveItems = oldDimension.items.filter(i => (i as any).selected).length;
+    const activeItems = updatedDimension.items.filter(i => i.selected ?? true).length;
+    const oldActiveItems = oldDimension.items.filter(i => i.selected ?? true).length;
 
     if (activeItems !== oldActiveItems) {
       this.eventBus.emit({

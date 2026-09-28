@@ -94,6 +94,7 @@ export class DimensionSelectComponent {
   onSelectAll(checked: boolean): void {
     this.dimension.update((dim) => ({
       ...dim,
+      selected: dim.selected ?? true,
       items: dim.items.map((item) => ({
         ...item,
         selected: checked,
@@ -104,8 +105,11 @@ export class DimensionSelectComponent {
   onItemCheckboxChange(itemId: number, checked: boolean): void {
     this.dimension.update((dim) => ({
       ...dim,
+      selected: dim.selected ?? true,
       items: dim.items.map((item) =>
-        item.id === itemId ? { ...item, selected: checked } : item
+        item.id === itemId
+          ? { ...item, selected: checked }
+          : { ...item, selected: item.selected ?? true }
       ),
     }));
   }
