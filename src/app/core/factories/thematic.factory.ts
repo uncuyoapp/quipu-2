@@ -1,4 +1,5 @@
 import { Thematic } from '@models/domain/thematic.model';
+import { SaveThematicDto } from '@models/dto/thematic-mutation.dto';
 
 /**
  * @class ThematicFactory
@@ -138,5 +139,23 @@ export class ThematicFactory {
       ...thematic,
       color: palette[index % palette.length]
     }));
+  }
+
+  /**
+   * Transforma una entidad de temática o estado parcial de formulario en un
+   * DTO para operaciones de guardado.
+   *
+   * @param source Objeto parcial o completo de Temática.
+   * @returns DTO de mutación para operaciones de guardado.
+   */
+  public static toSaveDto(source: Partial<Thematic>): SaveThematicDto {
+    return {
+      name: source.name?.trim() ?? '',
+      description: source.description?.trim() || undefined,
+      parentId: source.parentId !== undefined ? source.parentId : null,
+      order: source.order !== undefined ? Number(source.order) : undefined,
+      color: source.color?.trim() || undefined,
+      illustration: source.illustration?.trim() || undefined
+    };
   }
 }

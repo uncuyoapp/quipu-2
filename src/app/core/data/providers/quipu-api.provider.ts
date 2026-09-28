@@ -5,10 +5,12 @@ import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
 import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
+import { SaveThematicDto, SaveVisualizationDto } from '@models/dto';
 import { BaseApiService, CacheService } from '@services';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IDataProvider } from '../data.provider';
+import { normalizeDimensions } from '@core/utils/dimension.utils';
 
 @Injectable()
 export class QuipuApiProvider extends BaseApiService implements IDataProvider {
@@ -44,11 +46,11 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     return this.get<Thematic[]>(this.endpoints.thematics);
   }
 
-  createThematic(thematic: Partial<Thematic>): Observable<Thematic> {
+  createThematic(thematic: SaveThematicDto): Observable<Thematic> {
     return this.post<Thematic>(this.endpoints.thematics, thematic, { skipGlobalError: true });
   }
 
-  updateThematic(id: number, thematic: Partial<Thematic>): Observable<Thematic> {
+  updateThematic(id: number, thematic: SaveThematicDto): Observable<Thematic> {
     return this.put<Thematic>(`${this.endpoints.thematics}/${id}`, thematic, { skipGlobalError: true });
   }
 
@@ -64,11 +66,11 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     return this.get<Visualization>(`${this.endpoints.visualizations}/${id}`);
   }
 
-  updateVisualization(id: number | string, visualization: Visualization): Observable<boolean> {
+  updateVisualization(id: number | string, visualization: SaveVisualizationDto): Observable<boolean> {
     return this.put<any>(`${this.endpoints.visualizations}/${id}`, visualization, { skipGlobalError: true }).pipe(map(() => true));
   }
 
-  createVisualization(visualization: Visualization): Observable<Visualization> {
+  createVisualization(visualization: SaveVisualizationDto): Observable<Visualization> {
     return this.post<Visualization>(this.endpoints.visualizations, visualization, { skipGlobalError: true });
   }
 
@@ -127,7 +129,15 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   getDataset(datasetId: number | string): Observable<Dataset> {
-    return this.get<any>(`${this.endpoints.datasets}/${datasetId}`).pipe(map(res => new Dataset(res)));
+    return this.get<any>(`${this.endpoints.datasets}/${datasetId}`).pipe(
+      map(res => {
+        const normalizedDimensions = normalizeDimensions(res?.dimensions);
+        return new Dataset({
+          ...res,
+          dimensions: normalizedDimensions
+        });
+      })
+    );
   }
 
   getDatasets(): Observable<DatasetInfo[]> {

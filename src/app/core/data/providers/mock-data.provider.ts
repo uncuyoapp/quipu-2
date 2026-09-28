@@ -5,6 +5,7 @@ import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
 import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
+import { SaveThematicDto, SaveVisualizationDto } from '@models/dto';
 import { AppNotificationService, LoadingService } from '@services';
 import { Observable, concatMap, delay, map, of, throwError } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -163,7 +164,7 @@ export class MockDataProvider extends IDataProvider {
   public getThematics(): Observable<Thematic[]> {
     return this._simulateDelay().pipe(concatMap(() => of(this._deepClone(this._currentThematics))));
   }
-  public createThematic(thematic: Partial<Thematic>): Observable<Thematic> {
+  public createThematic(thematic: SaveThematicDto): Observable<Thematic> {
     return this._simulateDelay().pipe(concatMap(() => {
       const currentSet = this._currentThematics;
 
@@ -179,9 +180,14 @@ export class MockDataProvider extends IDataProvider {
       const newThematic: Thematic = {
         id: newId,
         name: thematic.name || 'Nueva',
+        description: thematic.description || '',
+        order: thematic.order || 0,
+        color: thematic.color || 'var(--q-primary)',
+        illustration: thematic.illustration || '',
         childrens: [],
-        ...thematic
-      } as Thematic;
+        breadcrumb: thematic.name || 'Nueva',
+        parentId: thematic.parentId
+      };
 
       if (thematic.parentId) {
         const added = this._addThematicToParent(currentSet, thematic.parentId, newThematic);
@@ -194,20 +200,15 @@ export class MockDataProvider extends IDataProvider {
     }));
   }
 
-  public updateThematic(id: number, thematic: Partial<Thematic>): Observable<Thematic> {
+  public updateThematic(id: number, thematic: SaveThematicDto): Observable<Thematic> {
     return this._simulateDelay().pipe(concatMap(() => {
       const currentSet = this._currentThematics;
       const found = this._findThematicRecursive(currentSet, id);
       if (!found) return throwError(() => new Error('Not found'));
 
       // 1. Actualizar el árbol de temáticas
-      this._updateThematicRecursive(currentSet, id, thematic);
+      this._updateThematicRecursive(currentSet, id, thematic as Partial<Thematic>);
       const updated = this._findThematicRecursive(currentSet, id)!;
-
-      // 2. Sincronizar visualizaciones si hay cambios en visualizationIds
-      if (thematic.visualizationIds) {
-        this._syncVisualizationsWithThematic(id, updated.name, thematic.visualizationIds);
-      }
 
       return of(this._deepClone(updated));
     }));
@@ -330,32 +331,37 @@ export class MockDataProvider extends IDataProvider {
     );
   }
 
-  public createVisualization(visualization: Visualization): Observable<Visualization> {
+  public createVisualization(visualization: SaveVisualizationDto): Observable<Visualization> {
     const uniqueId = Math.random().toString(36).substring(2, 9);
     const newId = `${visualization.datasetId}-${uniqueId}`;
     const now = new Date().toISOString();
 
-    // Obtener nombre de la unidad actual para asegurar visibilidad en el mock filtrado
     const unit = MOCK_INFORMATION_UNITS.find(u => u.id === this.selectedInformationUnit);
     const unitName = unit ? (unit.shortName || unit.name) : 'S/D';
 
-    // Preparar el objeto con fecha y ID único
     const newVis: Visualization = {
-      ...this._deepClone(visualization),
       id: newId,
-      // Si no viene con unidad (o viene el default S/D de la factory), asignamos la actual
-      informationUnitName: (visualization.informationUnitName === 'S/D' || !visualization.informationUnitName)
-        ? unitName
-        : visualization.informationUnitName,
-      informationUnitId: visualization.informationUnitId || this.selectedInformationUnit,
+      published: visualization.published,
+      title: visualization.title,
+      summary: visualization.summary,
+      informationUnitName: unitName,
+      informationUnitId: this.selectedInformationUnit,
+      measureUnit: '',
+      periodicity: 'Anual',
+      timeRange: '',
+      dimensions: [],
+      datasetId: String(visualization.datasetId),
+      thematics: [],
+      visualBlocks: (visualization.visualBlocks as any) || [],
       technicalSheet: {
-        ...visualization.technicalSheet,
+        description: visualization.summary,
+        formula: visualization.formula,
         lastUpdate: now
       },
+      dataConfig: visualization.baseFilters ? { baseFilters: visualization.baseFilters } : undefined,
       metadata: {
-        ...visualization.metadata,
-        updatedAt: now,
-        createdAt: now
+        createdAt: now,
+        updatedAt: now
       }
     };
 
@@ -363,15 +369,29 @@ export class MockDataProvider extends IDataProvider {
     return of(newVis);
   }
 
-  public updateVisualization(id: number | string, visualization: Visualization): Observable<boolean> {
+  public updateVisualization(id: number | string, visualization: SaveVisualizationDto): Observable<boolean> {
     const index = MOCK_VISUALIZATIONS.findIndex(v => v.id == id);
     if (index === -1) return of(false);
 
-    // Mantenemos el ID original por seguridad y mezclamos el resto
+    const current = MOCK_VISUALIZATIONS[index];
     MOCK_VISUALIZATIONS[index] = {
-      ...MOCK_VISUALIZATIONS[index],
-      ...this._deepClone(visualization),
-      id: MOCK_VISUALIZATIONS[index].id // Asegurar que el ID no cambie si venía mal en el objeto
+      ...current,
+      title: visualization.title ?? current.title,
+      summary: visualization.summary ?? current.summary,
+      published: visualization.published ?? current.published,
+      datasetId: visualization.datasetId ? String(visualization.datasetId) : current.datasetId,
+      visualBlocks: (visualization.visualBlocks as any) ?? current.visualBlocks,
+      technicalSheet: {
+        ...current.technicalSheet,
+        description: visualization.summary ?? current.technicalSheet?.description,
+        formula: visualization.formula ?? current.technicalSheet?.formula,
+        lastUpdate: new Date().toISOString()
+      },
+      dataConfig: visualization.baseFilters ? { baseFilters: visualization.baseFilters } : current.dataConfig,
+      metadata: {
+        ...current.metadata,
+        updatedAt: new Date().toISOString()
+      }
     };
 
     return of(true);

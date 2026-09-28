@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
 import { Visualization } from '@models/domain/visualization.model';
+import { SaveThematicDto, SaveVisualizationDto } from '@models/dto';
 import { Observable } from 'rxjs';
 import { IDataProvider } from '../../data/data.provider';
 
@@ -16,11 +17,11 @@ export class DataWriteService {
   protected readonly dataProvider = inject(IDataProvider);
 
   // --- Temáticas ---
-  createThematic(thematic: Partial<Thematic>): Observable<Thematic> {
+  createThematic(thematic: SaveThematicDto): Observable<Thematic> {
     return this.dataProvider.createThematic(thematic);
   }
 
-  updateThematic(id: number, thematic: Partial<Thematic>): Observable<Thematic> {
+  updateThematic(id: number, thematic: SaveThematicDto): Observable<Thematic> {
     return this.dataProvider.updateThematic(id, thematic);
   }
 
@@ -45,11 +46,11 @@ export class DataWriteService {
   }
 
   // --- Visualizaciones ---
-  createVisualization(visualization: Visualization): Observable<Visualization> {
+  createVisualization(visualization: SaveVisualizationDto): Observable<Visualization> {
     return this.dataProvider.createVisualization(visualization);
   }
 
-  updateVisualization(id: number | string, visualization: Visualization): Observable<boolean> {
+  updateVisualization(id: number | string, visualization: SaveVisualizationDto): Observable<boolean> {
     return this.dataProvider.updateVisualization(id, visualization);
   }
 

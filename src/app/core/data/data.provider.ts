@@ -4,6 +4,7 @@ import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
 import { User } from '@models/domain/user.model';
 import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
+import { SaveVisualizationDto, SaveThematicDto } from '@models/dto';
 import { Observable } from 'rxjs';
 
 /**
@@ -22,21 +23,21 @@ export abstract class IDataProvider {
   abstract getThematics(): Observable<Thematic[]>;
 
   /**
-   * Crea una nueva temática.
+   * Crea una nueva temática a partir de su DTO de mutación.
    * 
-   * @param thematic Objeto con los datos de la temática a crear.
+   * @param thematic DTO con los datos de la temática a crear.
    * @returns Un observable con la temática creada.
    */
-  abstract createThematic(thematic: Partial<Thematic>): Observable<Thematic>;
+  abstract createThematic(thematic: SaveThematicDto): Observable<Thematic>;
 
   /**
-   * Actualiza una temática existente.
+   * Actualiza una temática existente a partir de su DTO de mutación.
    * 
    * @param id El identificador único de la temática a actualizar.
-   * @param thematic Objeto con los datos a actualizar.
+   * @param thematic DTO con los datos a actualizar.
    * @returns Un observable con la temática actualizada.
    */
-  abstract updateThematic(id: number, thematic: Partial<Thematic>): Observable<Thematic>;
+  abstract updateThematic(id: number, thematic: SaveThematicDto): Observable<Thematic>;
 
   /**
    * Elimina una temática existente.
@@ -124,23 +125,21 @@ export abstract class IDataProvider {
   abstract getVisualizationsPage(page: number, pageSize: number): Observable<VisualizationPage>;
 
   /**
-   * Crea una nueva visualización.
+   * Crea una nueva visualización a partir de su DTO de mutación.
    * 
-   * @param visualization El objeto de la visualización a crear.
+   * @param visualization DTO estricto con los datos de la visualización a crear.
    * @returns Un observable con la visualización creada.
    */
-  abstract createVisualization(visualization: Visualization): Observable<Visualization>;
+  abstract createVisualization(visualization: SaveVisualizationDto): Observable<Visualization>;
 
   /**
-   * Actualiza una visualización.
-   * En MockDataProvider, esto descargará el JSON interactuando con el navegador.
-   * En QuipuApiProvider, esto hará una petición a la API.
+   * Actualiza una visualización existente a partir de su DTO de mutación.
    * 
    * @param id El identificador único de la visualización.
-   * @param visualization Opcional: El objeto de la visualización a actualizar.
+   * @param visualization DTO estricto con los datos a actualizar.
    * @returns Un observable indicando si la operación fue exitosa.
    */
-  abstract updateVisualization(id: number | string, visualization: Visualization): Observable<boolean>;
+  abstract updateVisualization(id: number | string, visualization: SaveVisualizationDto): Observable<boolean>;
 
   /**
    * Publica un conjunto de visualizaciones.

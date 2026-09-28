@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { useAdminGuard } from '@core/guards/admin-action.guard';
 import { Visualization } from '@models/domain/visualization.model';
+import { SaveVisualizationDto } from '@models/dto';
 import { Observable, tap } from 'rxjs';
 import { AppEventType } from '../../models/events/app-event.types';
 import { AppEventBusService } from '../events/app-event-bus.service';
@@ -19,12 +20,12 @@ export class VisualizationPersistenceService {
   private readonly adminGuard = useAdminGuard();
 
   /**
-   * Crea una nueva visualización.
-   * @param visualization Entidad a persistir.
+   * Crea una nueva visualización a partir de su DTO de mutación.
+   * @param dto DTO estricto a persistir.
    * @returns Observable con la visualización creada.
    */
-  create(visualization: Visualization): Observable<Visualization> {
-    return this.adminGuard(this.dataWrite.createVisualization(visualization)).pipe(
+  create(dto: SaveVisualizationDto): Observable<Visualization> {
+    return this.adminGuard(this.dataWrite.createVisualization(dto)).pipe(
       tap((newVis) => this.eventBus.emit({
         type: AppEventType.VISUALIZATION_CREATED,
         payload: { id: newVis.id }
@@ -33,13 +34,13 @@ export class VisualizationPersistenceService {
   }
 
   /**
-   * Actualiza una visualización existente.
+   * Actualiza una visualización existente a partir de su DTO de mutación.
    * @param id ID de la visualización.
-   * @param visualization Datos actualizados.
+   * @param dto DTO con datos actualizados.
    * @returns Observable que indica el éxito de la operación.
    */
-  update(id: number | string, visualization: Visualization): Observable<boolean> {
-    return this.adminGuard(this.dataWrite.updateVisualization(id, visualization)).pipe(
+  update(id: number | string, dto: SaveVisualizationDto): Observable<boolean> {
+    return this.adminGuard(this.dataWrite.updateVisualization(id, dto)).pipe(
       tap((success) => {
         if (success) {
           this.eventBus.emit({
