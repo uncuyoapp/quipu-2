@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppDialogService, AppNotificationService, ThematicPersistenceService } from '@services';
 import { ThematicDialogComponent } from './components/thematic-dialog/thematic-dialog.component';
 import { Thematic } from '@models/domain/thematic.model';
+import { SaveThematicDto } from '@models/dto';
 import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
 import { filter, switchMap } from 'rxjs';
 
@@ -24,11 +25,11 @@ export class HomeEditService {
    * Abre el diálogo para crear una nueva temática raíz.
    */
   openCreateThematicDialog(): void {
-    this.dialog.open(ThematicDialogComponent, {
+    this.dialog.open<ThematicDialogComponent, { thematic?: Thematic }, SaveThematicDto>(ThematicDialogComponent, {
       width: '600px',
       data: {}
     }).afterClosed().pipe(
-      filter(Boolean),
+      filter((result): result is SaveThematicDto => !!result),
       switchMap(result => this.persistence.create(result))
     ).subscribe({
       next: () => {
@@ -46,11 +47,11 @@ export class HomeEditService {
    * @param thematic La temática a editar.
    */
   onEditThematic(thematic: Thematic): void {
-    this.dialog.open(ThematicDialogComponent, {
+    this.dialog.open<ThematicDialogComponent, { thematic?: Thematic }, SaveThematicDto>(ThematicDialogComponent, {
       width: '600px',
       data: { thematic }
     }).afterClosed().pipe(
-      filter(Boolean),
+      filter((result): result is SaveThematicDto => !!result),
       switchMap(result => this.persistence.update(thematic.id, result))
     ).subscribe({
       next: () => {

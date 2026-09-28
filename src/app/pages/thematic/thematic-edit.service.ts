@@ -1,7 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
+import { ThematicFactory } from '@core/factories/thematic.factory';
 import { Thematic } from '@models/domain/thematic.model';
+import { SaveThematicDto } from '@models/dto';
 import { Visualization } from '@models/domain/visualization.model';
 import { AppDialogService, AppNotificationService, ThematicPersistenceService, ThematicStateService, VisualizationStateService } from '@services';
 import { extractHttpErrorMessage } from '@core/utils/http-error.utils';
@@ -61,9 +63,7 @@ export class ThematicEditService {
       // 3. Si hay cambios seleccionados, persistirlos
       switchMap(selectedIds => {
         if (!selectedIds) return of(undefined);
-        return this.persistence.update(thematic.id, {
-          visualizationIds: selectedIds
-        }).pipe(
+        return this.persistence.assignVisualizations(thematic.id, selectedIds).pipe(
           tap(() => this.notification.success('Visualizaciones asociadas con éxito')),
           catchError(err => {
             this.notification.error(extractHttpErrorMessage(err, 'Error al asociar las visualizaciones.'));
@@ -115,10 +115,12 @@ export class ThematicEditService {
       return null;
     }
 
-    const payload: Partial<Thematic> = {
+    const payload = ThematicFactory.toSaveDto({
       name: trimmedName,
+      color,
       parentId,
-    };
+      order
+    });
 
     return this.persistence.create(payload).pipe(
       tap(() => {
@@ -188,7 +190,7 @@ export class ThematicEditService {
   updateName(id: number, newName: string): Observable<Thematic> | null {
     const trimmedName = newName.trim();
     if (!trimmedName) return null;
-    return this.persistence.update(id, { name: trimmedName }).pipe(
+    return this.persistence.update(id, ThematicFactory.toSaveDto({ name: trimmedName })).pipe(
       tap(() => this.notification.success('Nombre actualizado exitosamente')),
       catchError(err => {
         this.notification.error(extractHttpErrorMessage(err, 'Error al actualizar el nombre.'));
@@ -200,8 +202,8 @@ export class ThematicEditService {
   /**
    * Actualiza una temática.
    */
-  update(id: number, data: Partial<Thematic>): Observable<Thematic> {
-    return this.persistence.update(id, data);
+  update(id: number, data: SaveThematicDto | Partial<Thematic>): Observable<Thematic> {
+    return this.persistence.update(id, ThematicFactory.toSaveDto(data));
   }
 
   /**

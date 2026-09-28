@@ -1,6 +1,8 @@
 import { VISUALIZATION_TYPES_ICONS } from '@core/config/illustrations.config';
 import { Dataset, DatasetInfo, Dimension } from '@models/domain/dataset.model';
 import { ChartOptions, FiltersConfig, TableOptions, Visualization } from '@models/domain/visualization.model';
+import { SaveVisualizationDto } from '@models/dto/visualization-mutation.dto';
+import { normalizeDimensions } from '@core/utils/dimension.utils';
 
 /**
  * @class VisualizationFactory
@@ -184,7 +186,7 @@ export class VisualizationFactory {
         return {
           ...dim,
           selected: true,
-          items: activeItems
+          items: activeItems.map(item => ({ ...item, selected: true }))
         };
       });
 
@@ -198,33 +200,45 @@ export class VisualizationFactory {
   }
 
   /**
-   * Sincroniza los filtros almacenados en los metadatos con un arreglo de dimensiones.
-   * @param visualization La visualización que contiene los bloques y filtros.
-   * @param dims Las dimensiones a sincronizar (referencia mutable).
+   * Retorna una copia profunda e inmutable de las dimensiones garantizando
+   * que tanto cada dimensión como cada ítem tengan 'selected: true' por defecto.
+   *
+   * @param dims Arreglo de dimensiones crudas o parciales.
+   * @returns Nuevo arreglo de dimensiones con objetos e ítems normalizados.
    */
-  static syncStoredFiltersToDimensions(visualization: Visualization | null, dims: Dimension[]): void {
+  static normalizeDimensions(dims: Dimension[]): Dimension[] {
+    return normalizeDimensions(dims);
+  }
+
+  /**
+   * Sincroniza los filtros almacenados en los metadatos con un arreglo de dimensiones,
+   * retornando una copia profunda e inmutable con los estados 'selected' resueltos.
+   *
+   * @param visualization La visualización que contiene los bloques y filtros.
+   * @param dims Las dimensiones a sincronizar.
+   * @returns Un nuevo arreglo inmutable de Dimension con su estado de selección actualizado.
+   */
+  static syncStoredFiltersToDimensions(visualization: Visualization | null, dims: Dimension[]): Dimension[] {
     const firstBlock = visualization?.visualBlocks?.[0];
     const filters = firstBlock?.filters;
 
-    if (!filters) {
-      return;
-    }
+    return (dims || []).map((dim) => {
+      const isSelected = filters?.rollUp
+        ? !filters.rollUp.includes(dim.id)
+        : (dim.selected ?? true);
 
-    dims.forEach((dim) => {
-      // Restaurar estado de selección de la dimensión (si no está en rollUp, está seleccionada)
-      if (filters.rollUp) {
-        dim.selected = !filters.rollUp.includes(dim.id);
-      }
+      const dimFilter = filters?.filter?.find((f) => f.name === dim.id);
 
-      // Restaurar selección de ítems individuales
-      if (filters.filter) {
-        const dimFilter = filters.filter.find((f: NonNullable<FiltersConfig['filter']>[number]) => f.name === dim.id);
-        if (dimFilter) {
-          dim.items.forEach((item) => {
-            item.selected = dimFilter.items.includes(item.name);
-          });
-        }
-      }
+      return {
+        ...dim,
+        selected: isSelected,
+        items: (dim.items || []).map((item) => ({
+          ...item,
+          selected: dimFilter
+            ? dimFilter.items.includes(item.name)
+            : (item.selected ?? true),
+        })),
+      };
     });
   }
 
@@ -236,14 +250,16 @@ export class VisualizationFactory {
   static getFiltersFromDimensions(dimensions: Dimension[]): FiltersConfig {
     return {
       rollUp: dimensions
-        .filter((dimension: Dimension) => !dimension.selected)
+        .filter((dimension: Dimension) => dimension.selected === false)
         .map((dimension: Dimension) => dimension.id),
       filter: dimensions
-        .filter((dimension: Dimension) => dimension.items.some((item) => !item.selected))
+        .filter((dimension: Dimension) =>
+          dimension.items.some((item) => item.selected === false)
+        )
         .map((dimension: Dimension) => ({
           name: dimension.id,
           items: dimension.items
-            .filter((item) => item.selected)
+            .filter((item) => item.selected ?? true)
             .map((item) => item.name),
         })),
     };
@@ -258,5 +274,30 @@ export class VisualizationFactory {
     const hasRollUp = (filters.rollUp?.length ?? 0) > 0;
     const hasItemFilters = (filters.filter?.length ?? 0) > 0;
     return hasRollUp || hasItemFilters;
+  }
+
+  /**
+   * Transforma una entidad de dominio o estado parcial en un DTO
+   * para operaciones de guardado en el proveedor de datos.
+   *
+   * @param source Objeto parcial o completo de Visualización.
+   * @returns DTO de mutación fuertemente tipado.
+   */
+  static toSaveDto(source: Partial<Visualization>): SaveVisualizationDto {
+    return {
+      title: source.title?.trim() ?? '',
+      datasetId: Number(source.datasetId),
+      summary: source.technicalSheet?.description?.trim() || undefined,
+      formula: source.technicalSheet?.formula?.trim() || undefined,
+      published: source.published ?? false,
+      baseFilters: source.dataConfig?.baseFilters,
+      visualBlocks: source.visualBlocks?.map(b => ({
+        id: b.id || 'main-block',
+        title: b.title,
+        chartOptions: b.chartOptions,
+        tableOptions: b.tableOptions,
+        filters: b.filters
+      })) ?? []
+    };
   }
 }

@@ -329,8 +329,9 @@ export class VisualizationEditService {
    */
   private performSave(filters?: FiltersConfig, onSuccess?: (result?: SaveResult) => void): void {
     const updatedViz = this.getUpdatedVisualization(filters);
+    const dto = VisualizationFactory.toSaveDto(updatedViz);
 
-    this.persistence.update(updatedViz.id, updatedViz).subscribe({
+    this.persistence.update(updatedViz.id, dto).subscribe({
       next: () => {
         this.wasSavedDuringSession.set(true);
         this.takeStateSnapshot();

@@ -95,9 +95,7 @@ export class VisualizationViewStateService {
       processedData = VisualizationFactory.transformDataset(data, viz.dataConfig.baseFilters);
     }
 
-    const dimensions = processedData.getAllDimensions();
-    VisualizationFactory.syncStoredFiltersToDimensions(viz, dimensions);
-
+    const dimensions = VisualizationFactory.syncStoredFiltersToDimensions(viz, processedData.getAllDimensions());
     this.updateState(processedData, dimensions);
   }
 
@@ -108,8 +106,7 @@ export class VisualizationViewStateService {
     this.loading.set(true);
     this.visualizationState.getPreparedDataset(viz).subscribe({
       next: (data) => {
-        const dimensions = data.getAllDimensions();
-        VisualizationFactory.syncStoredFiltersToDimensions(viz, dimensions);
+        const dimensions = VisualizationFactory.syncStoredFiltersToDimensions(viz, data.getAllDimensions());
         this.updateState(data, dimensions);
         this.loading.set(false);
       },

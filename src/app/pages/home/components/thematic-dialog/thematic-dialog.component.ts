@@ -1,8 +1,10 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { ThematicFactory } from '@core/factories/thematic.factory';
 import { getThematicIllustrationPath, THEMATIC_ILLUSTRATIONS } from '@core/config/illustrations.config';
 import { Thematic } from '@models/domain/thematic.model';
+import { SaveThematicDto } from '@models/dto';
 import { EditModeService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { TextInputComponent } from '@shared/components/text-input/text-input.component';
@@ -17,7 +19,7 @@ import { TextInputValidationState } from '@shared/components/text-input/text-inp
 })
 export class ThematicDialogComponent implements OnInit, OnDestroy {
   private readonly fb = inject(FormBuilder);
-  private readonly dialogRef = inject(MatDialogRef<ThematicDialogComponent>);
+  private readonly dialogRef = inject(MatDialogRef<ThematicDialogComponent, SaveThematicDto>);
   public readonly data = inject<{ thematic?: Thematic }>(MAT_DIALOG_DATA);
   private readonly editModeService = inject(EditModeService);
 
@@ -128,14 +130,14 @@ export class ThematicDialogComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     if (this.thematicForm.valid) {
-      // Mapeamos los campos simplificados a la estructura de Thematic
+      // Mapeamos los campos del formulario al DTO estricto de mutación
       const formValue = this.thematicForm.value;
-      const result: Partial<Thematic> = {
+      const result: SaveThematicDto = ThematicFactory.toSaveDto({
         ...this.data?.thematic,
         name: formValue.name,
         color: formValue.color,
         illustration: formValue.illustration
-      };
+      });
       this.dialogRef.close(result);
     } else {
       this.thematicForm.markAllAsTouched();
