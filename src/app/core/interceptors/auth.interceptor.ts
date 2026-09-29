@@ -1,11 +1,11 @@
-import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { inject, Injector } from '@angular/core';
+import { HttpContextToken, HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { environment } from '@environments/environment';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
-import { SKIP_GLOBAL_ERROR_SNACK } from '../http/tokens';
-import { DataWriteService } from '../services/infrastructure/data-write.service';
+import { IAuthProvider } from '../data/auth.provider';
 import { SessionPersistenceService } from '../services/persistence/session-persistence.service';
-import { AppNotificationService } from '../services/ux/app-notification.service';
+import { SessionStateService } from '../services/state/session-state.service';
 
 /** Semáforo para controlar si ya existe un proceso de renovación en vuelo */
 let isRefreshing = false;
@@ -14,29 +14,46 @@ let isRefreshing = false;
 let refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
 /**
+ * Token de contexto HTTP que indica si una petición debe ignorar la renovación
+ * automática de tokens y la inyección de autorización (ej. login o recuperación).
+ */
+export const SKIP_AUTH_REFRESH = new HttpContextToken<boolean>(() => false);
+
+/**
  * Interceptor de autenticación y refresco silencioso de tokens JWT.
- * - Captura errores 401 y renueva el Access Token de forma transparente (RTR).
+ * - Inyecta reactivamente Authorization: Bearer <token> y X-Information-Unit-Id en llamadas a la API.
+ * - Captura errores 401 y renueva el Access Token de forma transparente (RTR) vía IAuthProvider.
  * - Encola solicitudes paralelas para evitar múltiples refrescos simultáneos (Mutex RxJS).
- * - Desconecta limpiamente al usuario si la sesión no puede recuperarse.
- * - Notifica errores globales formateados vía AppNotificationService salvo supresión explícita.
+ * - Desconecta limpiamente al usuario emitiendo evento de sesión si no se puede recuperar.
+ * - Cero dependencias de presentación (UI).
  */
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<any> => {
-  const injector = inject(Injector);
-  const notification = inject(AppNotificationService);
+  const sessionState = inject(SessionStateService);
+  const authProvider = inject(IAuthProvider);
+  const sessionPersistence = inject(SessionPersistenceService);
 
-  return next(req).pipe(
+  const token = sessionState.token();
+  const selectedIU = sessionState.selectedIUId();
+  const isApiRequest = req.url.startsWith(environment.apiUrl);
+  const skipAuthRefresh = req.context.get(SKIP_AUTH_REFRESH);
+
+  let authReq = req;
+  if (isApiRequest) {
+    let headers = req.headers;
+    if (!skipAuthRefresh && token && !headers.has('Authorization')) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    if (selectedIU !== null && selectedIU !== undefined && !headers.has('X-Information-Unit-Id')) {
+      headers = headers.set('X-Information-Unit-Id', selectedIU.toString());
+    }
+    authReq = req.clone({ headers });
+  }
+
+  return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        return handle401Error(req, next, error, injector, notification);
+      if (isApiRequest && error.status === 401) {
+        return handle401Error(authReq, next, error, authProvider, sessionPersistence);
       }
-
-      const skipGlobalError = req.context.get(SKIP_GLOBAL_ERROR_SNACK);
-
-      // Mostrar mensaje del servidor si existe, no es 401 y no fue suprimido por la vista llamadora
-      if (!skipGlobalError && error.error?.message && error.status !== 401) {
-        notification.error(error.error.message);
-      }
-
       return throwError(() => error);
     })
   );
@@ -49,25 +66,19 @@ function handle401Error(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
   error: HttpErrorResponse,
-  injector: Injector,
-  notification: AppNotificationService
+  authProvider: IAuthProvider,
+  sessionPersistence: SessionPersistenceService
 ): Observable<any> {
-  const url = req.url.toLowerCase();
-
-  // Si la petición que falló fue el login o el propio refresh, no reintentar
-  if (url.includes('auth/login') || url.includes('auth/refresh')) {
+  if (req.context.get(SKIP_AUTH_REFRESH)) {
     return throwError(() => error);
   }
-
-  const dataWrite = injector.get(DataWriteService);
-  const sessionPersistence = injector.get(SessionPersistenceService);
 
   // Si no hay un refresco en marcha, iniciarlo
   if (!isRefreshing) {
     isRefreshing = true;
     refreshTokenSubject.next(null);
 
-    return dataWrite.refreshToken().pipe(
+    return authProvider.refreshToken().pipe(
       switchMap((newToken: string) => {
         isRefreshing = false;
         sessionPersistence.updateAccessToken(newToken);
@@ -83,7 +94,6 @@ function handle401Error(
         failedSubject.error(refreshError);
 
         sessionPersistence.handleSessionExpired('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
-        notification.warn('Tu sesión ha expirado. Por favor, ingresa nuevamente.');
         return throwError(() => refreshError);
       })
     );
