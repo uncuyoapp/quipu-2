@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataReadService, SessionStateService } from '@services';
+import { SessionStateService } from '@services';
 
 /**
  * Guardián de autenticación para proteger rutas privadas.
@@ -11,17 +11,11 @@ import { DataReadService, SessionStateService } from '@services';
 export const authGuard = () => {
   const router = inject(Router);
   const sessionState = inject(SessionStateService);
-  const dataRead = inject(DataReadService);
 
-  // Primero verifica si tenemos una sesión válida (usuario + token)
-  if (sessionState.hasValidSession()) {
-    // Verificación adicional: estado de autenticación con el proveedor de datos
-    if (dataRead.isAuthenticated()) {
-      return true;
-    }
+  if (sessionState.hasValidSession() && sessionState.isAuthenticated()) {
+    return true;
   }
 
-  // Si no hay sesión o no está autenticado, redirigir al login y limpiar datos
   router.navigate(['/login']);
   return false;
 };

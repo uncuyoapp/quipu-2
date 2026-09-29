@@ -1,20 +1,19 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
+import { IAuthProvider } from '@core/data/auth.provider';
+import { IDataProvider } from '@core/data/data.provider';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { User } from '@models/domain/user.model';
-import { DataReadService } from '../infrastructure/data-read.service';
-import { DataWriteService } from '../infrastructure/data-write.service';
-
 
 /**
  * Servicio de solo lectura para el estado de la sesión de usuario.
- * Proporciona signals reactivos para el usuario autenticado y la unidad de información activa.
+ * Proporciona signals reactivos para el usuario autenticado, el token de acceso y la unidad activa.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class SessionStateService {
-  private readonly dataRead = inject(DataReadService);
-  private readonly dataWrite = inject(DataWriteService);
+  private readonly authProvider = inject(IAuthProvider);
+  private readonly dataProvider = inject(IDataProvider);
 
   /** Signal privado mutable — solo modificable vía _patchUser() y _clearUser(). */
   private readonly _user = signal<User | null>(null);
@@ -30,6 +29,12 @@ export class SessionStateService {
 
   /** Signal computado que indica si un usuario está autenticado actualmente. */
   public readonly isAuthenticated = computed(() => this.user() !== null);
+
+  /** Signal computado con el token JWT actual del usuario. */
+  public readonly token = computed(() => this.user()?.token ?? null);
+
+  /** Signal computado con el ID de la Unidad de Información activa. */
+  public readonly selectedIUId = computed(() => this.user()?.selectedIU ?? null);
 
   /** Signal computado que devuelve la Unidad de Información seleccionada actualmente para el usuario. */
   public currentInformationUnit = computed(() =>
@@ -75,7 +80,6 @@ export class SessionStateService {
 
   /**
    * Actualiza internamente el estado del usuario (usado por SessionPersistenceService).
-   * @private (Uso interno tri-capa)
    */
   _patchUser(user: User): void {
     this._user.set({ ...user });
@@ -86,7 +90,6 @@ export class SessionStateService {
 
   /**
    * Limpia internamente el estado del usuario (usado por SessionPersistenceService).
-   * @private (Uso interno tri-capa)
    */
   _clearUser(): void {
     this._user.set(null);
@@ -103,14 +106,6 @@ export class SessionStateService {
         const user: User = JSON.parse(storedUser);
 
         if (user?.token) {
-          this.dataWrite.setAuthToken(user.token);
-
-          this.dataRead.initializeFromStoredData({
-            token: user.token,
-            selectedIU: user.selectedIU ?? undefined
-          });
-
-
           this._user.set(user);
           this.loadAllInformationUnits();
           this.validateSession(user);
@@ -128,11 +123,12 @@ export class SessionStateService {
    * Valida la sesión actual contra la API del servidor.
    */
   private validateSession(storedUser: User): void {
-    this.dataRead.getCurrentUser().subscribe({
+    this.authProvider.getCurrentUser().subscribe({
       next: (serverUser) => {
         if (serverUser) {
           const mergedUser: User = {
             ...serverUser,
+            token: storedUser.token,
             selectedIU: storedUser.selectedIU,
           };
           this._patchUser(mergedUser);
@@ -151,7 +147,7 @@ export class SessionStateService {
    * Carga todas las unidades de información desde el proveedor.
    */
   private loadAllInformationUnits(): void {
-    this.dataRead.getInformationUnits().subscribe({
+    this.dataProvider.getInformationUnits().subscribe({
       next: (units) => this._allInformationUnits.set(units),
       error: (error) => console.error('Error loading information units:', error),
     });

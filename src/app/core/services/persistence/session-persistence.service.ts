@@ -1,25 +1,22 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { IAuthProvider } from '@core/data/auth.provider';
 import { User } from '@models/domain/user.model';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { AppEventType } from '../../models/events/app-event.types';
 import { AppEventBusService } from '../events/app-event-bus.service';
-import { DataReadService } from '../infrastructure/data-read.service';
-import { DataWriteService } from '../infrastructure/data-write.service';
 import { SessionStateService } from '../state/session-state.service';
-
 
 /**
  * Servicio de persistencia y mutación para la sesión de usuario.
- * Maneja el ciclo de vida de autenticación (login/logout), la selección de IU
- * y las actualizaciones de perfil, sincronizando el estado local y remoto.
+ * Orquesta el ciclo de vida de autenticación delegando en IAuthProvider
+ * y sincronizando el estado reactivo en SessionStateService y localStorage.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class SessionPersistenceService {
-  private readonly dataWrite = inject(DataWriteService);
-  private readonly dataRead = inject(DataReadService);
+  private readonly authProvider = inject(IAuthProvider);
   private readonly router = inject(Router);
   private readonly sessionState = inject(SessionStateService);
   private readonly eventBus = inject(AppEventBusService);
@@ -28,10 +25,9 @@ export class SessionPersistenceService {
    * Autentica a un usuario y sincroniza el estado.
    */
   login(username: string, password: string): Observable<User> {
-    return this.dataWrite.login(username, password).pipe(
+    return this.authProvider.login(username, password).pipe(
       tap((user) => {
         this._updateUserState(user);
-        this.dataWrite.setAuthToken(user.token);
 
         this.eventBus.emit({
           type: AppEventType.LOGIN_SUCCESS,
@@ -49,18 +45,18 @@ export class SessionPersistenceService {
    * Cierra la sesión activa.
    */
   logout(): void {
-    this.dataWrite
+    this.authProvider
       .logout()
       .pipe(
         tap(() => {
           this._removeUserState();
           this.eventBus.emit({ type: AppEventType.LOGOUT });
-          this.router.navigate(['/login']);
+          void this.router.navigate(['/login']);
         }),
         catchError((error) => {
           console.error('Logout error:', error);
           this._removeUserState();
-          this.router.navigate(['/login']);
+          void this.router.navigate(['/login']);
           return of(void 0);
         })
       )
@@ -71,18 +67,18 @@ export class SessionPersistenceService {
    * Cierra la sesión activa en todos los dispositivos conectados.
    */
   logoutAll(): void {
-    this.dataWrite
+    this.authProvider
       .logoutAll()
       .pipe(
         tap(() => {
           this._removeUserState();
           this.eventBus.emit({ type: AppEventType.LOGOUT });
-          this.router.navigate(['/login']);
+          void this.router.navigate(['/login']);
         }),
         catchError((error) => {
           console.error('LogoutAll error:', error);
           this._removeUserState();
-          this.router.navigate(['/login']);
+          void this.router.navigate(['/login']);
           return of(void 0);
         })
       )
@@ -93,7 +89,6 @@ export class SessionPersistenceService {
    * Actualiza el token de acceso en memoria y en localStorage tras una renovación exitosa.
    */
   updateAccessToken(newToken: string): void {
-    this.dataWrite.setAuthToken(newToken);
     const currentUser = this.sessionState.user();
     if (currentUser) {
       const updatedUser: User = { ...currentUser, token: newToken };
@@ -103,12 +98,13 @@ export class SessionPersistenceService {
   }
 
   /**
-   * Maneja la expiración definitiva de la sesión, limpiando credenciales y redirigiendo al login.
+   * Maneja la expiración de sesión, limpiando credenciales, emitiendo eventos y redirigiendo al login.
    */
   handleSessionExpired(message: string = 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.'): void {
     this._removeUserState();
+    this.eventBus.emit({ type: AppEventType.SESSION_EXPIRED, payload: { reason: message } });
     this.eventBus.emit({ type: AppEventType.LOGOUT });
-    this.router.navigate(['/login']);
+    void this.router.navigate(['/login'], { queryParams: { expired: 'true' } });
   }
 
   /**
@@ -118,14 +114,12 @@ export class SessionPersistenceService {
     const user = this.sessionState.user();
     if (!user) return of(false);
 
-    // Verificamos si el usuario tiene acceso a esta unidad (ahora es un array de numbers)
     const hasAccess = user.informationUnits.includes(unitId);
     if (!hasAccess) return of(false);
 
-    // Obtenemos el objeto de la unidad para el evento (hidratación)
     const unitDetails = this.sessionState.allInformationUnits().find(u => u.id === unitId);
 
-    return this.dataWrite.selectInformationUnit(unitId).pipe(
+    return this.authProvider.selectInformationUnit(unitId).pipe(
       tap(() => {
         const updatedUser: User = {
           ...user,
@@ -139,7 +133,7 @@ export class SessionPersistenceService {
           payload: { id: unitId, name: unitDetails?.name ?? 'Desconocida' }
         });
 
-        this.router.navigate(['/home']);
+        void this.router.navigate(['/home']);
       }),
       map(() => true),
       catchError((error) => {
@@ -153,7 +147,7 @@ export class SessionPersistenceService {
    * Actualiza el nombre del usuario.
    */
   updateName(newName: string): Observable<boolean> {
-    return this.dataWrite.updateName(newName).pipe(
+    return this.authProvider.updateName(newName).pipe(
       tap((success) => {
         if (success) {
           const user = this.sessionState.user();
@@ -173,7 +167,7 @@ export class SessionPersistenceService {
    * Actualiza el área de trabajo (IU seleccionada).
    */
   updateWorkArea(newArea: string): Observable<boolean> {
-    return this.dataWrite.updateWorkArea(newArea).pipe(
+    return this.authProvider.updateWorkArea(newArea).pipe(
       tap((success) => {
         if (success) {
           const user = this.sessionState.user();
@@ -197,7 +191,7 @@ export class SessionPersistenceService {
    * Actualiza el correo electrónico.
    */
   updateEmail(newEmail: string): Observable<boolean> {
-    return this.dataWrite.updateEmail(newEmail).pipe(
+    return this.authProvider.updateEmail(newEmail).pipe(
       tap((success) => {
         if (success) {
           const user = this.sessionState.user();
@@ -217,7 +211,7 @@ export class SessionPersistenceService {
    * Actualiza la contraseña.
    */
   updatePassword(oldPassword: string, newPassword: string): Observable<boolean> {
-    return this.dataWrite.updatePassword(oldPassword, newPassword).pipe(
+    return this.authProvider.updatePassword(oldPassword, newPassword).pipe(
       tap((success) => {
         if (success) {
           this.eventBus.emit({ type: AppEventType.PASSWORD_CHANGED });
@@ -228,30 +222,23 @@ export class SessionPersistenceService {
 
   /**
    * Verifica si un token de recuperación de contraseña es válido.
-   * @param token Token obtenido del enlace de recuperación.
-   * @returns Observable que indica si el token es válido.
    */
   verifyRecoveryToken(token: string): Observable<boolean> {
-    return this.dataRead.verifyRecoveryToken(token);
+    return this.authProvider.verifyRecoveryToken(token);
   }
 
   /**
    * Solicita el envío de un correo de recuperación de contraseña.
-   * @param email Correo electrónico del usuario.
-   * @returns Observable con el resultado de la operación.
    */
   recoveryPass(email: string): Observable<string> {
-    return this.dataWrite.recoveryPass(email);
+    return this.authProvider.recoveryPass(email);
   }
 
   /**
    * Cambia la contraseña del usuario mediante un token de recuperación.
-   * @param token Token de recuperación válido.
-   * @param newPassword Nueva contraseña a establecer.
-   * @returns Observable que indica si el cambio fue exitoso.
    */
   changePassword(token: string, newPassword: string): Observable<boolean> {
-    return this.dataWrite.changePassword(token, newPassword).pipe(
+    return this.authProvider.changePassword(token, newPassword).pipe(
       tap((success) => {
         if (success) {
           this.eventBus.emit({ type: AppEventType.PASSWORD_CHANGED });
@@ -262,7 +249,6 @@ export class SessionPersistenceService {
 
   /**
    * Sincroniza los datos del usuario con el almacenamiento local y el estado reactivo.
-   * @private
    */
   private _updateUserState(user: User): void {
     localStorage.setItem('currentUser', JSON.stringify(user));
@@ -271,11 +257,9 @@ export class SessionPersistenceService {
 
   /**
    * Limpia los datos del usuario del almacenamiento local y el estado reactivo.
-   * @private
    */
   private _removeUserState(): void {
     localStorage.removeItem('currentUser');
-    this.dataWrite.removeAuthToken();
     this.sessionState._clearUser();
   }
 }
