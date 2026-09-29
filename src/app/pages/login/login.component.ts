@@ -10,16 +10,14 @@ import { APP_ICONS } from '@core/config/icons.config';
 import { SECTION_GRAPHICS } from '@core/config/illustrations.config';
 import { environment } from '@environments/environment';
 import { InformationUnit } from '@models/domain/information-unit.model';
-import { User, LoginCredentials } from '@models/domain/user.model';
+import { LoginCredentials, User } from '@models/domain/user.model';
 import { NgIconComponent } from '@ng-icons/core';
-import { LoadingService, ScreenOrientationService, SessionPersistenceService, SessionStateService } from '@services';
+import { AppNotificationService, LoadingService, ScreenOrientationService, SessionPersistenceService, SessionStateService } from '@services';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { LoadingSpinnerComponent } from '@shared/components/loading-spinner/loading-spinner.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { PasswordChangeComponent } from './components/password-change/password-change.component';
 import { PasswordRecoveryComponent } from './components/password-recovery/password-recovery.component';
-
-
 
 const LOGIN_MESSAGES = {
   recovery: {
@@ -85,6 +83,7 @@ export class LoginComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly _bottomSheet = inject(MatBottomSheet);
+  private readonly notification = inject(AppNotificationService);
 
   /** Servicio de detección de orientación y tipo de dispositivo */
   public readonly screenOrientation = inject(ScreenOrientationService);
@@ -143,6 +142,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.route.snapshot.queryParams['expired'] === 'true') {
+      this.notification.warn('Tu sesión ha expirado. Por favor, ingresa nuevamente.');
+    }
+
     // Verificar si existe un token de recuperación en los parámetros de la ruta
     const token = this.route.snapshot.params['recovery-token'] || this.route.snapshot.queryParams['recovery-token'];
     this.recoverToken.set(token);
@@ -151,26 +154,8 @@ export class LoginComponent implements OnInit {
 
     if (loggedUser?.selectedIU === null) {
       this.showComponent(this.informationUnitSelector());
-    } else if (this.recoverToken()) {
-      // Verificar la validez del token de recuperación
-      this.sessionPersistence.verifyRecoveryToken(this.recoverToken()!).subscribe({
-        next: (isValid: boolean) => {
-          if (isValid) {
-            this.showComponent(this.passwordChange());
-          } else {
-            this.messageText.set(LOGIN_MESSAGES.recovery.tokenInvalid);
-            this.messageCssClass.set('text-danger');
-            this.showLoginButton.set(true);
-            this.showComponent(this.statusMessage());
-          }
-        },
-        error: () => {
-          this.messageText.set(LOGIN_MESSAGES.recovery.tokenError);
-          this.messageCssClass.set('text-danger');
-          this.showLoginButton.set(true);
-          this.showComponent(this.statusMessage());
-        }
-      });
+    } else if (token) {
+      this.verifyRecoveryToken(token);
     } else {
       this.showComponent(this.loginForm());
     }
@@ -191,7 +176,7 @@ export class LoginComponent implements OnInit {
             this.renderContent.set(this.informationUnitSelector());
           }
         } else {
-          this.router.navigate(['/']);
+          void this.router.navigate(['/']);
         }
       },
       error: () => {
@@ -260,6 +245,41 @@ export class LoginComponent implements OnInit {
   }
 
   /**
+   * Inicia la verificación del token de recuperación y actualiza la vista según el resultado.
+   * @param token Cadena del token de recuperación a validar.
+   */
+  private verifyRecoveryToken(token: string): void {
+    this.sessionPersistence.verifyRecoveryToken(token).subscribe({
+      next: (isValid: boolean) => {
+        const actions: Record<string, () => void> = {
+          true: () => this.handleValidRecoveryToken(),
+          false: () => this.handleRecoveryError(LOGIN_MESSAGES.recovery.tokenInvalid),
+        };
+        actions[String(isValid)]();
+      },
+      error: () => this.handleRecoveryError(LOGIN_MESSAGES.recovery.tokenError),
+    });
+  }
+
+  /**
+   * Muestra la plantilla de cambio de contraseña cuando el token es válido.
+   */
+  private handleValidRecoveryToken(): void {
+    this.showComponent(this.passwordChange());
+  }
+
+  /**
+   * Configura y muestra el mensaje de error de recuperación.
+   * @param message Mensaje descriptivo a mostrar en la interfaz.
+   */
+  private handleRecoveryError(message: string): void {
+    this.messageText.set(message);
+    this.messageCssClass.set('text-danger');
+    this.showLoginButton.set(true);
+    this.showComponent(this.statusMessage());
+  }
+
+  /**
    * Maneja la selección de una unidad de información.
    * @param informationUnit Unidad seleccionada.
    */
@@ -292,6 +312,6 @@ export class LoginComponent implements OnInit {
    * @param route Path de la ruta.
    */
   navigate(route: string) {
-    this.router.navigate([route]);
+    void this.router.navigate([route]);
   }
 }
