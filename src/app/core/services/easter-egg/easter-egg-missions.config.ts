@@ -21,7 +21,7 @@ export interface QuipuMissionConfig {
  * Diccionario maestro de misiones indexado por tipo de evento para búsqueda O(1).
  * Contiene los 64 hilos del Quipu originales.
  */
-export const EASTER_EGG_MISSIONS: Record<AppEventType, QuipuMissionConfig> = {
+export const EASTER_EGG_MISSIONS: Partial<Record<AppEventType, QuipuMissionConfig>> = {
   // --- TEMÁTICAS (Guardianes y Exploradores) ---
   [AppEventType.THEMATICS_LOADED]: { id: 't1', description: 'Carga el catálogo de temáticas', hint: 'Simplemente abre el sistema para que las temáticas se revelen.', role: 'viewer', category: 'Temáticas' },
   [AppEventType.THEMATIC_VIEWED]: { id: 't2', description: 'Contempla una temática', hint: 'Selecciona una categoría en el menú para ver su contenido.', role: 'viewer', category: 'Temáticas' },
@@ -92,4 +92,4 @@ export const EASTER_EGG_MISSIONS: Record<AppEventType, QuipuMissionConfig> = {
   [AppEventType.USER_EMAIL_UPDATED]: { id: 'au7', description: 'Cambia tu dirección de contacto', hint: 'Actualiza tu email en el perfil.', role: 'viewer', category: 'Usuario' },
   [AppEventType.USER_AREA_UPDATED]: { id: 'au8', description: 'Ajusta tu área de influencia', hint: 'Actualiza tu área de trabajo en el perfil.', role: 'viewer', category: 'Usuario' },
   [AppEventType.PASSWORD_CHANGED]: { id: 'au9', description: 'Protege tu sabiduría', hint: 'Cambia tu contraseña.', role: 'viewer', category: 'Usuario' }
-} as const;
+};

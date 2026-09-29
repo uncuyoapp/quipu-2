@@ -70,6 +70,7 @@ export enum AppEventType {
   // --- Módulo: Autenticación/Sesión ---
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGOUT = '[Auth] Logout',
+  SESSION_EXPIRED = '[Auth] Session Expired',
   IU_SELECTED = '[Auth] IU Selected',
   ABOUT_PAGE_VIEWED = '[System] About Page Viewed',
   USER_PROFILE_VIEWED = '[User] Profile Viewed',

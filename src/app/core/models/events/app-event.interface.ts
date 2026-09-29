@@ -152,6 +152,9 @@ export type AppEvent =
   /** Emitido al cerrar sesión */
   | { type: AppEventType.LOGOUT; payload?: undefined }
 
+  /** Emitido al expirar la sesión de usuario */
+  | { type: AppEventType.SESSION_EXPIRED; payload: { reason?: string } }
+
   /** Emitido al cambiar la Unidad de Información activa */
   | { type: AppEventType.IU_SELECTED; payload: { id: number; name: string } }
 
