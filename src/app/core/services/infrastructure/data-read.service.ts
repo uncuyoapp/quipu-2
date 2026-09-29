@@ -1,9 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { DownloadOptions } from '@models/common/download.model';
 import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
-import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
-import { User } from '@models/domain/user.model';
 import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { Observable } from 'rxjs';
 import { IDataProvider } from '../../data/data.provider';
@@ -64,36 +62,6 @@ export class DataReadService {
 
   getDatasets(): Observable<DatasetInfo[]> {
     return this.dataProvider.getDatasets();
-  }
-
-  // --- Usuario y Sesión ---
-  getCurrentUser(): Observable<User> {
-    return this.dataProvider.getCurrentUser();
-  }
-
-  getInformationUnits(): Observable<InformationUnit[]> {
-    return this.dataProvider.getInformationUnits();
-  }
-
-  isAuthenticated(): boolean {
-    return this.dataProvider.isAuthenticated();
-  }
-
-  getAuthToken(): string | null {
-    return this.dataProvider.getAuthToken();
-  }
-
-  verifyRecoveryToken(token: string): Observable<boolean> {
-    return this.dataProvider.verifyRecoveryToken(token);
-  }
-
-  /**
-   * Inicializa el proveedor de datos a partir de los datos almacenados en sesión anterior.
-   * Delega al método opcional del proveedor activo (aplica principalmente a MockDataProvider).
-   * @param userData Token y unidad de información previamente guardados.
-   */
-  initializeFromStoredData(userData: { token?: string; selectedIU?: number }): void {
-    this.dataProvider.initializeFromStoredData?.(userData);
   }
 
   // --- Gestión de caché ---

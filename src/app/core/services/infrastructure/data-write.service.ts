@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { Thematic } from '@models/domain/thematic.model';
-import { User } from '@models/domain/user.model';
 import { Visualization } from '@models/domain/visualization.model';
 import { SaveThematicDto, SaveVisualizationDto } from '@models/dto';
 import { Observable } from 'rxjs';
@@ -64,59 +63,6 @@ export class DataWriteService {
 
   deleteVisualizations(ids: (number | string)[]): Observable<boolean> {
     return this.dataProvider.deleteVisualizations(ids);
-  }
-
-  // --- Usuario y Sesión ---
-  login(username: string, password: string): Observable<User> {
-    return this.dataProvider.login(username, password);
-  }
-
-  logout(): Observable<void> {
-    return this.dataProvider.logout();
-  }
-
-  logoutAll(): Observable<void> {
-    return this.dataProvider.logoutAll();
-  }
-
-  refreshToken(): Observable<string> {
-    return this.dataProvider.refreshToken();
-  }
-
-  recoveryPass(email: string): Observable<string> {
-    return this.dataProvider.recoveryPass(email);
-  }
-
-  changePassword(token: string, newPassword: string): Observable<boolean> {
-    return this.dataProvider.changePassword(token, newPassword);
-  }
-
-  updatePassword(oldPassword: string, newPassword: string): Observable<boolean> {
-    return this.dataProvider.updatePassword(oldPassword, newPassword);
-  }
-
-  updateEmail(newEmail: string): Observable<boolean> {
-    return this.dataProvider.updateEmail(newEmail);
-  }
-
-  updateName(newName: string): Observable<boolean> {
-    return this.dataProvider.updateName(newName);
-  }
-
-  updateWorkArea(newArea: string): Observable<boolean> {
-    return this.dataProvider.updateWorkArea(newArea);
-  }
-
-  selectInformationUnit(unitId: number): Observable<boolean> {
-    return this.dataProvider.selectInformationUnit(unitId);
-  }
-
-  setAuthToken(token: string): void {
-    this.dataProvider.setAuthToken(token);
-  }
-
-  removeAuthToken(): void {
-    this.dataProvider.removeAuthToken();
   }
 
   // --- Gestión de Caché ---

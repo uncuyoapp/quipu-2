@@ -2,7 +2,6 @@ import { DownloadOptions } from '@models/common/download.model';
 import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
-import { User } from '@models/domain/user.model';
 import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { SaveVisualizationDto, SaveThematicDto } from '@models/dto';
 import { Observable } from 'rxjs';
@@ -207,139 +206,6 @@ export abstract class IDataProvider {
    */
   abstract getDatasets(): Observable<DatasetInfo[]>;
 
-  // User-related methods
-
-  /**
-   * Recupera el usuario autenticado actualmente.
-   * 
-   * @returns Un observable que contiene los datos del usuario actual.
-   */
-  abstract getCurrentUser(): Observable<User>;
-
-  /**
-   * Autentica a un usuario con nombre de usuario y contraseña.
-   * 
-   * @param username El nombre de usuario.
-   * @param password La contraseña del usuario.
-   * @returns Un observable que contiene los datos del usuario autenticado.
-   */
-  abstract login(username: string, password: string): Observable<User>;
-
-  /**
-   * Cierra la sesión del usuario actual.
-   * 
-   * @returns Un observable que se completa cuando se cierra la sesión.
-   */
-  abstract logout(): Observable<void>;
-
-  /**
-   * Cierra la sesión activa en todos los dispositivos conectados (Global Logout).
-   */
-  abstract logoutAll(): Observable<void>;
-
-  /**
-   * Solicita la renovación del Access Token utilizando la cookie HttpOnly de Refresh Token.
-   * @returns Un observable que contiene el nuevo token JWT emitido.
-   */
-  abstract refreshToken(): Observable<string>;
-
-  /**
-   * Inicia el proceso de recuperación de contraseña para un correo electrónico.
-   * 
-   * @param email La dirección de correo electrónico del usuario.
-   * @returns Un observable que contiene el token de recuperación o un mensaje de éxito.
-   */
-  abstract recoveryPass(email: string): Observable<string>;
-
-  /**
-   * Verifica la validez de un token de recuperación de contraseña.
-   * 
-   * @param token El token de recuperación a verificar.
-   * @returns Un observable que indica si el token es válido.
-   */
-  abstract verifyRecoveryToken(token: string): Observable<boolean>;
-
-  /**
-   * Cambia la contraseña del usuario utilizando un token de recuperación.
-   * 
-   * @param token El token de recuperación válido.
-   * @param newPassword La nueva contraseña a establecer.
-   * @returns Un observable que indica si el cambio de contraseña fue exitoso.
-   */
-  abstract changePassword(token: string, newPassword: string): Observable<boolean>;
-
-  /**
-   * Actualiza la contraseña del usuario logueado actualmente.
-   * 
-   * @param oldPassword La contraseña actual del usuario.
-   * @param newPassword La nueva contraseña a establecer.
-   * @returns Un observable que indica si la actualización fue exitosa.
-   */
-  abstract updatePassword(oldPassword: string, newPassword: string): Observable<boolean>;
-
-  /**
-   * Actualiza el correo electrónico del usuario logueado actualmente.
-   * 
-   * @param newEmail El nuevo correo electrónico a establecer.
-   * @returns Un observable que indica si la actualización fue exitosa.
-   */
-  abstract updateEmail(newEmail: string): Observable<boolean>;
-
-  /**
-   * Actualiza el nombre completo del usuario logueado actualmente.
-   */
-  abstract updateName(newName: string): Observable<boolean>;
-
-  /**
-   * Actualiza el área de trabajo (nombre de la unidad) del usuario logueado actualmente.
-   */
-  abstract updateWorkArea(newArea: string): Observable<boolean>;
-
-  // Information Unit-related methods
-
-  /**
-   * Recupera todas las unidades de información disponibles.
-   * 
-   * @returns Un observable que contiene un arreglo de unidades de información.
-   */
-  abstract getInformationUnits(): Observable<InformationUnit[]>;
-
-  /**
-   * Selecciona una unidad de información para la sesión de usuario actual.
-   * 
-   * @param unitId El ID de la unidad de información a seleccionar.
-   * @returns Un observable que indica si la selección fue exitosa.
-   */
-  abstract selectInformationUnit(unitId: number): Observable<boolean>;
-
-  // Authentication methods
-
-  /**
-   * Comprueba si el usuario actual está autenticado.
-   * 
-   * @returns Verdadero (true) si el usuario está autenticado, falso (false) en caso contrario.
-   */
-  abstract isAuthenticated(): boolean;
-
-  /**
-   * Recupera el token de autenticación actual.
-   * 
-   * @returns El token de autenticación como una cadena de texto, o nulo si no se encuentra.
-   */
-  abstract getAuthToken(): string | null;
-
-  /**
-   * Establece el token de autenticación para la sesión.
-   * 
-   * @param token El token a almacenar.
-   */
-  abstract setAuthToken(token: string): void;
-
-  /**
-   * Elimina el token de autenticación de la sesión.
-   */
-  abstract removeAuthToken(): void;
-
   // Cache management methods (optional, implementations can choose to ignore)
 
   /**
@@ -356,14 +222,12 @@ export abstract class IDataProvider {
    */
   abstract clearDataCache?(datasetId: number | string): void;
 
-  // Session initialization methods (optional, for handling page refresh)
+  // --- Métodos de Catálogo Institucional ---
 
   /**
-   * Inicializa el estado del proveedor a partir de datos almacenados (e.g., local storage).
-   * Útil para restaurar el estado de la sesión después de actualizar la página.
+   * Recupera el catálogo maestro completo de Unidades de Información de la institución.
    * 
-   * @param userData Un objeto que contiene el token del usuario almacenado y el ID de la unidad seleccionada.
+   * @returns Un observable que contiene el arreglo de todas las unidades de información.
    */
-  abstract initializeFromStoredData?(userData: { token?: string; selectedIU?: number }): void;
-
+  abstract getInformationUnits(): Observable<InformationUnit[]>;
 }

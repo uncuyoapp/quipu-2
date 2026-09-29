@@ -1,25 +1,20 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import { DownloadOptions } from '@models/common/download.model';
 import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
-import { User } from '@models/domain/user.model';
 import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { SaveThematicDto, SaveVisualizationDto } from '@models/dto';
-import { AppNotificationService, LoadingService } from '@services';
+import { AppNotificationService, LoadingService, SessionStateService } from '@services';
 import { Observable, concatMap, delay, map, of, throwError } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { IDataProvider } from '../data.provider';
 import {
-  CURRENT_MOCK_USER,
   MOCK_DATASETS,
   MOCK_INFORMATION_UNITS,
   MOCK_THEMATICS_BY_UNIT,
-  MOCK_USERS,
   MOCK_VISUALIZATIONS,
-  MockDatasetRaw,
-  VALID_MOCK_CREDENTIALS,
-  VALID_RECOVERY_TOKENS
+  MockDatasetRaw
 } from '../mock';
 
 /**
@@ -28,12 +23,13 @@ import {
  */
 @Injectable()
 export class MockDataProvider extends IDataProvider {
-  private currentUser: User | null = null;
-  private authToken: string | null = null;
-  private selectedInformationUnit: number = 1;
-
+  private readonly injector = inject(Injector);
   private readonly loading = inject(LoadingService);
   private readonly notification = inject(AppNotificationService);
+
+  private get selectedInformationUnit(): number {
+    return this.injector.get(SessionStateService, null, { optional: true })?.selectedIUId() ?? 1;
+  }
 
   constructor() {
     super();
@@ -60,7 +56,7 @@ export class MockDataProvider extends IDataProvider {
   }
 
   private _deepClone<T>(data: T): T {
-    return JSON.parse(JSON.stringify(data));
+    return structuredClone(data);
   }
 
   private _normalizar(valor: string): string {
@@ -112,7 +108,7 @@ export class MockDataProvider extends IDataProvider {
   private _addThematicToParent(items: Thematic[], parentId: number, newNode: Thematic): boolean {
     for (const item of items) {
       if (item.id === parentId) {
-        if (!item.childrens) item.childrens = [];
+        item.childrens ??= [];
         item.childrens.push(newNode);
         return true;
       }
@@ -522,151 +518,10 @@ export class MockDataProvider extends IDataProvider {
     }));
   }
 
-  // User methods
-  public getCurrentUser(): Observable<User> {
-    return this._simulateDelay().pipe(
-      concatMap(() => {
-        if (this.currentUser) return of(this._deepClone(this.currentUser));
-        return of({ ...CURRENT_MOCK_USER });
-      })
-    );
-  }
-
-  /**
-   * Autentica a un usuario mediante credenciales estáticas.
-   * Verifica tanto el nombre de usuario como la contraseña.
-   */
-  public login(username: string, password: string): Observable<User> {
-    return this._simulateDelay().pipe(
-      concatMap(() => {
-        // 1. Validar credenciales
-        const isValid = VALID_MOCK_CREDENTIALS.some(
-          c => c.username === username && c.password === password
-        );
-
-        if (!isValid) {
-          return throwError(() => new Error('Credenciales inválidas.'));
-        }
-
-        // 2. Buscar perfil de usuario
-        const user = MOCK_USERS.find(u => u.username === username);
-
-        if (!user) {
-          return throwError(() => new Error('Usuario no encontrado en los perfiles.'));
-        }
-
-        this.currentUser = { ...user };
-        this.authToken = 'mock-token-' + Math.random().toString(36).substring(7);
-        return of(this._deepClone(this.currentUser));
-      })
-    );
-  }
-
-  public logout(): Observable<void> {
-    return this._simulateDelay().pipe(
-      concatMap(() => {
-        this.currentUser = null;
-        this.authToken = null;
-        return of(void 0);
-      })
-    );
-  }
-
-  public logoutAll(): Observable<void> {
-    this.currentUser = null;
-    this.authToken = null;
-    return of(void 0).pipe(delay(200));
-  }
-
-  public refreshToken(): Observable<string> {
-    const mockNewToken = 'mock_jwt_token_refreshed_' + Date.now();
-    this.authToken = mockNewToken;
-    if (this.currentUser) {
-      this.currentUser = { ...this.currentUser, token: mockNewToken };
-    }
-    return of(mockNewToken).pipe(delay(200));
-  }
-
-  public isAuthenticated(): boolean {
-    return true;
-  }
-
-  public getAuthToken(): string | null {
-    return 'mock-token';
-  }
-
-  public setAuthToken(token: string): void { }
-
-  public removeAuthToken(): void { }
-
-  public recoveryPass(email: string): Observable<string> {
-    return this._simulateDelay().pipe(concatMap(() => of('Se ha enviado un correo de recuperación')));
-  }
-
-  public verifyRecoveryToken(token: string): Observable<boolean> {
-    return this._simulateDelay().pipe(concatMap(() => of(VALID_RECOVERY_TOKENS.includes(token))));
-  }
-
-  public changePassword(token: string, newPassword: string): Observable<boolean> {
-    return this._simulateDelay().pipe(concatMap(() => of(true)));
-  }
-
-  public updatePassword(oldPassword: string, newPassword: string): Observable<boolean> {
-    return this._simulateDelay().pipe(concatMap(() => of(true)));
-  }
-
-  public updateEmail(newEmail: string): Observable<boolean> {
-    return this._simulateDelay().pipe(concatMap(() => {
-      if (this.currentUser) this.currentUser.email = newEmail;
-      return of(true);
-    }));
-  }
-
-  public updateName(newName: string): Observable<boolean> {
-    return this._simulateDelay().pipe(concatMap(() => {
-      if (this.currentUser) this.currentUser.name = newName;
-      return of(true);
-    }));
-  }
-
-  public updateWorkArea(newArea: string): Observable<boolean> {
-    return this._simulateDelay().pipe(concatMap(() => {
-      if (this.currentUser) this.currentUser.workArea = newArea;
-      return of(true);
-    }));
-  }
-
-  public getInformationUnits(): Observable<InformationUnit[]> {
-    return this._simulateDelay().pipe(concatMap(() => {
-      return of(this._deepClone(MOCK_INFORMATION_UNITS));
-    }));
-  }
-
-  public selectInformationUnit(unitId: number): Observable<boolean> {
-    return this._simulateDelay().pipe(concatMap(() => {
-      this.selectedInformationUnit = unitId;
-      if (this.currentUser) this.currentUser.selectedIU = unitId;
-      return of(true);
-    }));
-  }
-
   public clearCache(pattern?: string): void { }
   public clearDataCache(datasetId: number | string): void { }
-  public initializeFromStoredData(userData: { token?: string; selectedIU?: number }): void {
-    if (userData.token) {
-      this.authToken = userData.token;
-      // Restaurar el usuario desde el mock basándose en el token
-      const foundUser = MOCK_USERS.find((u) => u.token === userData.token);
-      if (foundUser) {
-        this.currentUser = { ...foundUser };
-      }
-    }
 
-    if (userData.selectedIU) {
-      this.selectedInformationUnit = userData.selectedIU;
-      if (this.currentUser) {
-        this.currentUser.selectedIU = userData.selectedIU;
-      }
-    }
+  getInformationUnits(): Observable<InformationUnit[]> {
+    return of(this._deepClone(MOCK_INFORMATION_UNITS)).pipe(delay(100));
   }
 }

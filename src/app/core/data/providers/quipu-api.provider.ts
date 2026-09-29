@@ -1,17 +1,20 @@
 import { Injectable, inject } from '@angular/core';
+import { normalizeDimensions } from '@core/utils/dimension.utils';
 import { DownloadOptions } from '@models/common/download.model';
 import { Dataset, DatasetInfo } from '@models/domain/dataset.model';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { Thematic } from '@models/domain/thematic.model';
-import { User } from '@models/domain/user.model';
 import { Visualization, VisualizationPage } from '@models/domain/visualization.model';
 import { SaveThematicDto, SaveVisualizationDto } from '@models/dto';
 import { BaseApiService, CacheService } from '@services';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IDataProvider } from '../data.provider';
-import { normalizeDimensions } from '@core/utils/dimension.utils';
 
+/**
+ * Proveedor de datos de dominio respaldado por la API REST v2 de Quipu.
+ * Gestiona temáticas, datasets y visualizaciones.
+ */
 @Injectable()
 export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   protected override cacheService = inject(CacheService);
@@ -26,20 +29,7 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     visualizationsPublish: 'visualizations/publish',
     visualizationsUnpublish: 'visualizations/unpublish',
     datasets: 'datasets',
-    login: 'auth/login',
-    currentUser: 'auth/me',
-    logout: 'auth/logout',
-    logoutAll: 'auth/logout-all',
-    refresh: 'auth/refresh',
-    informationUnits: 'auth/information-units',
-    selectInformationUnit: 'auth/select-information-unit',
-    recoveryPass: 'auth/recovery-pass',
-    verifyRecoveryToken: 'auth/verify-recovery-token',
-    changePassword: 'auth/change-password',
-    updatePassword: 'auth/update-password',
-    updateEmail: 'profile/email',
-    updateName: 'profile/name',
-    updateWorkArea: 'profile/work-area',
+    informationUnits: 'information-units',
   };
 
   getThematics(): Observable<Thematic[]> {
@@ -124,7 +114,6 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   }
 
   download(visualization: Visualization, options: DownloadOptions): void {
-    // TODO: Implementar llamada a API para generación de reporte PDF/Excel
     console.warn('Descarga no implementada en QuipuApiProvider');
   }
 
@@ -143,101 +132,6 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
   getDatasets(): Observable<DatasetInfo[]> {
     return this.get<DatasetInfo[]>(this.endpoints.datasets);
   }
-
-  getCurrentUser(): Observable<User> {
-    return this.get<User>(this.endpoints.currentUser).pipe(
-      map(user => ({
-        ...user,
-        token: this.getAuthToken() || user.token,
-        informationUnits: (user.informationUnits || []).map((u: any) => typeof u === 'object' ? u.id : u)
-      }))
-    );
-  }
-
-  login(username: string, password: string): Observable<User> {
-    return this.post<any>(this.endpoints.login, { username, password }, { withCredentials: true }).pipe(map(res => {
-      this.setAuthorizationToken(res.token);
-      const user = res.user;
-      if (user?.selectedIU) {
-        this.setInformationUnitId(user.selectedIU);
-      }
-      return {
-        ...user,
-        token: res.token,
-        informationUnits: (user.informationUnits || []).map((u: any) => typeof u === 'object' ? u.id : u)
-      };
-    }));
-  }
-
-  logout(): Observable<void> {
-    return this.post<void>(this.endpoints.logout, {}, { withCredentials: true }).pipe(
-      map(() => {
-        this.removeAuthToken();
-        this.setInformationUnitId(null);
-      })
-    );
-  }
-
-  logoutAll(): Observable<void> {
-    return this.post<void>(this.endpoints.logoutAll, {}, { withCredentials: true }).pipe(
-      map(() => {
-        this.removeAuthToken();
-        this.setInformationUnitId(null);
-      })
-    );
-  }
-
-  refreshToken(): Observable<string> {
-    return this.post<{ token: string }>(this.endpoints.refresh, {}, { withCredentials: true }).pipe(
-      map((res: any) => {
-        const newToken = res?.token || res;
-        if (newToken && typeof newToken === 'string') {
-          this.setAuthToken(newToken);
-          return newToken;
-        }
-        throw new Error('Formato de token inválido recibido desde refresh.');
-      })
-    );
-  }
-
-  getInformationUnits(): Observable<InformationUnit[]> {
-    return this.get<InformationUnit[]>(this.endpoints.informationUnits);
-  }
-
-  selectInformationUnit(unitId: number): Observable<boolean> {
-    return this.post<any>(this.endpoints.selectInformationUnit, { unitId }).pipe(
-      map(() => {
-        this.setInformationUnitId(unitId);
-        return true;
-      })
-    );
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.getAuthToken();
-  }
-
-  getAuthToken(): string | null {
-    // El token se gestiona en las cabeceras de la clase base BaseApiService
-    const authHeader = this.headers.get('Authorization');
-    return authHeader ? authHeader.replace('Bearer ', '') : null;
-  }
-
-  setAuthToken(token: string): void {
-    this.setAuthorizationToken(token);
-  }
-
-  removeAuthToken(): void {
-    this.removeAuthorizationToken();
-  }
-
-  recoveryPass(email: string): Observable<string> { return this.get<string>(this.endpoints.recoveryPass, { email }); }
-  verifyRecoveryToken(token: string): Observable<boolean> { return this.get<boolean>(this.endpoints.verifyRecoveryToken, { token }); }
-  changePassword(token: string, newPassword: string): Observable<boolean> { return this.post<boolean>(this.endpoints.changePassword, { token, newPassword }, { skipGlobalError: true }); }
-  updatePassword(oldPassword: string, newPassword: string): Observable<boolean> { return this.post<boolean>(this.endpoints.updatePassword, { oldPassword, newPassword }, { skipGlobalError: true }); }
-  updateEmail(newEmail: string): Observable<boolean> { return this.post<any>(this.endpoints.updateEmail, { email: newEmail }, { skipGlobalError: true }).pipe(map(() => true)); }
-  updateName(newName: string): Observable<boolean> { return this.post<any>(this.endpoints.updateName, { name: newName }, { skipGlobalError: true }).pipe(map(() => true)); }
-  updateWorkArea(newArea: string): Observable<boolean> { return this.post<any>(this.endpoints.updateWorkArea, { workArea: newArea }, { skipGlobalError: true }).pipe(map(() => true)); }
 
   // --- Métodos de Relación Temática - Visualizaciones (N:M) ---
 
@@ -273,12 +167,7 @@ export class QuipuApiProvider extends BaseApiService implements IDataProvider {
     this.clearCache(`${this.endpoints.datasets}/${datasetId}`);
   }
 
-  public initializeFromStoredData(userData: { token?: string; selectedIU?: number }): void {
-    if (userData.token) {
-      this.setAuthToken(userData.token);
-    }
-    if (userData.selectedIU) {
-      this.setInformationUnitId(userData.selectedIU);
-    }
+  getInformationUnits(): Observable<InformationUnit[]> {
+    return this.get<InformationUnit[]>(this.endpoints.informationUnits);
   }
 }

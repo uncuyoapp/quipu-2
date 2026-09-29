@@ -7,11 +7,6 @@ import { SILENT_HTTP, SKIP_GLOBAL_ERROR_SNACK } from '../../http/tokens';
 import { CacheService } from './cache.service';
 import { ApiRequestOptions, ApiParams } from '@models/infrastructure/api.model';
 
-
-
-/** Tipo para los parámetros de consulta de la API */
-
-
 /**
  * Servicio base para el manejo de peticiones HTTP a la API.
  * Proporciona métodos comunes para GET, POST y almacenamiento en caché, 
@@ -179,35 +174,6 @@ export abstract class BaseApiService {
       context,
       withCredentials: options?.withCredentials ?? false
     });
-  }
-
-  /**
-   * Establece el token de autorización en los encabezados de petición por defecto.
-   * 
-   * @param token La cadena del token JWT o Bearer.
-   */
-  public setAuthorizationToken(token: string): void {
-    this.headers = this.headers.set('Authorization', `Bearer ${token}`);
-  }
-
-  /**
-   * Elimina el token de autorización de los encabezados de petición por defecto.
-   */
-  public removeAuthorizationToken(): void {
-    this.headers = this.headers.delete('Authorization');
-  }
-
-  /**
-   * Establece o elimina el identificador de la Unidad de Información activa (tenant) en los encabezados.
-   * 
-   * @param unitId ID de la Unidad de Información o null para limpiar.
-   */
-  public setInformationUnitId(unitId: number | string | null): void {
-    if (unitId !== null && unitId !== undefined && unitId !== '') {
-      this.headers = this.headers.set('X-Information-Unit-Id', unitId.toString());
-    } else {
-      this.headers = this.headers.delete('X-Information-Unit-Id');
-    }
   }
 
   /**
