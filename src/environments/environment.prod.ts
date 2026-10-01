@@ -1,8 +1,9 @@
 export const environment = {
   production: true,
   useMockData: false,
-  apiUrl: 'https://your-quipu-backend.example.com',
-  apiVersion: 'api',
+  apiUrl: 'https://api.quipu.uncu.edu.ar',
+  apiVersion: 'api/v2',
+  adminUiUrl: 'https://ui.quipu.uncu.edu.ar',
   appName: 'QUIPU',
   appVersion: '2.0.0-beta.2',
   appDescription: 'Sistema de Información para la Gestión Universitaria',

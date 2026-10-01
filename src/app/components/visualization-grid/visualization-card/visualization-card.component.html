@@ -62,5 +62,16 @@
       </div>
     </div>
     }
+
+    @if (editModeService.isEditModeEnabled() && visualization().datasetId; as datasetId) {
+    <div class="backend-link mt-2 pt-2 border-top d-flex justify-content-end">
+      <button type="button"
+              class="btn-backend-sso d-inline-flex align-items-center gap-1 btn btn-sm btn-link text-decoration-none"
+              (click)="onManageDataset(datasetId, $event)">
+        <ng-icon [name]="icons.ui.externalLink"></ng-icon>
+        <span>Gestionar Dataset en Backend</span>
+      </button>
+    </div>
+    }
   </div>
 </div>

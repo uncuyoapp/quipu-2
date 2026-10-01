@@ -42,6 +42,7 @@ export const APP_ICONS = {
     eyeOff: 'ionEyeOffOutline',
     heart: 'ionHeart',
     toggle: 'ionToggleOutline',
+    externalLink: 'ionOpenOutline',
   },
   status: {
     info: 'ionInformationCircleOutline',

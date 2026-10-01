@@ -4,8 +4,8 @@ import { SKIP_AUTH_REFRESH } from '@core/interceptors/auth.interceptor';
 import { environment } from '@environments/environment';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { User } from '@models/domain/user.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { IAuthProvider } from '../auth.provider';
 
 /**
@@ -35,6 +35,7 @@ export class QuipuApiAuthProvider implements IAuthProvider {
     updateEmail: 'profile/email',
     updateName: 'profile/name',
     updateWorkArea: 'profile/work-area',
+    adminHandoff: 'auth/admin-handoff',
   };
 
   // --- Métodos de Autenticación y Ciclo de Sesión ---
@@ -123,6 +124,57 @@ export class QuipuApiAuthProvider implements IAuthProvider {
         }
         throw new Error('Formato de token inválido recibido desde refresh.');
       })
+    );
+  }
+
+  /**
+   * Comprueba si existe una cookie central quipu_sso vigente en el navegador
+   * ejecutando una llamada a POST /auth/refresh con withCredentials: true.
+   * Si el backend responde 200 con el DTO de usuario, normaliza la entidad.
+   * Si responde 401 u otro error, retorna null de forma silenciosa.
+   */
+  checkSsoSession(): Observable<User | null> {
+    return this.rawHttp.post<any>(
+      `${this.baseUrl}/${this.endpoints.refresh}`,
+      {},
+      { withCredentials: true }
+    ).pipe(
+      map(res => this.unwrap(res)),
+      map(data => {
+        if (!data || !data.token) {
+          return null;
+        }
+
+        if (data.user) {
+          const user = { ...data.user, token: data.token };
+          return this.normalizeUser(user);
+        }
+
+        return null;
+      }),
+      catchError(() => of(null))
+    );
+  }
+
+  /**
+   * Solicita un ticket de traspaso administrativo efímero a la API v2.
+   *
+   * @param target Ruta interna en adminUI (ej. '/dataset/12').
+   * @param tenantId Identificador opcional de la unidad activa.
+   * @returns Un observable que emite la redirectUrl firmada para salto inmediato.
+   */
+  requestAdminHandoff(target: string, tenantId?: number): Observable<string> {
+    const payload = {
+      tenantId: tenantId ?? 0,
+      target,
+      subsystem: 'adminUI',
+    };
+    return this.http.post<any>(
+      `${this.baseUrl}/${this.endpoints.adminHandoff}`,
+      payload
+    ).pipe(
+      map(res => this.unwrap(res)),
+      map(data => data.redirectUrl)
     );
   }
 

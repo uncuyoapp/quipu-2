@@ -248,6 +248,37 @@ export class SessionPersistenceService {
   }
 
   /**
+   * Ejecuta el traspaso administrativo seguro (Handoff OTT) hacia un recurso de backend,
+   * abriendo la ventana emergente en una pestaña nueva con el tenant contextual activo.
+   *
+   * @param target Ruta interna en adminUI (ej. '/dataset/12').
+   * @param tenantId Identificador opcional del tenant (por defecto la unidad activa en sesión).
+   */
+  openAdminHandoff(target: string, tenantId?: number): void {
+    const selectedIU = tenantId ?? this.sessionState.selectedIUId();
+    if (!selectedIU) {
+      return;
+    }
+
+    // Abrir ventana en blanco inmediatamente sobre el gesto del usuario para eludir bloqueadores de popups
+    const popup = window.open('about:blank', '_blank');
+
+    this.authProvider.requestAdminHandoff(target, selectedIU).subscribe({
+      next: (redirectUrl) => {
+        if (popup) {
+          popup.location.href = redirectUrl;
+        }
+      },
+      error: (err) => {
+        console.error('Error al generar ticket de salto administrativo:', err);
+        if (popup) {
+          popup.close();
+        }
+      },
+    });
+  }
+
+  /**
    * Sincroniza los datos del usuario con el almacenamiento local y el estado reactivo.
    */
   private _updateUserState(user: User): void {

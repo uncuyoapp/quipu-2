@@ -46,6 +46,24 @@ export abstract class IAuthProvider {
    */
   abstract refreshToken(): Observable<string>;
 
+  /**
+   * Comprueba de manera silenciosa si el navegador posee una sesión central de SSO
+   * activa a través de la cookie de dominio compartido (quipu_sso).
+   * 
+   * @returns Un observable que emite el usuario autenticado e hidratado si la cookie
+   *          es válida, o null si el usuario es anónimo o la sesión fue revocada.
+   */
+  abstract checkSsoSession(): Observable<User | null>;
+
+  /**
+   * Solicita un ticket efímero de salto administrativo (Handoff OTT) hacia el recurso y tenant indicados.
+   *
+   * @param target Ruta interna en adminUI (ej. '/dataset/12').
+   * @param tenantId Identificador opcional de la unidad activa.
+   * @returns Un observable que emite la redirectUrl firmada para salto inmediato.
+   */
+  abstract requestAdminHandoff(target: string, tenantId?: number): Observable<string>;
+
   // --- Métodos de Recuperación y Gestión de Contraseñas ---
 
   /**

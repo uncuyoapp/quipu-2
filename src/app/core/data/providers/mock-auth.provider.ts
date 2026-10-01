@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { User } from '@models/domain/user.model';
 import { Observable, concatMap, delay, of, throwError } from 'rxjs';
@@ -247,6 +248,24 @@ export class MockAuthProvider implements IAuthProvider {
         return of(true);
       })
     );
+  }
+
+  /**
+   * Comprueba la existencia de sesión central en modo mock (siempre null por ser entorno desconectado).
+   */
+  checkSsoSession(): Observable<User | null> {
+    return of(null);
+  }
+
+  /**
+   * Genera la URL de salto administrativo simulado para el entorno mock.
+   *
+   * @param target Ruta interna en adminUI.
+   * @param tenantId Identificador opcional de la unidad activa.
+   */
+  requestAdminHandoff(target: string, tenantId?: number): Observable<string> {
+    const adminUrl = environment.adminUiUrl || 'http://localhost:8082';
+    return of(`${adminUrl}${target}`);
   }
 
   // --- Métodos Utilitarios Privados ---

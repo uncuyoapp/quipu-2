@@ -96,7 +96,10 @@ export class SessionStateService {
   }
 
   /**
-   * Inicializa la sesión al arrancar la aplicación leyendo desde localStorage.
+   * Inicializa la sesión al arrancar la aplicación.
+   * Si existe un usuario en localStorage, valida su vigencia.
+   * Si no existe usuario en localStorage, intenta auto-hidratar la sesión
+   * mediante la cookie central de SSO (quipu_sso).
    */
   private initializeSession(): void {
     const storedUser = localStorage.getItem('currentUser');
@@ -107,8 +110,10 @@ export class SessionStateService {
 
         if (user?.token) {
           this._user.set(user);
-          this.loadAllInformationUnits();
-          this.validateSession(user);
+          queueMicrotask(() => {
+            this.loadAllInformationUnits();
+            this.validateSession(user);
+          });
         } else {
           this._clearUser();
         }
@@ -116,7 +121,29 @@ export class SessionStateService {
         console.error('Error parsing stored user:', error);
         this._clearUser();
       }
+    } else {
+      queueMicrotask(() => {
+        this.attemptSsoHydration();
+      });
     }
+  }
+
+  /**
+   * Consulta silenciosamente si el usuario tiene una sesión SSO abierta en backend.
+   */
+  private attemptSsoHydration(): void {
+    this.authProvider.checkSsoSession().subscribe({
+      next: (ssoUser) => {
+        if (ssoUser) {
+          localStorage.setItem('currentUser', JSON.stringify(ssoUser));
+          this._patchUser(ssoUser);
+          this.loadAllInformationUnits();
+        }
+      },
+      error: () => {
+        // Silencioso por diseño: el usuario es un visitante anónimo
+      },
+    });
   }
 
   /**

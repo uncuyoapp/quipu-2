@@ -187,6 +187,26 @@
         }
       }
     }
+
+    .backend-link {
+      .btn-backend-sso {
+        font-size: var(--q-fs-xs);
+        color: var(--q-primary);
+        font-weight: var(--q-fw-medium);
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--q-radius-sm);
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover {
+          background-color: var(--q-primary-bg);
+          color: var(--q-primary-dark, var(--q-primary));
+        }
+
+        ng-icon {
+          font-size: 1rem;
+        }
+      }
+    }
   }
 
   @include media-breakpoint-down(sm) {

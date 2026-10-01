@@ -5,7 +5,7 @@ import { AppEventType } from '@core/models/events/app-event.types';
 import { Visualization } from '@models/domain/visualization.model';
 import { NgIconComponent } from '@ng-icons/core';
 import { VisualizationFactory } from '@pages/visualization/visualization.factory';
-import { AppDialogService, AppEventBusService, EditModeService, ThematicStateService } from '@services';
+import { AppDialogService, AppEventBusService, EditModeService, SessionPersistenceService, ThematicStateService } from '@services';
 import { CheckboxComponent } from '@shared/components/checkbox/checkbox.component';
 import { TagComponent } from '@shared/components/tag/tag.component';
 import { VisualizationGridEditService } from '../visualization-grid-edit.service';
@@ -39,6 +39,9 @@ export class VisualizationCardComponent {
 
   /** Servicio de eventos global. */
   private readonly eventBus = inject(AppEventBusService);
+
+  /** Servicio de persistencia y saltos intercapa de sesión. */
+  private readonly sessionPersistence = inject(SessionPersistenceService);
 
   /** Configuración gráfica centralizada */
   public readonly graphics = SECTION_GRAPHICS.visualizations;
@@ -102,5 +105,13 @@ export class VisualizationCardComponent {
     if (id !== undefined) {
       this.editService?.toggleSelection(id);
     }
+  }
+
+  /**
+   * Dispara el traspaso administrativo seguro hacia la pantalla del dataset en backend.
+   */
+  public onManageDataset(datasetId: number | string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.sessionPersistence.openAdminHandoff(`/dataset/${datasetId}`);
   }
 }
