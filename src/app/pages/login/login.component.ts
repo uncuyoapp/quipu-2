@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
+import { Component, effect, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
@@ -66,11 +66,11 @@ const LOGIN_MESSAGES = {
 })
 export class LoginComponent implements OnInit {
   /** Referencias a las plantillas de la página */
-  loginForm = viewChild.required<TemplateRef<unknown>>('loginForm');
-  passwordRecovery = viewChild.required<TemplateRef<unknown>>('passwordRecovery');
-  passwordChange = viewChild.required<TemplateRef<unknown>>('passwordChange');
-  statusMessage = viewChild.required<TemplateRef<unknown>>('statusMessage');
-  informationUnitSelector = viewChild.required<TemplateRef<unknown>>('informationUnitSelector');
+  loginForm = viewChild<TemplateRef<unknown>>('loginForm');
+  passwordRecovery = viewChild<TemplateRef<unknown>>('passwordRecovery');
+  passwordChange = viewChild<TemplateRef<unknown>>('passwordChange');
+  statusMessage = viewChild<TemplateRef<unknown>>('statusMessage');
+  informationUnitSelector = viewChild<TemplateRef<unknown>>('informationUnitSelector');
 
   /** Servicio para gestionar el estado de carga global */
   public readonly loadingService = inject(LoadingService);
@@ -127,6 +127,74 @@ export class LoginComponent implements OnInit {
   /** URL del repositorio desde el entorno */
   readonly repoUrl = environment.repoUrl;
 
+  constructor() {
+    effect(() => {
+      const user = this.sessionState.user();
+      const hasRecoveryToken = !!this.recoverToken();
+      const selectorTpl = this.informationUnitSelector();
+      const formTpl = this.loginForm();
+
+      if (hasRecoveryToken) {
+        return;
+      }
+
+      if (user) {
+        this.handleAuthenticatedUser(user, selectorTpl);
+      } else {
+        this.handleUnauthenticatedUser(formTpl, selectorTpl);
+      }
+    }, { allowSignalWrites: true });
+  }
+
+  /**
+   * Gestiona el flujo de navegación o presentación para un usuario autenticado.
+   * @param user Usuario autenticado en sesión.
+   * @param selectorTpl Plantilla del selector de unidades de información.
+   */
+  private handleAuthenticatedUser(user: User, selectorTpl?: TemplateRef<unknown>): void {
+    const hasSelectedIU = user.selectedIU !== null && user.selectedIU !== undefined;
+    const hasNoUnits = !user.informationUnits || user.informationUnits.length === 0;
+
+    if (hasSelectedIU || hasNoUnits) {
+      void this.router.navigate(['/']);
+      return;
+    }
+
+    if (selectorTpl) {
+      this.presentUnitSelector(selectorTpl);
+    }
+  }
+
+  /**
+   * Muestra el selector de unidades de información según el tipo de dispositivo.
+   * @param selectorTpl Plantilla del selector.
+   */
+  private presentUnitSelector(selectorTpl: TemplateRef<unknown>): void {
+    if (this.screenOrientation.isMobile()) {
+      this.renderContent.set(selectorTpl);
+      this.openBottomSheet();
+    } else {
+      this.showComponent(selectorTpl);
+    }
+  }
+
+  /**
+   * Restablece la visualización al formulario de inicio de sesión cuando corresponde.
+   * @param formTpl Plantilla del formulario de login.
+   * @param selectorTpl Plantilla del selector de unidades de información.
+   */
+  private handleUnauthenticatedUser(
+    formTpl?: TemplateRef<unknown>,
+    selectorTpl?: TemplateRef<unknown>
+  ): void {
+    const current = this.renderContent();
+    const isLoginViewEligible = !current || current === selectorTpl;
+
+    if (formTpl && isLoginViewEligible) {
+      this.showComponent(formTpl);
+    }
+  }
+
   /**
    * Abre un panel inferior (bottom sheet) para selección en dispositivos móviles.
    */
@@ -150,14 +218,8 @@ export class LoginComponent implements OnInit {
     const token = this.route.snapshot.params['recovery-token'] || this.route.snapshot.queryParams['recovery-token'];
     this.recoverToken.set(token);
 
-    const loggedUser = this.sessionState.isAuthenticated() ? this.sessionState.user() : null;
-
-    if (loggedUser?.selectedIU === null) {
-      this.showComponent(this.informationUnitSelector());
-    } else if (token) {
+    if (token) {
       this.verifyRecoveryToken(token);
-    } else {
-      this.showComponent(this.loginForm());
     }
   }
 
@@ -167,17 +229,8 @@ export class LoginComponent implements OnInit {
    */
   login(credentials: LoginCredentials) {
     this.sessionPersistence.login(credentials.username, credentials.password).subscribe({
-      next: (user: User) => {
-        if (user.informationUnits.length > 0) {
-          if (this.screenOrientation.isMobile()) {
-            this.renderContent.set(this.informationUnitSelector());
-            this.openBottomSheet();
-          } else {
-            this.renderContent.set(this.informationUnitSelector());
-          }
-        } else {
-          void this.router.navigate(['/']);
-        }
+      next: () => {
+        // La actualización reactiva del estado en SessionStateService gestiona la transición
       },
       error: () => {
         this.statusIcon.set(this.icons.status.error);
@@ -291,8 +344,10 @@ export class LoginComponent implements OnInit {
    * Cambia el componente/plantilla que se muestra actualmente.
    * @param template Referencia a la plantilla.
    */
-  showComponent(template: TemplateRef<unknown>) {
-    this.renderContent.set(template);
+  showComponent(template: TemplateRef<unknown> | undefined | null) {
+    if (template) {
+      this.renderContent.set(template);
+    }
   }
 
   /**
