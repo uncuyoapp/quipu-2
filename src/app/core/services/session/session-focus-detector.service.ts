@@ -1,6 +1,5 @@
 import { DestroyRef, Injectable, NgZone, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { IAuthProvider } from '@core/data/auth.provider';
 import { asyncScheduler, fromEvent, merge, of } from 'rxjs';
 import { catchError, filter, switchMap, throttleTime } from 'rxjs/operators';
 import { SessionPersistenceService } from '../persistence/session-persistence.service';
@@ -17,7 +16,6 @@ import { SessionStateService } from '../state/session-state.service';
   providedIn: 'root',
 })
 export class SessionFocusDetectorService {
-  private readonly authProvider = inject(IAuthProvider);
   private readonly sessionState = inject(SessionStateService);
   private readonly sessionPersistence = inject(SessionPersistenceService);
   private readonly destroyRef = inject(DestroyRef);
@@ -51,23 +49,13 @@ export class SessionFocusDetectorService {
           filter(() => this.sessionState.isAuthenticated()),
           throttleTime(this.CHECK_THROTTLE_MS, asyncScheduler, { leading: true, trailing: false }),
           switchMap(() => {
-            return this.authProvider.checkSsoSession().pipe(
-              catchError(() => of(null))
+            return this.sessionPersistence.synchronizeSso().pipe(
+              catchError(() => of(void 0))
             );
           }),
           takeUntilDestroyed(this.destroyRef)
         )
-        .subscribe((user) => {
-          if (!user && this.sessionState.isAuthenticated()) {
-            this.ngZone.run(() => {
-              this.sessionPersistence.handleSessionExpired(
-                'Tu sesión ha finalizado en otro módulo o pestaña.'
-              );
-            });
-          } else if (user?.token && this.sessionState.isAuthenticated()) {
-            this.sessionPersistence.updateAccessToken(user.token);
-          }
-        });
+        .subscribe();
     });
   }
 }

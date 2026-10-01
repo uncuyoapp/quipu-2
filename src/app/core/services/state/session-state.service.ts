@@ -153,6 +153,12 @@ export class SessionStateService {
     this.authProvider.getCurrentUser().subscribe({
       next: (serverUser) => {
         if (serverUser) {
+          if (serverUser.id !== storedUser.id) {
+            localStorage.removeItem('currentUser');
+            this._clearUser();
+            return;
+          }
+
           const mergedUser: User = {
             ...serverUser,
             token: storedUser.token,
@@ -160,11 +166,13 @@ export class SessionStateService {
           };
           this._patchUser(mergedUser);
         } else {
+          localStorage.removeItem('currentUser');
           this._clearUser();
         }
       },
       error: (error) => {
         console.error('Session validation failed:', error);
+        localStorage.removeItem('currentUser');
         this._clearUser();
       },
     });

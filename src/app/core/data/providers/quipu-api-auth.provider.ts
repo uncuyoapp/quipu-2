@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 import { InformationUnit } from '@models/domain/information-unit.model';
 import { User } from '@models/domain/user.model';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { IAuthProvider } from '../auth.provider';
 
 /**
@@ -131,6 +131,8 @@ export class QuipuApiAuthProvider implements IAuthProvider {
    * Comprueba si existe una cookie central quipu_sso vigente en el navegador
    * ejecutando una llamada a POST /auth/refresh con withCredentials: true.
    * Si el backend responde 200 con el DTO de usuario, normaliza la entidad.
+   * Si el backend responde únicamente con el token de acceso, consulta 'auth/me'
+   * con dicho Bearer token para obtener y normalizar el perfil de usuario.
    * Si responde 401 u otro error, retorna null de forma silenciosa.
    */
   checkSsoSession(): Observable<User | null> {
@@ -140,27 +142,35 @@ export class QuipuApiAuthProvider implements IAuthProvider {
       { withCredentials: true }
     ).pipe(
       map(res => this.unwrap(res)),
-      map(data => {
-        if (!data || !data.token) {
-          return null;
+      switchMap(data => {
+        if (!data?.token) {
+          return of(null);
         }
 
         if (data.user) {
           const user = { ...data.user, token: data.token };
-          return this.normalizeUser(user);
+          return of(this.normalizeUser(user));
         }
 
-        const stored = localStorage.getItem('currentUser');
-        if (stored) {
-          try {
-            const user = JSON.parse(stored);
-            return this.normalizeUser({ ...user, token: data.token });
-          } catch {
-            // Error de parseo de usuario almacenado
+        return this.rawHttp.get<any>(
+          `${this.baseUrl}/${this.endpoints.currentUser}`,
+          {
+            headers: {
+              Authorization: `Bearer ${data.token}`,
+            },
+            withCredentials: true,
           }
-        }
-
-        return null;
+        ).pipe(
+          map(res => this.unwrap(res)),
+          map(user => {
+            const rawUser = user.user || user;
+            return this.normalizeUser({
+              ...rawUser,
+              token: data.token,
+            });
+          }),
+          catchError(() => of(null))
+        );
       }),
       catchError(() => of(null))
     );
@@ -339,11 +349,14 @@ export class QuipuApiAuthProvider implements IAuthProvider {
    * @returns Entidad User normalizada.
    */
   private normalizeUser(user: any): User {
+    const rawUser = user.user || user;
     return {
-      ...user,
-      informationUnits: (user.informationUnits || []).map((u: any) =>
+      ...rawUser,
+      name: rawUser.name || rawUser.nombre || '',
+      informationUnits: (rawUser.informationUnits || []).map((u: any) =>
         typeof u === 'object' ? u.id : u
-      )
+      ),
+      selectedIU: rawUser.selectedIU ?? null,
     };
   }
 }

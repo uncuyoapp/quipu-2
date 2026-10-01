@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAuthProvider } from '@core/data/auth.provider';
 import { User } from '@models/domain/user.model';
@@ -20,6 +20,7 @@ export class SessionPersistenceService {
   private readonly router = inject(Router);
   private readonly sessionState = inject(SessionStateService);
   private readonly eventBus = inject(AppEventBusService);
+  private readonly ngZone = inject(NgZone);
 
   /**
    * Autentica a un usuario y sincroniza el estado.
@@ -98,13 +99,55 @@ export class SessionPersistenceService {
   }
 
   /**
+   * Sincroniza la sesión local con el estado central de SSO del servidor.
+   * Valida la identidad del usuario para evitar inconsistencias entre pestañas
+   * o módulos administrativos externos.
+   */
+  synchronizeSso(): Observable<void> {
+    return this.authProvider.checkSsoSession().pipe(
+      tap((ssoUser) => {
+        this.ngZone.run(() => {
+          const currentUser = this.sessionState.user();
+
+          if (!ssoUser) {
+            if (currentUser) {
+              this.handleSessionExpired('Tu sesión ha finalizado en otro módulo o pestaña.');
+            }
+            return;
+          }
+
+          if (!currentUser) {
+            this._updateUserState(ssoUser);
+            return;
+          }
+
+          if (ssoUser.id !== currentUser.id) {
+            this.handleSessionExpired('Se ha iniciado sesión con otra cuenta en otra pestaña.');
+            return;
+          }
+
+          const updatedUser: User = {
+            ...ssoUser,
+            token: ssoUser.token,
+            selectedIU: currentUser.selectedIU ?? ssoUser.selectedIU ?? null,
+          };
+          this._updateUserState(updatedUser);
+        });
+      }),
+      map(() => void 0)
+    );
+  }
+
+  /**
    * Maneja la expiración de sesión, limpiando credenciales, emitiendo eventos y redirigiendo al login.
    */
   handleSessionExpired(message: string = 'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.'): void {
-    this._removeUserState();
-    this.eventBus.emit({ type: AppEventType.SESSION_EXPIRED, payload: { reason: message } });
-    this.eventBus.emit({ type: AppEventType.LOGOUT });
-    void this.router.navigate(['/login'], { queryParams: { expired: 'true' } });
+    this.ngZone.run(() => {
+      this._removeUserState();
+      this.eventBus.emit({ type: AppEventType.SESSION_EXPIRED, payload: { reason: message } });
+      this.eventBus.emit({ type: AppEventType.LOGOUT });
+      void this.router.navigate(['/login'], { queryParams: { expired: 'true' } });
+    });
   }
 
   /**
