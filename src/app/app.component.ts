@@ -1,7 +1,7 @@
-import { Component, DestroyRef, effect, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EasterEggOverlayComponent } from '@components/easter-egg-overlay/easter-egg-overlay.component';
-import { PwaInstallService, PwaUpdateService, ScreenOrientationService, SessionStateService, ThematicStateService } from '@services';
+import { PwaInstallService, PwaUpdateService, ScreenOrientationService, SessionFocusDetectorService, SessionStateService, ThematicStateService } from '@services';
 import { EasterEggService } from './core/services/easter-egg/easter-egg.service';
 
 /**
@@ -17,8 +17,8 @@ import { EasterEggService } from './core/services/easter-egg/easter-egg.service'
   imports: [RouterOutlet, EasterEggOverlayComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-})
-export class AppComponent {
+  })
+export class AppComponent implements OnInit {
   /** Título de la aplicación */
   title = 'QUIPU';
 
@@ -26,9 +26,14 @@ export class AppComponent {
   private readonly pwaInstallService = inject(PwaInstallService);
   private readonly thematicState = inject(ThematicStateService);
   private readonly sessionState = inject(SessionStateService);
+  private readonly focusDetector = inject(SessionFocusDetectorService);
   private readonly easterEggService = inject(EasterEggService);
   private readonly screenService = inject(ScreenOrientationService);
   private readonly destroyRef = inject(DestroyRef);
+
+  ngOnInit(): void {
+    this.focusDetector.initialize();
+  }
 
   /** Indica si la gamificación está habilitada */
   protected readonly isGamificationEnabled = this.easterEggService.isEnabled;
