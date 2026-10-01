@@ -64,6 +64,8 @@ export class SessionFocusDetectorService {
                 'Tu sesión ha finalizado en otro módulo o pestaña.'
               );
             });
+          } else if (user?.token && this.sessionState.isAuthenticated()) {
+            this.sessionPersistence.updateAccessToken(user.token);
           }
         });
     });

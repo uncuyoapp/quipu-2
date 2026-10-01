@@ -150,6 +150,16 @@ export class QuipuApiAuthProvider implements IAuthProvider {
           return this.normalizeUser(user);
         }
 
+        const stored = localStorage.getItem('currentUser');
+        if (stored) {
+          try {
+            const user = JSON.parse(stored);
+            return this.normalizeUser({ ...user, token: data.token });
+          } catch {
+            // Error de parseo de usuario almacenado
+          }
+        }
+
         return null;
       }),
       catchError(() => of(null))
