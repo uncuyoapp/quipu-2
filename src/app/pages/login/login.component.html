@@ -1,56 +1,3 @@
-<ng-template #goBack>
-  <p class="d-flex align-items-center">
-    <app-button (btnClick)="showComponent(loginForm)" [icon]="icons.nav.back" size="small" variant="icon-only"
-      class="me-2"></app-button>
-    Reestablecer contraseña
-  </p>
-</ng-template>
-
-<ng-template #loginForm>
-  <app-login-form (submitForm)="login($event)" (recoveryClick)="showComponent(passwordRecovery)"></app-login-form>
-</ng-template>
-
-<ng-template #passwordRecovery>
-  <app-password-recovery (recovery)="recoveryPass($event)" (goBack)="showComponent(loginForm)"></app-password-recovery>
-</ng-template>
-
-<ng-template #passwordChange>
-  <app-password-change [token]="recoverToken()" (submitForm)="changePassword($event)"
-    (goBack)="showComponent(loginForm)"></app-password-change>
-</ng-template>
-
-<ng-template #informationUnitSelector>
-  <app-information-unit-selector class="information-unit-selector"
-    (informationUnitSelect)="selectInformationUnit($event)"></app-information-unit-selector>
-</ng-template>
-
-<!-- Template 'message' is now handled inside password-recovery component -->
-
-<ng-template #statusMessage>
-  <div class="my-auto text-center">
-    @if (statusIcon()) {
-    <div class="status-icon-container mb-3">
-      <app-button variant="icon-circle" [palette]="statusPalette()" [icon]="statusIcon()" size="large"
-        [disabled]="true"></app-button>
-    </div>
-    }
-
-    @if (statusTitle()) {
-    <h3 class="status-title mb-3">{{ statusTitle() }}</h3>
-    }
-
-    <p class="status-text mb-5" [ngClass]="messageCssClass()" [innerHTML]="messageText()"
-      (click)="handleStatusClick($event)"></p>
-
-    @if (showLoginButton()) {
-    <div class="d-flex justify-content-center">
-      <app-button variant="secondary" palette="gray" [label]="statusBtnLabel()" [icon]="icons.nav.back"
-        (btnClick)="showComponent(loginForm)"></app-button>
-    </div>
-    }
-  </div>
-</ng-template>
-
 <div class="login-page" [style.--login-bg]="'url(' + graphics.background + ')'">
   <div class="login-illustration">
     <div class="illustration-container">
@@ -77,7 +24,41 @@
       </div>
       }
 
-      <ng-container [ngTemplateOutlet]="renderContent()"></ng-container>
+      @switch (currentView()) {
+        @case ('login') {
+          <app-login-form (submitForm)="login($event)" (recoveryClick)="setView('recovery')"></app-login-form>
+        }
+        @case ('recovery') {
+          <app-password-recovery (recovery)="recoveryPass($event)" (goBack)="setView('login')"></app-password-recovery>
+        }
+        @case ('change') {
+          <app-password-change [token]="recoverToken()" (submitForm)="changePassword($event)" (goBack)="setView('login')"></app-password-change>
+        }
+        @case ('selector') {
+          <app-information-unit-selector class="information-unit-selector"></app-information-unit-selector>
+        }
+        @case ('status') {
+          @if (status(); as s) {
+            <div class="my-auto text-center">
+              <div class="status-icon-container mb-3">
+                <app-button variant="icon-circle" [palette]="s.palette" [icon]="s.icon" size="large"
+                  [disabled]="true"></app-button>
+              </div>
+
+              @if (s.title) {
+                <h3 class="status-title mb-3">{{ s.title }}</h3>
+              }
+
+              <p class="status-text mb-5" [innerHTML]="s.message" (click)="handleStatusClick($event)"></p>
+
+              <div class="d-flex justify-content-center">
+                <app-button variant="secondary" palette="gray" [label]="s.btnLabel!" [icon]="icons.nav.back"
+                  (btnClick)="setView('login')"></app-button>
+              </div>
+            </div>
+          }
+        }
+      }
 
       <p class="text-center q-text-muted footer-text">
         Desarrollado por
