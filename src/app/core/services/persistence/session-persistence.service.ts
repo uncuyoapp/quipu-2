@@ -146,7 +146,7 @@ export class SessionPersistenceService {
       this._removeUserState();
       this.eventBus.emit({ type: AppEventType.SESSION_EXPIRED, payload: { reason: message } });
       this.eventBus.emit({ type: AppEventType.LOGOUT });
-      void this.router.navigate(['/login'], { queryParams: { expired: 'true' } });
+      void this.router.navigate(['/login'], { state: { sessionExpiredReason: message } });
     });
   }
 
