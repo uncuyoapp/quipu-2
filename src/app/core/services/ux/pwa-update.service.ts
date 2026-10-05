@@ -51,8 +51,8 @@ export class PwaUpdateService {
   private promptUser(): void {
     const snackRef = this.notification.info(
       'Hay una nueva versión de Quipu disponible.',
-      'Actualizar',
       {
+        action: 'Actualizar',
         duration: 0, // No se cierra automáticamente
         panelClass: 'update-snackbar'
       }

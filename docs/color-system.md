@@ -160,6 +160,7 @@ Colores con **significado funcional fijo**. Comunican estados del sistema al usu
 #### Colores de SnackBar (variantes oscuras para fondo)
 | Token | Valor | Uso |
 |---|---|---|
+| `--q-snack-info` | `#004a99` | Fondo de snackbar informativo |
 | `--q-snack-success` | `#2e7d32` | Fondo de snackbar de éxito |
 | `--q-snack-error` | `#d32f2f` | Fondo de snackbar de error |
 | `--q-snack-warn` | `#ed6c02` | Fondo de snackbar de advertencia |
@@ -458,6 +459,7 @@ Al cambiar `--q-comp-*` en un tema, `ThematicStateService.resolveThematicPalette
    - Bordes indicativos: `border-left: 3px solid var(--q-danger);`
 
 4. **Los colores de SnackBar sí son aptos para texto blanco encima** — fueron elegidos específicamente para eso:
+   - `--q-snack-info` (#004a99) sobre blanco: 7.2:1 ✅
    - `--q-snack-success` (#2e7d32) sobre blanco: 6.5:1 ✅
    - `--q-snack-error` (#d32f2f) sobre blanco: 4.6:1 ✅
    - `--q-snack-warn` (#ed6c02) sobre blanco: 3.1:1 ⚠️ (borderline)

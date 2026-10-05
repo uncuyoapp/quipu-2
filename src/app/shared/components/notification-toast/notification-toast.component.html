@@ -1,0 +1,23 @@
+<div class="notification-toast">
+  <div class="notification-toast__content" matSnackBarLabel>
+    <ng-icon
+      [name]="iconName()"
+      [color]="iconColor()"
+      class="notification-toast__icon"
+      size="20">
+    </ng-icon>
+    <span class="notification-toast__message">{{ data.message }}</span>
+  </div>
+
+  @if (data.action) {
+    <div matSnackBarActions class="notification-toast__actions">
+      <button
+        mat-button
+        matSnackBarAction
+        (click)="onAction()"
+        class="notification-toast__action-btn">
+        {{ data.action }}
+      </button>
+    </div>
+  }
+</div>

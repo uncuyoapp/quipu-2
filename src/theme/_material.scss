@@ -120,6 +120,67 @@
 
 .mat-mdc-snack-bar-container {
   margin-bottom: 48px !important;
+
+  // Fondo blanco unificado y tokens de diseño
+  --mdc-snackbar-container-color: var(--q-surface);
+  --mdc-snackbar-supporting-text-color: var(--q-text-primary);
+  --mdc-snackbar-container-shape: var(--q-radius-md);
+  --mdc-snackbar-supporting-text-font: var(--q-font-family);
+  --mdc-snackbar-supporting-text-size: var(--q-fs-sm);
+  --mdc-snackbar-supporting-text-weight: var(--q-fw-medium);
+  --mdc-snackbar-supporting-text-line-height: var(--q-lh-normal);
+  --mat-snack-bar-button-color: var(--q-text-secondary);
+
+  .mat-mdc-snackbar-surface {
+    background-color: var(--q-surface) !important;
+    border: 1px solid var(--q-border-color);
+    border-radius: var(--q-radius-md) !important;
+    box-shadow: var(--q-shadow-lg) !important;
+    overflow: hidden;
+  }
+
+  // Botón de acción (ej. "Cerrar", "Actualizar")
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: var(--q-text-secondary) !important;
+    font-family: var(--q-font-family) !important;
+    font-weight: var(--q-fw-bold) !important;
+    font-size: var(--q-fs-sm) !important;
+    letter-spacing: var(--q-ls-wide);
+    border-radius: var(--q-radius-sm);
+    padding: 0 12px !important;
+    min-width: auto !important;
+    transition: background-color 150ms ease, color 150ms ease;
+
+    &:hover {
+      background-color: var(--q-surface-variant) !important;
+      color: var(--q-text-primary) !important;
+    }
+  }
+}
+
+// Borde indicador semántico lateral según tipo de notificación
+.app-snack-info .mat-mdc-snackbar-surface {
+  border-left: 4px solid var(--q-primary) !important;
+}
+
+.app-snack-success .mat-mdc-snackbar-surface {
+  border-left: 4px solid var(--q-snack-success) !important;
+}
+
+.app-snack-warn .mat-mdc-snackbar-surface {
+  border-left: 4px solid var(--q-snack-warn) !important;
+}
+
+.app-snack-error .mat-mdc-snackbar-surface {
+  border-left: 4px solid var(--q-snack-error) !important;
+}
+
+.update-snackbar {
+  @extend .app-snack-info;
+
+  .mat-mdc-snackbar-surface {
+    box-shadow: var(--q-shadow-xl) !important;
+  }
 }
 
 /** Radio Button Overrides */

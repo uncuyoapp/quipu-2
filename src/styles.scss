@@ -113,36 +113,6 @@ lib-table {
   }
 }
 
-/** Estilos para notificaciones (SnackBar) **/
-.app-snack-info {
-  --mdc-snackbar-supporting-text-color: var(--q-white);
-  --mdc-snackbar-container-shape: var(--q-radius-md);
-
-  .mat-mdc-snack-bar-action {
-    font-weight: var(--q-fw-bold);
-  }
-}
-
-.update-snackbar {
-  @extend .app-snack-info;
-  box-shadow: var(--q-shadow-md);
-}
-
-.app-snack-success {
-  --mdc-snackbar-container-color: var(--q-snack-success);
-  --mdc-snackbar-supporting-text-color: var(--q-white);
-}
-
-.app-snack-error {
-  --mdc-snackbar-container-color: var(--q-snack-error);
-  --mdc-snackbar-supporting-text-color: var(--q-white);
-}
-
-.app-snack-warn {
-  --mdc-snackbar-container-color: var(--q-snack-warn);
-  --mdc-snackbar-supporting-text-color: var(--q-white);
-}
-
 /* Clases utilitarias basadas en tokens (reemplazan a Bootstrap) */
 .q-text-primary { color: var(--q-primary) !important; }
 .q-text-muted { color: var(--q-text-muted) !important; }
