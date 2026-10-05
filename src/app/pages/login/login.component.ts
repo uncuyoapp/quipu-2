@@ -211,7 +211,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route.snapshot.queryParams['expired'] === 'true') {
-      this.notification.warn('Tu sesión ha expirado. Por favor, ingresa nuevamente.');
+      this.notification.warn('Tu sesión ha expirado. Por favor, ingresa nuevamente.', {
+        duration: 0
+      });
     }
 
     // Verificar si existe un token de recuperación en los parámetros de la ruta
